@@ -73,21 +73,20 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 över dem till projektet senare.
 
 ## Att göra (prioritetsordning)
-1. [x] Pusha koden: operatören behöver forka mod-ollama-chat och mod-playerbots på GitHub och ge servern
-       en token/deploy key. Tills dess: git-bundles (gjort 2026-10-19 12:28).
-2. [ ] AI-servern (operatören, sudo): `sudo loginctl enable-linger idiadmin` och
-       `sudo systemctl disable --now ollama`.
-3. [ ] Verifiera General-prat med 300 botar (operatören loggar in i Durotar; räkna per kanal i ledger_chat;
-       kolla att Qwen-kön inte växer i router-loggen).
-4. [x] **Speltider**: botar loggar in/ut enligt `wov_player` (se Pågående arbete).
-5. [ ] Del 3: regard/chronicler i spelarperspektiv (minne, relationer mellan mötena).
-6. [ ] Socialt initiativ: gruppinbjudningar, LFG, guildrekrytering, viskningar till kända spelare.
-7. Beslut hos operatören: mount-regler (WotLK 20/40 eller Vanilla 40), välkomsttext (MOTD), fler moduler.
-8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
+Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
+1. [x] Pusha koden (forkar + token).  2. [x] AI-server linger/ollama av.  3. [ ] Verifiera General-prat på kvällen.
+4. [x] Speltider.  5. [x] Del 3: minne/relationer, sentiment, PvP-agg, hälsning, vän-viskning vid login.
+6. [ ] Botar tar initiativ: LFG/LFM, gruppinbjudningar, guildrekrytering, vänförfrågningar, WTS/WTB i Trade.
+7. [ ] Spela tillsammans: dungeons där botarna pratar som spelare (loot-rollar, ty for group, ninja-drama).
+8. [ ] Egna mål i beteendet (biografins mål styr zon/farm/grupp).
+9. [ ] Ekonomi och tävling: Trade-chatt, priser, battlegrounds.
+10. [ ] GPU-effekt 95 W -> 120/150 W efter rengöring (operatören, sudo nvidia-smi -pl).
+11. [ ] Efter testperioden: OllamaChat.DebugEnabled = 0, DebugShowFullPrompt = 0.
+Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 23:25)
-Inget halvfärdigt. Omstart 23:3x: NoCrossFaction, FriendLogin, MOTD aktiva. Del 3 verifierad med Wizzlebum (relation om Zugzug + sentiment 0,64). Nästa: verifiera vän-viskning vid inloggning, sedan steg 2 'botar tar initiativ' (LFG/inbjudningar/Trade).
+(uppdaterad 2026-10-20 00:00)
+Byggt, väntar på omstart: loot-rollar (need/greed i stället för pass) och inga statusviskningar från random-botar (Mob 3/8 osv).
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
