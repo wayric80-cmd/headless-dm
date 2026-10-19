@@ -537,5 +537,30 @@
     "tags": [
       "zones"
     ]
+  },
+  {
+    "id": "wov_faction_leaders",
+    "title": "Who rules the cities: faction leaders",
+    "content": "Stormwind: the king has been missing for years, so the boy king Anduin Wrynn sits on the throne in Stormwind Keep, with Highlord Bolvar Fordragon ruling as regent and Lady Katrana Prestor at his side. Ironforge: King Magni Bronzebeard. Darnassus: High Priestess Tyrande Whisperwind. Gnomes: High Tinker Gelbin Mekkatorque, in Ironforge since Gnomeregan fell. Orgrimmar: Warchief Thrall. Thunder Bluff: Cairne Bloodhoof. Undercity: Lady Sylvanas Windrunner. Darkspear trolls: Vol'jin, in Orgrimmar. Theramore: Lady Jaina Proudmoore.",
+    "keywords": [
+      "king",
+      "stormwind king",
+      "faction leader",
+      "leader",
+      "anduin",
+      "bolvar",
+      "thrall",
+      "warchief",
+      "who rules",
+      "magni",
+      "sylvanas",
+      "cairne",
+      "tyrande"
+    ],
+    "tags": [
+      "lore",
+      "cities",
+      "leaders"
+    ]
   }
 ]

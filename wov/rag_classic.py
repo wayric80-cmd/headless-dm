@@ -10,7 +10,7 @@ sys.path.insert(0, "/opt/wow/headless-dm/services/lore")
 import era
 EXTRA = (r"death ?knights?|\bDK\b|arenas?|achievements?|glyphs?|emblems?|heroic|dungeon finder|\bLFD\b|\bRDF\b|"
          r"level (?:6[1-9]|7\d|80)|\b(?:6[1-9]|7\d|80)\b|wrath|burning crusade|\bTBC\b|\bBC\b|flying mounts?|"
-         r"cold weather flying|dual spec|jewelcraft\w*|inscription|vehicle|wintergrasp|barbershop|lich king")
+         r"cold weather flying|dual spec|jewelcraft\w*|inscription|vehicle|wintergrasp|barbershop|lich king|varian|resilience|pvp power|transmog\w*|karazhan|malfurion|dalaran|flying")
 PAT = re.compile("(?:" + era.ERAS["classic"]["meta_extra"] + "|" + EXTRA + ")", re.I)
 SENT = re.compile(r"(?<=[.!?])\s+")
 src, dst = sys.argv[1], sys.argv[2]
