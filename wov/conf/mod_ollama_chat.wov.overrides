@@ -84,3 +84,4 @@ OllamaChat.ChatBotSnapshotTemplate = "(Background about your own game right now,
 OllamaChat.Conversation.Enable = 1
 OllamaChat.Conversation.HoldSeconds = 45
 OllamaChat.DebugEnabled = 1
+OllamaChat.ChatHistoryLineTemplate = "- {player_name} wrote: {player_message} | you replied: {bot_reply}\n"
