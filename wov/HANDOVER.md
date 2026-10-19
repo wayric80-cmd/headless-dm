@@ -86,12 +86,19 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 14:03)
-Inget halvfärdigt kodsteg. Speltider i drift; generering ALL-DONE, 854 scheman, project och ollama reload bekräftade.
-- Första General-funktionstestet genomfört 2026-10-19 14:02 med Zugzug i Durotar och 61 karaktärer online. Frågan fick ett loggat botsvar efter 2,423 s. Ugdeshs klass och nivå stämde. Fyra routeranrop kring frågan hade 0 ms kötid.
-- Punkt 3 är INTE färdig: belastningstest med cirka 300 botar återstår. Upprepa kanalräkning och kontroll av Qwen-kön när fler botar är online; därefter punkt 5 (minne/relationer).
-- Kodsubmodulerna var rena vid statuskontrollen. Befintlig ospårad src/modules/mod-dashboard/tools/mpq_extract lämnad orörd. Inga driftändringar gjorda.
-- Justera speltider endast vid behov: SessionPercent och MinOnline i wov/conf/playerbots.wov.overrides; simulera först med WOV_SESSION_PCT=250 python3 wov/wov_schedule.py sim 2.
+(uppdaterad 2026-10-19 15:26)
+**Förberett, väntar på en omstart (operatören är inloggad – fråga innan).** Gör i denna ordning:
+1. `sudo systemctl stop wow-world`
+2. Backup: `db acore_characters` dump av `characters` (guid,name), `lore_character`, `playerbots_names` till /opt/wow/backups/before-wov-names-*.
+3. `python3 wov/rename_bots.py apply` (60 % av botarna får spelarnamn från `wov/names/player-names.txt`; botar som pratat
+   med riktiga spelare behåller namnet; mapping i tabellen `wov_rename`, ångra med `rename_bots.py revert`).
+4. `python3 wov/gen_players.py project` (BIO_-mallar med nya namn).
+5. PvP: `python3 wov/apply-overlay.py` (GameType = 1 i `wov/conf/worldserver.wov.overrides`) och
+   `db acore_auth -e "UPDATE realmlist SET icon=1 WHERE id=1"`.
+6. `sudo systemctl start wow-world`. Den laddar också nya RAG:en (Varian bort, Classic-ledare in).
+7. Verifiera: namn i spel, realm visas som PvP, `ra "server info"`. Commit + push.
+- Namnpoolen genereras med `wov/gen_names.py` (Haiku, ~1200+ namn, logg `logs/gen-names.log`).
+- Bios-genereringen för de 273 är klar (ALL-DONE).
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -102,3 +109,4 @@ Inget halvfärdigt kodsteg. Speltider i drift; generering ALL-DONE, 854 scheman,
 - 2026-10-19 14:00 Codex: statuskontroll via SentinelX som idiadmin. Generering ALL-DONE; 854 scheman; project och ollama reload bekräftade i loggen. Kodsubmoduler rena och matchar sparade origin-referenser. Ospårad mod-dashboard/tools/mpq_extract orörd. Ingen driftändring. Nästa: General-test i Durotar och kontroll av router-kön.
 - 2026-10-19 14:03 Codex: General-funktionstest, 61 online. Zugzug skrev 14:02:42.859 'Anyone questing around Razor Hill?' i General - Durotar. Ugdesh svarade 14:02:45.282 (2,423 s): 'nah not me, I’m up in the Valley of Trials still, lvl 5 rogue.' DB bekräftar nivå 5, klass 4 (rogue), zon Durotar; exakt delområde ej verifierat. Ett loggat botsvar under observationen. Router: utility/main 1295 ms samt tre person/haiku 1059–1126 ms, alla queued 0 ms. Inga fel i dessa anrop. Funktionstest lyckat; 300-botars belastningstest återstår. Ingen driftändring.
 - 2026-10-19 14:37 Claude: Varian i RAG (inte i världen – spawnen är dold). RAG-trim utökad + fakta om Classic-ledare. Kräver omstart av wow-world för att laddas. 28 konton (27 nya botkonton + MERCHANTS) satta till expansion 0.
+- 2026-10-19 15:26 Claude: operatören vill ha PvP-server och spelarlika namn (Sirkillalot, Mookin...). Förberett enligt Pågående arbete.
