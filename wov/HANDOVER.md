@@ -101,3 +101,4 @@ Inget halvfärdigt. Omstart gjord 15:55: 521 botar har spelarnamn (wov_rename, �
 - 2026-10-19 15:26 Claude: operatören vill ha PvP-server och spelarlika namn (Sirkillalot, Mookin...). Förberett enligt Pågående arbete.
 - 2026-10-19 15:44 Claude: skällsord (trash talk) i SystemPrompt; wov/reports.py + wov-reports.timer (var 5 min) mute/suspension av toxiska botar; dispatch.cpp respekterar mute (kräver bygge – görs vid omstarten).
 - 2026-10-19 15:59 Claude: omstart 15:55 – namnbyte (521), PvP, RAG, mute-spärr.
+- 2026-10-19 16:29 Claude: fler online – SessionPercent 300, MinOnline 150 (via 'reload config', schemat läser om var 10:e min, ingen omstart). 150 online 16:29. Obs: schemaloggen syns i journalctl -u wow-world, inte i Server.log.
