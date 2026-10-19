@@ -78,14 +78,14 @@ OllamaChat.Relationship.UpdatePrompt = "You are the player behind {bot_name}. Wh
 OllamaChat.HeldTongue.Prompt = "You are the player behind {bot_name} in World of Warcraft. {from_name} said: \"{message}\"\nYou were about to reply, but {speaker_name} answered first, so you said nothing.\nWrite the reply you were about to type, in one short clause.\nThen answer: did it matter to you personally, or was it just a passing thought?\nReply with JSON and nothing else: {{\"thought\":\"...\",\"mattered\":true or false}}"
 OllamaChat.Addressee.PromptTemplate = "Players are chatting in World of Warcraft.\nWhat was said just before, oldest first:\n{context}{speaker_name} just said: \"{message}\"\nThese players are close enough to answer: {candidates}\n{holder}Was that aimed at one of them in particular? Most chat is not: a remark to the group, or thinking aloud, is aimed at no one. Answer {{\"to\":[]}} unless the words name one of them, or plainly answer something only one of them could have said - then answer {{\"to\":[\"name\"]}} with that one name. A follow-up that names nobody - \"yours?\", \"where did you get it?\", \"is it far?\" - is aimed at whoever raised that subject in the lines above. If it was said to all of them at once - a greeting, or a question to the whole party - answer {{\"group\":true}} instead. Reply with JSON and nothing else."
 OllamaChat.ChatHistoryFooterTemplate = "(end of earlier chat)"
-
 OllamaChat.ChatBotSnapshotTemplate = "(Background about your own game right now, for you only; never type any of it: {combat} {group} Abilities: {spells} Quests: {quests} Nearby: {los} Players nearby: {players})"
 OllamaChat.Conversation.Enable = 1
 OllamaChat.Conversation.HoldSeconds = 45
 OllamaChat.DebugEnabled = 1
 OllamaChat.ChatHistoryLineTemplate = "- {player_name} wrote: {player_message} | you replied: {bot_reply}\n"
-
 OllamaChat.RAGPromptTemplate = "FACTS ABOUT THE GAME (true on this server; if they asked about the game, answer from these facts in your own casual words, never copy them):\n{rag_info}\n"
 OllamaChat.RAGSimilarityThreshold = 0.12
-OllamaChat.RAGMaxRetrievedItems = 3OllamaChat.DebugShowFullPrompt = 1
+OllamaChat.RAGMaxRetrievedItems = 3
+OllamaChat.DebugShowFullPrompt = 1
 OllamaChat.Reply.Model = person
+OllamaChat.MaxConversationHistory = 15
