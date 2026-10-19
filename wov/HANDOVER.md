@@ -113,3 +113,4 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 - 2026-10-19 16:58 Claude: operatören vill ha 500 botar – påbörjat.
 - 2026-10-19 17:07 Claude: 449 botar online, 2 ms.
 - 2026-10-19 20:14 Claude: AI-servern llama-server: '-ngl 99 --load-mode none' (denna version saknar --no-mmap). RSS 6,2 -> 3,5 GB, ledigt RAM 0,65 -> 3,2 GB, swap 2,6 -> 0,3 GB. Backup av unit: ~/.config/systemd/user/llama-server.service.bak-* på AI-servern.
+- 2026-10-19 21:26 Claude: ingen cross-faction-chatt (OllamaChat.WoV.NoCrossFaction). /who: vanliga spelare ser redan bara egen fraktion (RBAC perm 28 bara för moderator+); GM-konton ser alla.

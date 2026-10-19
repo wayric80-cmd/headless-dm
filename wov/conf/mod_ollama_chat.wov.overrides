@@ -105,3 +105,4 @@ OllamaChat.WoV.Greet.Enable = 1
 OllamaChat.WoV.Greet.Chance = 40
 OllamaChat.WoV.Greet.Hours = 3
 OllamaChat.WoV.Greet.Template = "You are {bot_name}'s player ({bot_name}: level {bot_level} {bot_race} {bot_class}). What you are like as a player: {bot_personality} You just noticed {player_name} (level {player_level} {player_class}) standing near you. You know them from before. What you think of them: {relationship} {sentiment} Say one thing to them in chat, the way a real player does when they run into someone they know: a greeting, a question about how it is going, a callback to something you did together, or a jab if you do not like them. Use their name or a short form of it. Never read your notes out. Only the message itself, short, no quotes."
+OllamaChat.WoV.NoCrossFaction = 1
