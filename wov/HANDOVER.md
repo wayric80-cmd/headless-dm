@@ -86,10 +86,11 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 14:00)
-Inget halvfärdigt kodsteg. Speltider är i drift. Statuskontroll av Codex: genereringsjobbet logs/gen-players-2.log är klart (ALL-DONE), 854 scheman finns i wov_player. Loggen bekräftar project för 854 karaktärer och ollama reload.
-- Nästa: punkt 3, verifiera General-prat när operatören är inloggad i Durotar och fler botar är online. Räkna per kanal i ledger_chat och kontrollera Qwen-kön i router-loggen. Därefter punkt 5, minne/relationer.
-- Git: mod-ollama-chat och mod-playerbots rena, lokala HEAD matchar sparade origin/wov. Superprojektets HEAD matchar sparade origin/main före denna dokumentationsuppdatering. Befintlig ospårad fil src/modules/mod-dashboard/tools/mpq_extract lämnad orörd.
+(uppdaterad 2026-10-19 14:03)
+Inget halvfärdigt kodsteg. Speltider i drift; generering ALL-DONE, 854 scheman, project och ollama reload bekräftade.
+- Första General-funktionstestet genomfört 2026-10-19 14:02 med Zugzug i Durotar och 61 karaktärer online. Frågan fick ett loggat botsvar efter 2,423 s. Ugdeshs klass och nivå stämde. Fyra routeranrop kring frågan hade 0 ms kötid.
+- Punkt 3 är INTE färdig: belastningstest med cirka 300 botar återstår. Upprepa kanalräkning och kontroll av Qwen-kön när fler botar är online; därefter punkt 5 (minne/relationer).
+- Kodsubmodulerna var rena vid statuskontrollen. Befintlig ospårad src/modules/mod-dashboard/tools/mpq_extract lämnad orörd. Inga driftändringar gjorda.
 - Justera speltider endast vid behov: SessionPercent och MinOnline i wov/conf/playerbots.wov.overrides; simulera först med WOV_SESSION_PCT=250 python3 wov/wov_schedule.py sim 2.
 
 ## Logg
@@ -99,3 +100,4 @@ Inget halvfärdigt kodsteg. Speltider är i drift. Statuskontroll av Codex: gene
 - 2026-10-19 13:17 Claude: GitHub-push fungerar (forkar + token). .gitmodules pekar på forkarna, gren wov.
 - 2026-10-19 13:54 Claude: lade till 'Hur du når servern' (SentinelX + sudo -u idiadmin) efter att Codex stoppats av read-only file_ops.
 - 2026-10-19 14:00 Codex: statuskontroll via SentinelX som idiadmin. Generering ALL-DONE; 854 scheman; project och ollama reload bekräftade i loggen. Kodsubmoduler rena och matchar sparade origin-referenser. Ospårad mod-dashboard/tools/mpq_extract orörd. Ingen driftändring. Nästa: General-test i Durotar och kontroll av router-kön.
+- 2026-10-19 14:03 Codex: General-funktionstest, 61 online. Zugzug skrev 14:02:42.859 'Anyone questing around Razor Hill?' i General - Durotar. Ugdesh svarade 14:02:45.282 (2,423 s): 'nah not me, I’m up in the Valley of Trials still, lvl 5 rogue.' DB bekräftar nivå 5, klass 4 (rogue), zon Durotar; exakt delområde ej verifierat. Ett loggat botsvar under observationen. Router: utility/main 1295 ms samt tre person/haiku 1059–1126 ms, alla queued 0 ms. Inga fel i dessa anrop. Funktionstest lyckat; 300-botars belastningstest återstår. Ingen driftändring.
