@@ -65,32 +65,24 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
        `sudo systemctl disable --now ollama`.
 3. [ ] Verifiera General-prat med 300 botar (operatören loggar in i Durotar; räkna per kanal i ledger_chat;
        kolla att Qwen-kön inte växer i router-loggen).
-4. [ ] **Speltider**: botar loggar in/ut enligt `wov_player` (se Pågående arbete).
+4. [x] **Speltider**: botar loggar in/ut enligt `wov_player` (se Pågående arbete).
 5. [ ] Del 3: regard/chronicler i spelarperspektiv (minne, relationer mellan mötena).
 6. [ ] Socialt initiativ: gruppinbjudningar, LFG, guildrekrytering, viskningar till kända spelare.
 7. Beslut hos operatören: mount-regler (WotLK 20/40 eller Vanilla 40), välkomsttext (MOTD), fler moduler.
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 12:36)
-**Steg 4, speltider (Claude, 2026-10-19).**
-- KLART: patch i `src/modules/mod-playerbots/src/Bot/RandomPlayerbotMgr.cpp` (sök "wov: play schedules"). Botar loggar
-  bara in när spelaren bakom dem "spelar" enligt `wov_player` (dagtyp, starttid, sessionslängd, deterministisk
-  tidszon EU/UK/US-öst/US-väst/Australien per guid). Sessionen slut → utloggning, max 10/min, aldrig i grupp eller
-  inom 40 yd från riktig spelare. Golv: minst 60 online.
-- Konfig: `wov/conf/playerbots.wov.overrides` (`AiPlayerbot.WoV.Schedule.Enable/SessionPercent=200/MinOnline=60/
-  LogoutsPerMinute=10`), applicerad. Stäng av: Enable = 0 + apply-overlay + omstart.
-- Simulator: `python3 wov/wov_schedule.py sim 2` (samma algoritm i Python; håll i synk med C++).
-- Backup: `/opt/wow/backups/RandomPlayerbotMgr.cpp.before-wov-schedule-*`.
-- PÅGÅR: bygge (`make -j4 install`), sedan omstart av wow-world, verifiera i Server.log raden
-  "WoV schedules: N players loaded" och att antal online sjunker mjukt mot schemat (~10/min). Commit i
-  mod-playerbots (gren wov) + superprojektet.
-- PÅGÅR parallellt: `logs/gen-players-2.log` – biografier/scheman för 273 botar som saknade (skapades vid
-  uppskalningen till 300). Kör `generate`, sedan `project` + `ollama reload` automatiskt ("ALL-DONE" sist).
-  Schemat laddas om var 10:e minut, så nya spelare kommer med av sig själva.
-- Förväntat (simulering, 581 spelare, 200 %): kväll 20–23 ca 100–150 online, natt/förmiddag ca 30–60 (+golv 60).
-  När 854 spelare har scheman blir toppen ca 150–220.
+(uppdaterad 2026-10-19 12:44)
+Inget halvfärdigt steg. Speltider (punkt 4) är klara och i drift: 60 online mitt på dagen (golvet), förväntat
+150–200 på kvällen när alla scheman finns.
+- Bakgrundsjobb: `logs/gen-players-2.log` genererar biografier/scheman för resterande botar (slutar med ALL-DONE,
+  kör då `project` + `ollama reload` själv). Kontroll: `db acore_characters -e "SELECT COUNT(*) FROM wov_player"`
+  (mål ca 854).
+- Nästa: punkt 3 (verifiera General-prat ikväll när fler är online), sedan punkt 5 (del 3, minne/relationer).
+- Justera speltider: `AiPlayerbot.WoV.Schedule.SessionPercent` (längre sessioner = fler online) och `MinOnline`
+  i `wov/conf/playerbots.wov.overrides`, simulera först med `WOV_SESSION_PCT=250 python3 wov/wov_schedule.py sim 2`.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
 - 2026-10-19 12:36 Claude: speltider implementerade (bygge pågår). Hittade att 235 av 300 online-botar saknade biografi; generering startad.
+- 2026-10-19 12:44 Claude: speltider i drift (commits 84ce14ca i mod-playerbots, 20cca3c). 631 scheman laddade, 60 online vid 12:45.
