@@ -1,4 +1,4 @@
 AiPlayerbot.WoV.Schedule.Enable = 1
 AiPlayerbot.WoV.Schedule.SessionPercent = 300
-AiPlayerbot.WoV.Schedule.MinOnline = 150
+AiPlayerbot.WoV.Schedule.MinOnline = 450
 AiPlayerbot.WoV.Schedule.LogoutsPerMinute = 10

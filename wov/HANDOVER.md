@@ -86,8 +86,8 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 15:59)
-Inget halvfärdigt. Omstart gjord 15:55: 521 botar har spelarnamn (wov_rename, ångra: stoppa wow-world + rename_bots.py revert), namnpool 60 % spelarnamn, PvP (GameType 1, realm icon 1), ny RAG, mute-spärr byggd, wov-reports.timer aktiv. Backup: /opt/wow/backups/before-wov-names-pvp-*. Nästa: följ wov_reports, del 3 (minne/relationer).
+(uppdaterad 2026-10-19 16:58)
+PÅGÅR: uppskalning till 500 (BOT_MIN/MAX 490/500 i site.env, MinOnline 450, SessionPercent 300). Omstart 16:51. 300 online 16:57 (2 ms medel). 22 nya botkonton satta till expansion 0. Generering av bios/scheman för 209 nya karaktärer: logs/gen-players-3.log (ALL-DONE sist). Kontrollera: online-antal, ra 'server info' (medel < 50 ms), free -m (worldserver ~5,4 GB vid 300). Om minnet tar slut: sänk MinOnline/BOT_MAX och omstart.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -102,3 +102,4 @@ Inget halvfärdigt. Omstart gjord 15:55: 521 botar har spelarnamn (wov_rename, �
 - 2026-10-19 15:44 Claude: skällsord (trash talk) i SystemPrompt; wov/reports.py + wov-reports.timer (var 5 min) mute/suspension av toxiska botar; dispatch.cpp respekterar mute (kräver bygge – görs vid omstarten).
 - 2026-10-19 15:59 Claude: omstart 15:55 – namnbyte (521), PvP, RAG, mute-spärr.
 - 2026-10-19 16:29 Claude: fler online – SessionPercent 300, MinOnline 150 (via 'reload config', schemat läser om var 10:e min, ingen omstart). 150 online 16:29. Obs: schemaloggen syns i journalctl -u wow-world, inte i Server.log.
+- 2026-10-19 16:58 Claude: operatören vill ha 500 botar – påbörjat.
