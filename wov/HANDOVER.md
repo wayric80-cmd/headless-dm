@@ -104,3 +104,4 @@ Uppskalning klar: 449 online 17:08 (golv 450, tak 500 när fler spelare har sche
 - 2026-10-19 16:29 Claude: fler online – SessionPercent 300, MinOnline 150 (via 'reload config', schemat läser om var 10:e min, ingen omstart). 150 online 16:29. Obs: schemaloggen syns i journalctl -u wow-world, inte i Server.log.
 - 2026-10-19 16:58 Claude: operatören vill ha 500 botar – påbörjat.
 - 2026-10-19 17:07 Claude: 449 botar online, 2 ms.
+- 2026-10-19 20:14 Claude: AI-servern llama-server: '-ngl 99 --load-mode none' (denna version saknar --no-mmap). RSS 6,2 -> 3,5 GB, ledigt RAM 0,65 -> 3,2 GB, swap 2,6 -> 0,3 GB. Backup av unit: ~/.config/systemd/user/llama-server.service.bak-* på AI-servern.
