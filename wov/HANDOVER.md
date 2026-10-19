@@ -86,8 +86,16 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 17:07)
-Uppskalning klar: 449 online 17:08 (golv 450, tak 500 när fler spelare har scheman). Medel 2 ms, p95 8 ms, worldserver 5,5 GB RSS, ~8 GB tillgängligt. Pågår: logs/gen-players-3.log (bios/scheman för 209 nya karaktärer, ALL-DONE sist). Nya botkonton får expansion 2 av playerbots – sätt till 0 (UPDATE account SET expansion=0) efter att nya konton skapats. Håll koll på router-kön (Qwen, 2 slots) när många pratar.
+(uppdaterad 2026-10-19 21:13)
+**Del 3 (minne/relationer) – byggd, väntar på omstart av wow-world.**
+- Config (overlay): EnableSentimentTracking=1, Regard.Enable=0 (regard-tjänsten körs inte), Relationship.Enable=1,
+  MentionThreshold=3, Relationship.PromptTemplate (spelarperspektiv), Memory.EventCompanionsOnly=1,
+  WoV.RelationshipRealOnly=1, WoV.PvpGrudge=0.15, WoV.Greet.* (hälsa på kända riktiga spelare inom /say-avstånd,
+  40 % per tick, max var 3:e timme per par).
+- Kod (mod-ollama-chat gren wov): memory.cpp (relationer bara mot riktiga spelare, Memory_RelationshipWith),
+  events.cpp (PvP-agg), random.cpp (WovTryGreetKnown), config.
+- Efter omstart: verifiera i journalctl -u wow-world: "relationship with", "Sentiment", "WoV greet".
+  Tabeller: mod_ollama_chat_relationships, mod_ollama_chat_bot_player_sentiments.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
