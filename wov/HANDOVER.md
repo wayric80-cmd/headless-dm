@@ -85,8 +85,8 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 00:00)
-Byggt, väntar på omstart: loot-rollar (need/greed i stället för pass) och inga statusviskningar från random-botar (Mob 3/8 osv).
+(uppdaterad 2026-10-20 00:26)
+Byggt, väntar på omstart: loot-rollar (need/greed), inga statusviskningar från random-botar, random-botar tar emot trade från alla spelare (TradeStatusAction.cpp).
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
