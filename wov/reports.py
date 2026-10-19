@@ -29,6 +29,8 @@ def q(s): return "'" + s.replace("\\", "\\\\").replace("'", "''") + "'"
 db("CREATE TABLE IF NOT EXISTS wov_reports (id INT AUTO_INCREMENT PRIMARY KEY, ts DATETIME DEFAULT CURRENT_TIMESTAMP, "
    "guid INT UNSIGNED, name VARCHAR(24), action VARCHAR(16), minutes INT, text VARCHAR(512), KEY(guid))")
 db("CREATE TABLE IF NOT EXISTS wov_reports_state (k VARCHAR(16) PRIMARY KEY, v BIGINT)")
+# housekeeping: playerbots creates new bot accounts at WotLK level; this realm is Classic
+r = sh("db acore_auth -e \"UPDATE account SET expansion=0 WHERE expansion<>0\"")
 st = db("SELECT v FROM wov_reports_state WHERE k='last_id'")
 if not st:
     last = db("SELECT IFNULL(MAX(id),0) FROM ledger_chat")[0][0]
