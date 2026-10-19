@@ -85,8 +85,20 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 00:43)
-Inget halvfärdigt. Omstart 00:4x med loot-rollar, inga statusviskningar, /p hi/bye, trade, vän-viskning. Nästa: steg 6 i Att göra (botar tar initiativ).
+(uppdaterad 2026-10-20 01:05)
+**PÅGÅR: "Call to Arms" – spontan world PvP (operatörens beslut: upp till 30 per sida, raider några gånger per kväll, stadsraider får döda NPC:er).**
+Design (kod i mod-playerbots/src/Bot/RandomPlayerbotMgr.cpp, block "wov: Call to Arms"; hook OnPlayerPVPKill i Script/Playerbots.cpp):
+- Gnista: PvP-kill på kontinent (map 0/1) köas (mutex) -> WovWar_Tick (var 5 s i UpdateAIInternal). >=2 kills inom 300 s/220 yd,
+  eller 1 kill där riktig spelare är inblandad -> skirmish (max 2 samtidigt).
+- Raid: var 10:e min kl 17–24 med ~17 % chans: anfallare (12–30) mot hotspot (Southshore, TM, Crossroads, Astranaar,
+  Splintertree, Lakeshire, Darkshire, Grom'gol, Refuge Pointe, Hammerfall, Sepulcher; position = stadens flight master).
+- Rekrytering: random-botar i rätt fraktion/level, ej i grupp/BG/instans, ~55 % tackar ja; flyger via
+  sTravelNodeMap.FindTaxiPath + rpgInfo.ChangeToTravelFlight, sista biten rpgInfo.ChangeToGoGrind(center).
+  Vågor var 90 s: försvarare = min(30, fiender nära*1,25+3).
+- Rop: försvarare i General/LocalDefense ("need help at {place}!!"), SMSG_ZONE_UNDER_ATTACK till ägarfraktionen vid raid,
+  "omw" i guild, viskning till riktig spelare i rätt level ("{place} getting hit by {enemy}, u coming?").
+- Slut: ingen kill på 7 min eller 40 min totalt -> "gg"/"lol they ran", botar släpps (ChangeToIdle).
+- Config: AiPlayerbot.WoV.War.* i wov/conf/playerbots.wov.overrides.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
