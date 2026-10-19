@@ -86,15 +86,11 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 12:44)
-Inget halvfärdigt steg. Speltider (punkt 4) är klara och i drift: 60 online mitt på dagen (golvet), förväntat
-150–200 på kvällen när alla scheman finns.
-- Bakgrundsjobb: `logs/gen-players-2.log` genererar biografier/scheman för resterande botar (slutar med ALL-DONE,
-  kör då `project` + `ollama reload` själv). Kontroll: `db acore_characters -e "SELECT COUNT(*) FROM wov_player"`
-  (mål ca 854).
-- Nästa: punkt 3 (verifiera General-prat ikväll när fler är online), sedan punkt 5 (del 3, minne/relationer).
-- Justera speltider: `AiPlayerbot.WoV.Schedule.SessionPercent` (längre sessioner = fler online) och `MinOnline`
-  i `wov/conf/playerbots.wov.overrides`, simulera först med `WOV_SESSION_PCT=250 python3 wov/wov_schedule.py sim 2`.
+(uppdaterad 2026-10-19 14:00)
+Inget halvfärdigt kodsteg. Speltider är i drift. Statuskontroll av Codex: genereringsjobbet logs/gen-players-2.log är klart (ALL-DONE), 854 scheman finns i wov_player. Loggen bekräftar project för 854 karaktärer och ollama reload.
+- Nästa: punkt 3, verifiera General-prat när operatören är inloggad i Durotar och fler botar är online. Räkna per kanal i ledger_chat och kontrollera Qwen-kön i router-loggen. Därefter punkt 5, minne/relationer.
+- Git: mod-ollama-chat och mod-playerbots rena, lokala HEAD matchar sparade origin/wov. Superprojektets HEAD matchar sparade origin/main före denna dokumentationsuppdatering. Befintlig ospårad fil src/modules/mod-dashboard/tools/mpq_extract lämnad orörd.
+- Justera speltider endast vid behov: SessionPercent och MinOnline i wov/conf/playerbots.wov.overrides; simulera först med WOV_SESSION_PCT=250 python3 wov/wov_schedule.py sim 2.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -102,3 +98,4 @@ Inget halvfärdigt steg. Speltider (punkt 4) är klara och i drift: 60 online mi
 - 2026-10-19 12:44 Claude: speltider i drift (commits 84ce14ca i mod-playerbots, 20cca3c). 631 scheman laddade, 60 online vid 12:45.
 - 2026-10-19 13:17 Claude: GitHub-push fungerar (forkar + token). .gitmodules pekar på forkarna, gren wov.
 - 2026-10-19 13:54 Claude: lade till 'Hur du når servern' (SentinelX + sudo -u idiadmin) efter att Codex stoppats av read-only file_ops.
+- 2026-10-19 14:00 Codex: statuskontroll via SentinelX som idiadmin. Generering ALL-DONE; 854 scheman; project och ollama reload bekräftade i loggen. Kodsubmoduler rena och matchar sparade origin-referenser. Ospårad mod-dashboard/tools/mpq_extract orörd. Ingen driftändring. Nästa: General-test i Durotar och kontroll av router-kön.
