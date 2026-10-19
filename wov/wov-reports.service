@@ -1,0 +1,6 @@
+[Unit]
+Description=Way of Vanilla: toxic bots sometimes get reported (mute/suspend)
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/wow/headless-dm
+ExecStart=/usr/bin/python3 /opt/wow/headless-dm/wov/reports.py

@@ -1,0 +1,8 @@
+[Unit]
+Description=Way of Vanilla: report check every 5 minutes
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=5min
+RandomizedDelaySec=60
+[Install]
+WantedBy=timers.target

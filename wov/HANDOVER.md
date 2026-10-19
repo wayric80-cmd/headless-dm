@@ -96,6 +96,7 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 5. PvP: `python3 wov/apply-overlay.py` (GameType = 1 i `wov/conf/worldserver.wov.overrides`) och
    `db acore_auth -e "UPDATE realmlist SET icon=1 WHERE id=1"`.
 6. `sudo systemctl start wow-world`. Den laddar också nya RAG:en (Varian bort, Classic-ledare in).
+6b. Före start: bygg (`make -j4 install`) – dispatch.cpp har mute-spärr (wov: muted).
 7. Verifiera: namn i spel, realm visas som PvP, `ra "server info"`. Commit + push.
 - Namnpoolen genereras med `wov/gen_names.py` (Haiku, ~1200+ namn, logg `logs/gen-names.log`).
 - Bios-genereringen för de 273 är klar (ALL-DONE).
@@ -110,3 +111,4 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 - 2026-10-19 14:03 Codex: General-funktionstest, 61 online. Zugzug skrev 14:02:42.859 'Anyone questing around Razor Hill?' i General - Durotar. Ugdesh svarade 14:02:45.282 (2,423 s): 'nah not me, I’m up in the Valley of Trials still, lvl 5 rogue.' DB bekräftar nivå 5, klass 4 (rogue), zon Durotar; exakt delområde ej verifierat. Ett loggat botsvar under observationen. Router: utility/main 1295 ms samt tre person/haiku 1059–1126 ms, alla queued 0 ms. Inga fel i dessa anrop. Funktionstest lyckat; 300-botars belastningstest återstår. Ingen driftändring.
 - 2026-10-19 14:37 Claude: Varian i RAG (inte i världen – spawnen är dold). RAG-trim utökad + fakta om Classic-ledare. Kräver omstart av wow-world för att laddas. 28 konton (27 nya botkonton + MERCHANTS) satta till expansion 0.
 - 2026-10-19 15:26 Claude: operatören vill ha PvP-server och spelarlika namn (Sirkillalot, Mookin...). Förberett enligt Pågående arbete.
+- 2026-10-19 15:44 Claude: skällsord (trash talk) i SystemPrompt; wov/reports.py + wov-reports.timer (var 5 min) mute/suspension av toxiska botar; dispatch.cpp respekterar mute (kräver bygge – görs vid omstarten).
