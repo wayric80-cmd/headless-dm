@@ -26,9 +26,9 @@ BANNED = re.compile(r"\b(outland|northrend|death knight|blood elf|draenei|arena|
                     r"as an ai|language model|i am a bot|azeroth is real|vanilla|classic wow|halls of|heroic|titan|20(?:0[0-9]|1[0-9]))\b", re.I)
 
 
-LIVES = ["a teenager in high school", "a university student", "a nurse working rotating shifts", "an office worker",
-         "a stay-at-home parent of two", "a truck driver home on weekends", "a retired teacher", "a cook in a restaurant",
-         "an IT support worker", "between jobs and playing a lot", "a factory worker on night shifts", "a soldier on leave",
+LIVES = ["a teenager in high school", "a university student", "a nurse", "an office worker",
+         "a stay-at-home parent of two", "a long-haul truck driver", "a retired teacher", "a cook in a restaurant",
+         "an IT support worker", "between jobs and playing a lot", "a factory worker", "a soldier on leave",
          "a dad with a newborn", "a couple who play together", "a shop clerk", "a programmer", "an electrician",
          "a college dropout living with roommates", "a mother whose kids got her into the game", "a student on summer break"]
 EXPS = ["WoW is their first online game", "played EverQuest for years before", "came from Ultima Online",
