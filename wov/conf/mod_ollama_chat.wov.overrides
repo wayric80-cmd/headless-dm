@@ -89,3 +89,5 @@ OllamaChat.RAGMaxRetrievedItems = 3
 OllamaChat.DebugShowFullPrompt = 1
 OllamaChat.Reply.Model = person
 OllamaChat.MaxConversationHistory = 15
+OllamaChat.WoV.ZoneChatterChance = 6
+OllamaChat.RandomChatterBotCommentChance = 20
