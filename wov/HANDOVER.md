@@ -86,8 +86,8 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 16:58)
-PÅGÅR: uppskalning till 500 (BOT_MIN/MAX 490/500 i site.env, MinOnline 450, SessionPercent 300). Omstart 16:51. 300 online 16:57 (2 ms medel). 22 nya botkonton satta till expansion 0. Generering av bios/scheman för 209 nya karaktärer: logs/gen-players-3.log (ALL-DONE sist). Kontrollera: online-antal, ra 'server info' (medel < 50 ms), free -m (worldserver ~5,4 GB vid 300). Om minnet tar slut: sänk MinOnline/BOT_MAX och omstart.
+(uppdaterad 2026-10-19 17:07)
+Uppskalning klar: 449 online 17:08 (golv 450, tak 500 när fler spelare har scheman). Medel 2 ms, p95 8 ms, worldserver 5,5 GB RSS, ~8 GB tillgängligt. Pågår: logs/gen-players-3.log (bios/scheman för 209 nya karaktärer, ALL-DONE sist). Nya botkonton får expansion 2 av playerbots – sätt till 0 (UPDATE account SET expansion=0) efter att nya konton skapats. Håll koll på router-kön (Qwen, 2 slots) när många pratar.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -103,3 +103,4 @@ PÅGÅR: uppskalning till 500 (BOT_MIN/MAX 490/500 i site.env, MinOnline 450, Se
 - 2026-10-19 15:59 Claude: omstart 15:55 – namnbyte (521), PvP, RAG, mute-spärr.
 - 2026-10-19 16:29 Claude: fler online – SessionPercent 300, MinOnline 150 (via 'reload config', schemat läser om var 10:e min, ingen omstart). 150 online 16:29. Obs: schemaloggen syns i journalctl -u wow-world, inte i Server.log.
 - 2026-10-19 16:58 Claude: operatören vill ha 500 botar – påbörjat.
+- 2026-10-19 17:07 Claude: 449 botar online, 2 ms.
