@@ -144,17 +144,24 @@
   {
     "id": "wov_mount",
     "title": "Riding and mounts on this server",
-    "content": "On this server you can learn riding at level 20 from your race's riding trainer, for about 4 gold, and then buy a mount from the mount vendor next to the trainer. Faster riding comes at level 40 and costs about 50 gold. Players save up for the mount and often farm or sell crafted items to afford it.",
+    "content": "On this server riding works like this: Apprentice Riding at level 20 costs 4 gold at your race's riding trainer, and a normal mount (60% speed) from the vendor next to the trainer costs about 1 gold, so about 5 gold in total. Journeyman Riding (epic, 100% speed) comes at level 40 and costs 50 gold, plus about 10 gold for an epic mount. Nobody pays 50 gold for the first mount here. Players save up for the epic one and often farm or sell crafted items to afford it.",
     "keywords": [
-      "mount",
-      "riding",
+      "60%",
+      "epic mount",
+      "gold",
+      "gold for mount",
       "horse",
-      "wolf",
+      "how much gold",
       "kodo",
-      "raptor",
       "level 20",
       "level 40",
-      "gold"
+      "mount",
+      "mount cost",
+      "mounts",
+      "price",
+      "raptor",
+      "riding",
+      "wolf"
     ],
     "tags": [
       "mounts"

@@ -105,3 +105,4 @@ Inget halvfärdigt. Omstart 00:4x med loot-rollar, inga statusviskningar, /p hi/
 - 2026-10-19 17:07 Claude: 449 botar online, 2 ms.
 - 2026-10-19 20:14 Claude: AI-servern llama-server: '-ngl 99 --load-mode none' (denna version saknar --no-mmap). RSS 6,2 -> 3,5 GB, ledigt RAM 0,65 -> 3,2 GB, swap 2,6 -> 0,3 GB. Backup av unit: ~/.config/systemd/user/llama-server.service.bak-* på AI-servern.
 - 2026-10-19 21:26 Claude: ingen cross-faction-chatt (OllamaChat.WoV.NoCrossFaction). /who: vanliga spelare ser redan bara egen fraktion (RBAC perm 28 bara för moderator+); GM-konton ser alla.
+- 2026-10-20 00:47 Claude: SFK-genomgång -> eventprompt omskriven (prata TILL, inga 'X just did Y?'), UsedObject-kommentarer av, GotItem 30, EventChatterMaxBotsPerPlayer 1, Addressee.GroupSpeakers 2 + stagger 3,5 s, skäll bara med anledning, dungeon/grupp-medvetenhet i prompterna, mount-fakta (20: 4g+1g, 40: 50g+10g). RAG kräver omstart.
