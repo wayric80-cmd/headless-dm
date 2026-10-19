@@ -86,13 +86,8 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 23:22)
-**Byggt, väntar på omstart av wow-world (operatören testar del 3 först, säger till).**
-Omstarten aktiverar: ingen cross-faction-chatt (WoV.NoCrossFaction), vän-viskning vid inloggning (WoV.FriendLogin.*:
-en bot med relation + gillande >= 0,6 viskar 25–80 s efter att en riktig spelare loggat in), ny MOTD
-("Welcome to Way of Vanilla - PvP realm..."). Del 3 (relationer, sentiment, PvP-agg, hälsning) är redan aktiv sedan 21:14.
-Beslut: mount-regler BEHÅLLS (WotLK 20/40). Handlaren Jéw behåller namnet.
-reports.py sätter nu även nya botkonton till expansion 0 var 5:e minut.
+(uppdaterad 2026-10-19 23:25)
+Inget halvfärdigt. Omstart 23:3x: NoCrossFaction, FriendLogin, MOTD aktiva. Del 3 verifierad med Wizzlebum (relation om Zugzug + sentiment 0,64). Nästa: verifiera vän-viskning vid inloggning, sedan steg 2 'botar tar initiativ' (LFG/inbjudningar/Trade).
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
