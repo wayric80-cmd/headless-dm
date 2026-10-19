@@ -1,0 +1,541 @@
+[
+  {
+    "id": "wov_start_human",
+    "title": "Human starting area: Northshire Valley",
+    "content": "Humans start in Northshire Valley in Elwynn Forest. All class trainers are in and around Northshire Abbey, the big building in the middle of the valley. When you leave the valley, the first town is Goldshire, with an inn, vendors and more trainers. The capital is Stormwind City, north-west of Goldshire. After Elwynn Forest most humans go to Westfall around level 10.",
+    "keywords": [
+      "human",
+      "northshire",
+      "elwynn",
+      "trainer",
+      "abbey",
+      "goldshire",
+      "stormwind",
+      "start",
+      "new",
+      "level 1"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_start_dwarf_gnome",
+    "title": "Dwarf and gnome starting area: Coldridge Valley",
+    "content": "Dwarves and gnomes start in Coldridge Valley in Dun Morogh. The class trainers are in and around Anvilmar, the stone building in the valley. Go through the tunnel to reach the town of Kharanos, which has an inn, vendors and trainers. The capital is Ironforge, further east in Dun Morogh. After Dun Morogh most go to Loch Modan around level 10.",
+    "keywords": [
+      "dwarf",
+      "gnome",
+      "coldridge",
+      "dun morogh",
+      "anvilmar",
+      "trainer",
+      "kharanos",
+      "ironforge",
+      "start",
+      "new"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_start_nightelf",
+    "title": "Night elf starting area: Shadowglen",
+    "content": "Night elves start in Shadowglen on Teldrassil. The class trainers are in Aldrassil, the huge tree in the middle of Shadowglen; walk up the ramp inside it. The first town is Dolanaar. The capital is Darnassus on the west side of Teldrassil. Around level 10 night elves take the boat from Rut'theran Village to Darkshore.",
+    "keywords": [
+      "night elf",
+      "shadowglen",
+      "teldrassil",
+      "aldrassil",
+      "trainer",
+      "dolanaar",
+      "darnassus",
+      "start",
+      "new"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_start_orc_troll",
+    "title": "Orc and troll starting area: Valley of Trials",
+    "content": "Orcs and trolls start in the Valley of Trials in Durotar. The class trainers are in and around the Den, the big hut and camp in the middle of the valley. The first town is Razor Hill, east of the valley, with an inn, vendors and trainers. The capital is Orgrimmar, north in Durotar. Around level 10 most go west into The Barrens to the Crossroads.",
+    "keywords": [
+      "orc",
+      "troll",
+      "valley of trials",
+      "durotar",
+      "den",
+      "trainer",
+      "razor hill",
+      "orgrimmar",
+      "start",
+      "new",
+      "level 1"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_start_tauren",
+    "title": "Tauren starting area: Camp Narache",
+    "content": "Tauren start at Camp Narache in Mulgore. The class trainers are in the tents of Camp Narache. The first town is Bloodhoof Village, north-east of the camp. The capital is Thunder Bluff, on the mesas in northern Mulgore. Around level 10 tauren head east into The Barrens to the Crossroads.",
+    "keywords": [
+      "tauren",
+      "camp narache",
+      "mulgore",
+      "trainer",
+      "bloodhoof",
+      "thunder bluff",
+      "start",
+      "new"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_start_undead",
+    "title": "Undead starting area: Deathknell",
+    "content": "The Forsaken start in Deathknell in Tirisfal Glades. The class trainers are in the buildings and the chapel of Deathknell. The first town is Brill, east along the road, with an inn and trainers. The capital is the Undercity, under the ruins of Lordaeron east of Brill. Around level 10 most go to Silverpine Forest.",
+    "keywords": [
+      "undead",
+      "forsaken",
+      "deathknell",
+      "tirisfal",
+      "trainer",
+      "brill",
+      "undercity",
+      "start",
+      "new"
+    ],
+    "tags": [
+      "starting zone",
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_trainers_general",
+    "title": "How class trainers work",
+    "content": "Every class has a class trainer in its race's starting area, in the first towns and in the capital cities. You can learn new spells and ranks every even level (2, 4, 6 and so on), and it costs a little money. Talents start at level 10. Weapon skill trainers for new weapon types are in the capitals. If you cannot find a trainer, ask a guard; guards show the way on the map.",
+    "keywords": [
+      "trainer",
+      "train",
+      "where",
+      "spells",
+      "level up",
+      "talents",
+      "guard",
+      "class trainer",
+      "learn"
+    ],
+    "tags": [
+      "trainers"
+    ]
+  },
+  {
+    "id": "wov_mount",
+    "title": "Riding and mounts on this server",
+    "content": "On this server you can learn riding at level 20 from your race's riding trainer, for about 4 gold, and then buy a mount from the mount vendor next to the trainer. Faster riding comes at level 40 and costs about 50 gold. Players save up for the mount and often farm or sell crafted items to afford it.",
+    "keywords": [
+      "mount",
+      "riding",
+      "horse",
+      "wolf",
+      "kodo",
+      "raptor",
+      "level 20",
+      "level 40",
+      "gold"
+    ],
+    "tags": [
+      "mounts"
+    ]
+  },
+  {
+    "id": "wov_professions_basics",
+    "title": "Professions basics",
+    "content": "You can have two main professions, for example mining and blacksmithing, herbalism and alchemy, or skinning and leatherworking. Gathering pairs well with a crafting profession or makes good money on the auction house. Cooking, fishing and first aid are secondary and everyone can learn them. Profession trainers are in the starting towns and the capitals.",
+    "keywords": [
+      "profession",
+      "mining",
+      "herbalism",
+      "skinning",
+      "alchemy",
+      "blacksmithing",
+      "tailoring",
+      "leatherworking",
+      "enchanting",
+      "engineering",
+      "cooking",
+      "fishing",
+      "first aid"
+    ],
+    "tags": [
+      "professions"
+    ]
+  },
+  {
+    "id": "wov_dungeon_ragefire_chasm",
+    "title": "Ragefire Chasm (levels 13-18)",
+    "content": "Ragefire Chasm is a five-player dungeon for about levels 13-18. It is in inside Orgrimmar (Horde). Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "ragefire chasm",
+      "dungeon",
+      "instance",
+      "level 13",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_wailing_caverns",
+    "title": "Wailing Caverns (levels 17-24)",
+    "content": "Wailing Caverns is a five-player dungeon for about levels 17-24. It is in The Barrens, south-west of the Crossroads. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "wailing caverns",
+      "dungeon",
+      "instance",
+      "level 17",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_the_deadmines",
+    "title": "The Deadmines (levels 17-26)",
+    "content": "The Deadmines is a five-player dungeon for about levels 17-26. It is in Moonbrook in Westfall. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "the deadmines",
+      "dungeon",
+      "instance",
+      "level 17",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_shadowfang_keep",
+    "title": "Shadowfang Keep (levels 22-30)",
+    "content": "Shadowfang Keep is a five-player dungeon for about levels 22-30. It is in Silverpine Forest. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "shadowfang keep",
+      "dungeon",
+      "instance",
+      "level 22",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_blackfathom_deeps",
+    "title": "Blackfathom Deeps (levels 24-32)",
+    "content": "Blackfathom Deeps is a five-player dungeon for about levels 24-32. It is in Ashenvale coast. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "blackfathom deeps",
+      "dungeon",
+      "instance",
+      "level 24",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_the_stockade",
+    "title": "The Stockade (levels 24-32)",
+    "content": "The Stockade is a five-player dungeon for about levels 24-32. It is in inside Stormwind (Alliance). Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "the stockade",
+      "dungeon",
+      "instance",
+      "level 24",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_gnomeregan",
+    "title": "Gnomeregan (levels 29-38)",
+    "content": "Gnomeregan is a five-player dungeon for about levels 29-38. It is in Dun Morogh. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "gnomeregan",
+      "dungeon",
+      "instance",
+      "level 29",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_razorfen_kraul",
+    "title": "Razorfen Kraul (levels 30-40)",
+    "content": "Razorfen Kraul is a five-player dungeon for about levels 30-40. It is in southern Barrens. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "razorfen kraul",
+      "dungeon",
+      "instance",
+      "level 30",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_scarlet_monastery",
+    "title": "Scarlet Monastery (levels 34-45)",
+    "content": "Scarlet Monastery is a five-player dungeon for about levels 34-45. It is in Tirisfal Glades. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "scarlet monastery",
+      "dungeon",
+      "instance",
+      "level 34",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_razorfen_downs",
+    "title": "Razorfen Downs (levels 40-50)",
+    "content": "Razorfen Downs is a five-player dungeon for about levels 40-50. It is in southern Barrens. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "razorfen downs",
+      "dungeon",
+      "instance",
+      "level 40",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_uldaman",
+    "title": "Uldaman (levels 42-52)",
+    "content": "Uldaman is a five-player dungeon for about levels 42-52. It is in Badlands. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "uldaman",
+      "dungeon",
+      "instance",
+      "level 42",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_zulfarrak",
+    "title": "Zul'Farrak (levels 44-54)",
+    "content": "Zul'Farrak is a five-player dungeon for about levels 44-54. It is in Tanaris. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "zul'farrak",
+      "dungeon",
+      "instance",
+      "level 44",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_maraudon",
+    "title": "Maraudon (levels 46-55)",
+    "content": "Maraudon is a five-player dungeon for about levels 46-55. It is in Desolace. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "maraudon",
+      "dungeon",
+      "instance",
+      "level 46",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_sunken_temple",
+    "title": "Sunken Temple (levels 50-60)",
+    "content": "Sunken Temple is a five-player dungeon for about levels 50-60. It is in Swamp of Sorrows. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "sunken temple",
+      "dungeon",
+      "instance",
+      "level 50",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_blackrock_depths",
+    "title": "Blackrock Depths (levels 52-60)",
+    "content": "Blackrock Depths is a five-player dungeon for about levels 52-60. It is in Blackrock Mountain. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "blackrock depths",
+      "dungeon",
+      "instance",
+      "level 52",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_lower_blackrock_spire",
+    "title": "Lower Blackrock Spire (levels 55-60)",
+    "content": "Lower Blackrock Spire is a five-player dungeon for about levels 55-60. It is in Blackrock Mountain. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "lower blackrock spire",
+      "dungeon",
+      "instance",
+      "level 55",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_dire_maul",
+    "title": "Dire Maul (levels 55-60)",
+    "content": "Dire Maul is a five-player dungeon for about levels 55-60. It is in Feralas. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "dire maul",
+      "dungeon",
+      "instance",
+      "level 55",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_stratholme",
+    "title": "Stratholme (levels 58-60)",
+    "content": "Stratholme is a five-player dungeon for about levels 58-60. It is in Eastern Plaguelands. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "stratholme",
+      "dungeon",
+      "instance",
+      "level 58",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_scholomance",
+    "title": "Scholomance (levels 58-60)",
+    "content": "Scholomance is a five-player dungeon for about levels 58-60. It is in Western Plaguelands. Groups usually want a tank, a healer and three damage dealers.",
+    "keywords": [
+      "scholomance",
+      "dungeon",
+      "instance",
+      "level 58",
+      "group",
+      "lfg"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_dungeon_by_level",
+    "title": "Which dungeon for my level",
+    "content": "Rough guide: Ragefire Chasm 13-18, Wailing Caverns and Deadmines 17-26, Shadowfang Keep 22-30, Blackfathom Deeps and the Stockade 24-32, Gnomeregan 29-38, Razorfen Kraul 30-40, Scarlet Monastery 34-45, Razorfen Downs 40-50, Uldaman 42-52, Zul'Farrak 44-54, Maraudon 46-55, Sunken Temple 50-60, then Blackrock Depths, Blackrock Spire, Dire Maul, Stratholme and Scholomance at 55-60.",
+    "keywords": [
+      "dungeon",
+      "which",
+      "level",
+      "instance",
+      "group",
+      "lfg",
+      "recommend"
+    ],
+    "tags": [
+      "dungeons"
+    ]
+  },
+  {
+    "id": "wov_zones_horde",
+    "title": "Horde leveling zones",
+    "content": "Typical Horde path: starting zone 1-10, The Barrens 10-25, Stonetalon Mountains 15-27, Ashenvale 18-30, Hillsbrad Foothills 20-30, Thousand Needles 25-35, Desolace 30-40, Stranglethorn Vale 30-45, Arathi Highlands 30-40, Dustwallow Marsh 35-45, Badlands 35-45, Tanaris 40-50, Feralas 40-50, the Hinterlands 40-50, Searing Gorge 43-50, Felwood 48-55, Un'Goro Crater 48-55, Burning Steppes 50-58, Winterspring 55-60, Western and Eastern Plaguelands 51-60.",
+    "keywords": [
+      "horde",
+      "zone",
+      "level",
+      "where",
+      "quest",
+      "next zone",
+      "barrens"
+    ],
+    "tags": [
+      "zones"
+    ]
+  },
+  {
+    "id": "wov_zones_alliance",
+    "title": "Alliance leveling zones",
+    "content": "Typical Alliance path: starting zone 1-10, Westfall, Loch Modan or Darkshore 10-20, Redridge Mountains 15-25, Duskwood 18-30, Wetlands 20-30, Ashenvale 18-30, Hillsbrad Foothills 20-30, Stranglethorn Vale 30-45, Arathi Highlands 30-40, Desolace 30-40, Dustwallow Marsh 35-45, Badlands 35-45, Tanaris 40-50, Feralas 40-50, the Hinterlands 40-50, Searing Gorge 43-50, Felwood 48-55, Un'Goro Crater 48-55, Burning Steppes 50-58, Winterspring 55-60, Western and Eastern Plaguelands 51-60.",
+    "keywords": [
+      "alliance",
+      "zone",
+      "level",
+      "where",
+      "quest",
+      "next zone",
+      "westfall"
+    ],
+    "tags": [
+      "zones"
+    ]
+  }
+]
