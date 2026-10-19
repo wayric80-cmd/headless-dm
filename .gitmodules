@@ -4,12 +4,12 @@
 	branch = Playerbot
 [submodule "src/modules/mod-playerbots"]
 	path = src/modules/mod-playerbots
-	url = https://github.com/bazola/mod-playerbots.git
-	branch = custom-wow
+	url = https://github.com/wayric80-cmd/mod-playerbots.git
+	branch = wov
 [submodule "src/modules/mod-ollama-chat"]
 	path = src/modules/mod-ollama-chat
-	url = https://github.com/bazola/mod-ollama-chat.git
-	branch = custom-wow
+	url = https://github.com/wayric80-cmd/mod-ollama-chat.git
+	branch = wov
 [submodule "src/modules/mod-ah-bot-plus"]
 	path = src/modules/mod-ah-bot-plus
 	url = https://github.com/bazola/mod-ah-bot-plus.git
