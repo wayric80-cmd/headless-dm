@@ -73,6 +73,8 @@ def _backend(name):
         "sem": threading.BoundedSemaphore(slots) if slots else None,
         "system_suffix": b["system_suffix"],
         "extra_body": b["extra_body"],
+        # wov: request fields a provider rejects (Claude Haiku 5.5: temperature, top_p).
+        "drop_params": list(b.get("drop_params") or []),
     }
     return _BUILT[name]
 
@@ -131,6 +133,8 @@ def call_backend(backend, messages, opts, context=None):
     if opts.get("format") == "json":
         body["response_format"] = {"type": "json_object"}
 
+    for k in backend.get("drop_params") or ():
+        body.pop(k, None)
     data = json.dumps(body).encode()
     req = urllib.request.Request(backend["url"], data=data,
                                  headers={"Content-Type": "application/json"})

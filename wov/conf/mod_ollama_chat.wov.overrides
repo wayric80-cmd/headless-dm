@@ -88,3 +88,4 @@ OllamaChat.ChatHistoryLineTemplate = "- {player_name} wrote: {player_message} | 
 OllamaChat.RAGPromptTemplate = "FACTS ABOUT THE GAME (true on this server; if they asked about the game, answer from these facts in your own casual words, never copy them):\n{rag_info}\n"
 OllamaChat.RAGSimilarityThreshold = 0.12
 OllamaChat.RAGMaxRetrievedItems = 3OllamaChat.DebugShowFullPrompt = 1
+OllamaChat.Reply.Model = person
