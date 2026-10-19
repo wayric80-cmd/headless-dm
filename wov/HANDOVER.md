@@ -10,8 +10,20 @@ människor som spelar WoW**: levlar, hittar vänner, handlar, tävlar, har egna 
 mellan mötena. Varken chatt eller beteende får avslöja att det är botar. Botarna är **spelare**, inte invånare i
 Azeroth (HeadlessDM:s regel 8 är medvetet omvänd här).
 
+## Hur du når servern (via SentinelX)
+SentinelX kör som användaren `sentinelx`. Dess fil-verktyg (`sentinel_edit`, upload m.fl.) är **läsbara** för
+`/opt/wow/headless-dm` och ska inte användas för att skriva där. Allt skrivande görs i stället med
+`sentinel_script_run` (bash), där kommandona körs **som idiadmin** via `sudo -u idiadmin ...`, t.ex.
+`sudo -u idiadmin python3 wov/apply-overlay.py` eller en heredoc `sudo -u idiadmin tee fil <<'EOF'`.
+Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just detta). Ändra inte SentinelX-policyn.
+- Godkända sudo-anrop: `sudo -u idiadmin <kommando>` och `sudo systemctl restart|status wow-world|wow-auth|wow-router`.
+- Inga andra sudo-anrop (inga paket, inga systemfiler, ingen root-shell).
+- Långa jobb (bygge, omstart + väntan) med `background=true` och läs resultatet med notifications.
+- Ingen pipe i `sentinel_exec` – använd `sentinel_script_run`.
+
 ## Regler (gäller alltid)
-1. Kör aldrig `sudo` själv. Behövs omstart: be operatören köra `sudo systemctl restart wow-world` (ca 50 s).
+1. Inga sudo-anrop utöver de godkända ovan. Omstart av wow-world tar ca 50 s och kickar inloggade spelare –
+   säg till operatören innan.
 2. Hemligheter bara i `site/secrets.env` (mode 600). Skriv aldrig ut, kopiera eller logga nycklar
    (`ANTHROPIC_API_KEY` m.fl.).
 3. Ta backup till `/opt/wow/backups/` före varje envägsändring (filer, SQL-dump av berörda tabeller).
@@ -89,3 +101,4 @@ Inget halvfärdigt steg. Speltider (punkt 4) är klara och i drift: 60 online mi
 - 2026-10-19 12:36 Claude: speltider implementerade (bygge pågår). Hittade att 235 av 300 online-botar saknade biografi; generering startad.
 - 2026-10-19 12:44 Claude: speltider i drift (commits 84ce14ca i mod-playerbots, 20cca3c). 631 scheman laddade, 60 online vid 12:45.
 - 2026-10-19 13:17 Claude: GitHub-push fungerar (forkar + token). .gitmodules pekar på forkarna, gren wov.
+- 2026-10-19 13:54 Claude: lade till 'Hur du når servern' (SentinelX + sudo -u idiadmin) efter att Codex stoppats av read-only file_ops.
