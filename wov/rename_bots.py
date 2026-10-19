@@ -35,6 +35,7 @@ def main():
         print("reverted", len(rows)); return
     pool = [l.strip() for l in open(NAMES) if l.strip()]
     taken = {r[0].lower() for r in db("SELECT name FROM characters")}
+    taken |= {r[0].lower() for r in db("SELECT name FROM acore_world.creature_template WHERE name NOT LIKE '% %'")}  # no NPC names (Ragnaros...)
     pool = [n for n in pool if n.lower() not in taken]
     random.seed(20261019); random.shuffle(pool)
     bots = db("SELECT c.guid, c.name FROM characters c JOIN acore_auth.account a ON a.id=c.account "

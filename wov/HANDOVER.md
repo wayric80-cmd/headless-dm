@@ -86,20 +86,8 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 8. Efter testperioden: `OllamaChat.DebugEnabled = 0`, `OllamaChat.DebugShowFullPrompt = 0`.
 
 ## Pågående arbete
-(uppdaterad 2026-10-19 15:26)
-**Förberett, väntar på en omstart (operatören är inloggad – fråga innan).** Gör i denna ordning:
-1. `sudo systemctl stop wow-world`
-2. Backup: `db acore_characters` dump av `characters` (guid,name), `lore_character`, `playerbots_names` till /opt/wow/backups/before-wov-names-*.
-3. `python3 wov/rename_bots.py apply` (60 % av botarna får spelarnamn från `wov/names/player-names.txt`; botar som pratat
-   med riktiga spelare behåller namnet; mapping i tabellen `wov_rename`, ångra med `rename_bots.py revert`).
-4. `python3 wov/gen_players.py project` (BIO_-mallar med nya namn).
-5. PvP: `python3 wov/apply-overlay.py` (GameType = 1 i `wov/conf/worldserver.wov.overrides`) och
-   `db acore_auth -e "UPDATE realmlist SET icon=1 WHERE id=1"`.
-6. `sudo systemctl start wow-world`. Den laddar också nya RAG:en (Varian bort, Classic-ledare in).
-6b. Före start: bygg (`make -j4 install`) – dispatch.cpp har mute-spärr (wov: muted).
-7. Verifiera: namn i spel, realm visas som PvP, `ra "server info"`. Commit + push.
-- Namnpoolen genereras med `wov/gen_names.py` (Haiku, ~1200+ namn, logg `logs/gen-names.log`).
-- Bios-genereringen för de 273 är klar (ALL-DONE).
+(uppdaterad 2026-10-19 15:59)
+Inget halvfärdigt. Omstart gjord 15:55: 521 botar har spelarnamn (wov_rename, ångra: stoppa wow-world + rename_bots.py revert), namnpool 60 % spelarnamn, PvP (GameType 1, realm icon 1), ny RAG, mute-spärr byggd, wov-reports.timer aktiv. Backup: /opt/wow/backups/before-wov-names-pvp-*. Nästa: följ wov_reports, del 3 (minne/relationer).
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -112,3 +100,4 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 - 2026-10-19 14:37 Claude: Varian i RAG (inte i världen – spawnen är dold). RAG-trim utökad + fakta om Classic-ledare. Kräver omstart av wow-world för att laddas. 28 konton (27 nya botkonton + MERCHANTS) satta till expansion 0.
 - 2026-10-19 15:26 Claude: operatören vill ha PvP-server och spelarlika namn (Sirkillalot, Mookin...). Förberett enligt Pågående arbete.
 - 2026-10-19 15:44 Claude: skällsord (trash talk) i SystemPrompt; wov/reports.py + wov-reports.timer (var 5 min) mute/suspension av toxiska botar; dispatch.cpp respekterar mute (kräver bygge – görs vid omstarten).
+- 2026-10-19 15:59 Claude: omstart 15:55 – namnbyte (521), PvP, RAG, mute-spärr.
