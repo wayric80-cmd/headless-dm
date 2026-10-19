@@ -4,7 +4,7 @@
 AiPlayerbot.MinRandomBots = ${BOT_MIN}
 AiPlayerbot.MaxRandomBots = ${BOT_MAX}
 AiPlayerbot.AllowGuildBots = 0
-AiPlayerbot.RandomBotGuildCount = 0
+AiPlayerbot.RandomBotGuildCount = ${BOT_GUILDS}
 AiPlayerbot.SellGrayOnVendorOpen = 1
 AiPlayerbot.AltMaintenanceBags = 0
 AiPlayerbot.AltCatchUpCommand = 1
