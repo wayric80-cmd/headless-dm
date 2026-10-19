@@ -50,8 +50,10 @@ Azeroth (HeadlessDM:s regel 8 är medvetet omvänd här).
   zonpublik för random chatter (`OllamaChat.WoV.ZoneChatterChance`).
 - Submodul `src/modules/mod-playerbots`, gren `wov`: inga säkerhetssvar på viskningar, ingen `<Away>`,
   inga inloggningsrader.
-- Submodulernas origin är bazola:s repon – **pusha inte dit**. Kodbackup som git-bundles i
-  `/opt/wow/backups/code-*`.
+- GitHub: allt pushas till operatörens forkar. `headless-dm` gren `main`; `mod-ollama-chat` och `mod-playerbots`
+  gren `wov` (remote `origin` = fork, `upstream` = bazola – pusha aldrig till upstream). Token i
+  `site/secrets.env` (`GITHUB_TOKEN`), läses av `wov/git-cred.sh`. **Pusha efter varje commit**: först submodulen
+  (`git push origin wov`), sedan superprojektet (`git push origin main`).
 
 ## Dokumentation hos operatören (Claude-projektet "Server")
 `Driftlogg.md`, `Testprotokoll.md` (fynd från speltest), `Kontrollfragor.md` (standardtest A–E efter varje
@@ -59,7 +61,7 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 över dem till projektet senare.
 
 ## Att göra (prioritetsordning)
-1. [ ] Pusha koden: operatören behöver forka mod-ollama-chat och mod-playerbots på GitHub och ge servern
+1. [x] Pusha koden: operatören behöver forka mod-ollama-chat och mod-playerbots på GitHub och ge servern
        en token/deploy key. Tills dess: git-bundles (gjort 2026-10-19 12:28).
 2. [ ] AI-servern (operatören, sudo): `sudo loginctl enable-linger idiadmin` och
        `sudo systemctl disable --now ollama`.
@@ -86,3 +88,4 @@ Inget halvfärdigt steg. Speltider (punkt 4) är klara och i drift: 60 online mi
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
 - 2026-10-19 12:36 Claude: speltider implementerade (bygge pågår). Hittade att 235 av 300 online-botar saknade biografi; generering startad.
 - 2026-10-19 12:44 Claude: speltider i drift (commits 84ce14ca i mod-playerbots, 20cca3c). 631 scheman laddade, 60 online vid 12:45.
+- 2026-10-19 13:17 Claude: GitHub-push fungerar (forkar + token). .gitmodules pekar på forkarna, gren wov.
