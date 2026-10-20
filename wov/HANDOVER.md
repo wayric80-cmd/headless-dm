@@ -86,8 +86,8 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 02:02)
-Initiativ BYGGT (mod-playerbots 'wov: initiative', AiPlayerbot.WoV.Init.*), väntar på omstart. Call to Arms aktiv sedan 01:4x. Verifiera: journalctl -u wow-world | grep 'WoV init\|WoV war'; ledger_chat för LFG/WTS-rader.
+(uppdaterad 2026-10-20 15:10)
+Spela tillsammans v1 BYGGT (mod-playerbots 'wov: play together'), väntar på omstart. Riktig spelare skriver LFM/LF2M/LFG <dungeon> i en kanal -> botar viskar 'inv, healer' (LFM) eller en bot bildar grupp och bjuder in (LFG). Bot-ledd grupp fylls med roller (tank/healer/dps) inom 150 s, lead lämnas till spelaren, botarna följer (teleport om >250 yd, som summon). Logg: journalctl | grep 'WoV together'.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
