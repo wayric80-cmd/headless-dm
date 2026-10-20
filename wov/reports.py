@@ -30,6 +30,7 @@ db("CREATE TABLE IF NOT EXISTS wov_reports (id INT AUTO_INCREMENT PRIMARY KEY, t
 db("CREATE TABLE IF NOT EXISTS wov_reports_state (k VARCHAR(16) PRIMARY KEY, v BIGINT)")
 # housekeeping: playerbots creates new bot accounts at WotLK level; this realm is Classic
 r = sh("db acore_auth -e \"UPDATE account SET expansion=0 WHERE expansion<>0\"")
+subprocess.run(["python3", os.path.join(REPO, "wov", "drives.py")], cwd=REPO, capture_output=True)  # new bots get a drive
 st = db("SELECT v FROM wov_reports_state WHERE k='last_id'")
 if not st:
     last = db("SELECT IFNULL(MAX(id),0) FROM ledger_chat")[0][0]

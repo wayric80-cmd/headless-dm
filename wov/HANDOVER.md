@@ -79,15 +79,15 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 4. [x] Speltider.  5. [x] Del 3: minne/relationer, sentiment, PvP-agg, hälsning, vän-viskning vid login.
 6. [x] Botar tar initiativ: LFG/LFM, gruppinbjudningar, guildrekrytering, vänförfrågningar, WTS/WTB i Trade.
 7. [ ] Spela tillsammans: dungeons där botarna pratar som spelare (loot-rollar, ty for group, ninja-drama).
-8. [ ] Egna mål i beteendet (biografins mål styr zon/farm/grupp).
+8. [x] Egna mål i beteendet (biografins mål styr zon/farm/grupp).
 9. [ ] Ekonomi och tävling: Trade-chatt, priser, battlegrounds.
 10. [ ] GPU-effekt 95 W -> 120/150 W efter rengöring (operatören, sudo nvidia-smi -pl).
 11. [ ] Efter testperioden: OllamaChat.DebugEnabled = 0, DebugShowFullPrompt = 0.
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 15:10)
-Spela tillsammans v1 BYGGT (mod-playerbots 'wov: play together'), väntar på omstart. Riktig spelare skriver LFM/LF2M/LFG <dungeon> i en kanal -> botar viskar 'inv, healer' (LFM) eller en bot bildar grupp och bjuder in (LFG). Bot-ledd grupp fylls med roller (tank/healer/dps) inom 150 s, lead lämnas till spelaren, botarna följer (teleport om >250 yd, som summon). Logg: journalctl | grep 'WoV together'.
+(uppdaterad 2026-10-20 15:19)
+Egna mål v1 BYGGT, väntar på omstart: wov/drives.py -> wov_player.drive (level 417, dungeon 297, gold 186, pvp 82, social 58, explore 13). C++: WovRpgWeightPct viktar RPG-status (NewRpgBaseAction::RandomChangeStatus), drive påverkar Call to Arms-acceptans och vem som postar LFG/WTS. reports.py kör drives.py var 5:e min för nya botar.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
