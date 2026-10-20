@@ -76,7 +76,7 @@ större chattändring). Codex: skriv motsvarande anteckningar i slutet av denna 
 Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 1. [x] Pusha koden (forkar + token).  2. [x] AI-server linger/ollama av.  3. [ ] Verifiera General-prat på kvällen.
 4. [x] Speltider.  5. [x] Del 3: minne/relationer, sentiment, PvP-agg, hälsning, vän-viskning vid login.
-6. [ ] Botar tar initiativ: LFG/LFM, gruppinbjudningar, guildrekrytering, vänförfrågningar, WTS/WTB i Trade.
+6. [x] Botar tar initiativ: LFG/LFM, gruppinbjudningar, guildrekrytering, vänförfrågningar, WTS/WTB i Trade.
 7. [ ] Spela tillsammans: dungeons där botarna pratar som spelare (loot-rollar, ty for group, ninja-drama).
 8. [ ] Egna mål i beteendet (biografins mål styr zon/farm/grupp).
 9. [ ] Ekonomi och tävling: Trade-chatt, priser, battlegrounds.
@@ -85,8 +85,8 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 01:33)
-Call to Arms BYGGT (mod-playerbots 'wov: Call to Arms', config AiPlayerbot.WoV.War.*), väntar på omstart. Verifiera efter start: journalctl -u wow-world | grep 'WoV war' (skirmish/raid/recruited/over). Obs: header-ändring i RandomPlayerbotMgr.h => fullt playerbots-bygge ~30 min; kör make fristående (setsid nohup, logs/build-war.log).
+(uppdaterad 2026-10-20 02:02)
+Initiativ BYGGT (mod-playerbots 'wov: initiative', AiPlayerbot.WoV.Init.*), väntar på omstart. Call to Arms aktiv sedan 01:4x. Verifiera: journalctl -u wow-world | grep 'WoV init\|WoV war'; ledger_chat för LFG/WTS-rader.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
