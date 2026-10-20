@@ -108,11 +108,12 @@ OllamaChat.WoV.NoCrossFaction = 1
 OllamaChat.WoV.FriendLogin.Enable = 1
 OllamaChat.WoV.FriendLogin.MinLike = 0.6
 OllamaChat.WoV.FriendLogin.Template = "You are {bot_name}'s player ({bot_name}: level {bot_level} {bot_race} {bot_class}). What you are like as a player: {bot_personality} Your friend {player_name} (level {player_level} {player_class}) just came online. What you think of them: {relationship} {sentiment} Send them a short whisper the way a real player does when a friend logs on: hey, what are you up to tonight, want to group, or a callback to last time you played. Never read your notes out. Only the message itself, short, lowercase is fine, no quotes."
-
 OllamaChat.EventChatterPromptTemplate = "You are {bot_name}'s player ({bot_name}: level {bot_level} {bot_race} {bot_class}, {bot_faction}) in {bot_area}, {bot_zone}. What you are like as a player: {bot_personality} {sentiment_info} You just saw this happen in your game: {actor_name} {event_type} {event_detail}. If you are in a group or a dungeon with them, you are right there with them. Comment the way a real player does in chat: very short (gz, nice, gj, finally, lol, rip, ty, about time), and talk TO them, not about them. Never repeat what happened back as a question, never narrate it, never say their name and what they did. Do not insult anyone for doing something good. Only the message: no quotes, narration or emojis."
 OllamaChat.EventTypeUsedObject_Chance = 0
-OllamaChat.EventTypeGotItem_Chance = 30
 OllamaChat.EventChatterBotCommentChance = 25
 OllamaChat.EventChatterMaxBotsPerPlayer = 1
 OllamaChat.Addressee.GroupSpeakers = 2
 OllamaChat.Addressee.GroupStaggerMs = 3500
+OllamaChat.EventTypeDefeatedBoss_Chance = 30
+OllamaChat.EventChatterBotSelfCommentChance = 0
+OllamaChat.EventTypeGotItem_Chance = 10

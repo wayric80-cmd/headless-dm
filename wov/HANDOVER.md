@@ -86,8 +86,8 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 15:19)
-Egna mål v1 BYGGT, väntar på omstart: wov/drives.py -> wov_player.drive (level 417, dungeon 297, gold 186, pvp 82, social 58, explore 13). C++: WovRpgWeightPct viktar RPG-status (NewRpgBaseAction::RandomChangeStatus), drive påverkar Call to Arms-acceptans och vem som postar LFG/WTS. reports.py kör drives.py var 5:e min för nya botar.
+(uppdaterad 2026-10-20 21:59)
+Efter testkväll 1, BYGGT, väntar på omstart: inga slumpämnen i dungeons, '/yell'-prefix filtreras, egna 'I killed X'-kommentarer av, bosskommentarer 30 %, loot 10 %; ingen postar LFG/WTS/rekrytering inifrån instans/grupp; ogildade botar svarar på rekryteringsposter (viskar riktig GM, eller går med i botguild); Trade var 60 s, LFG var 100 s; Call to Arms kräver 3 kills mellan botar.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
