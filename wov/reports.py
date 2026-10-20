@@ -3,8 +3,8 @@
 
 Runs every 5 minutes (systemd user timer wov-reports.timer). Reads new bot lines from ledger_chat; a line with
 name-calling has a chance of being "reported": the bot gets a GM mute (15-60 min, whole account, like a real
-mute). A bot reported 3+ times in 7 days gets a 1-day character suspension instead. Everything is logged in
-table wov_reports. Tuning below. Dry run: python3 wov/reports.py --dry-run
+mute). Never a ban/suspension: playerbots crashes the worldserver when it tries to log in a banned bot.
+Everything is logged in table wov_reports. Tuning below. Dry run: python3 wov/reports.py --dry-run
 """
 import os, random, re, subprocess, sys
 REPO = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
@@ -13,7 +13,6 @@ INSULT = re.compile(r"\b(noob\w*|n00b\w*|nubs?|idiots?|morons?|losers?|dumbass\w
 DIRECT = re.compile(r"\b(you|u|ur|youre|you're|ya)\b", re.I)
 SWEAR = re.compile(r"\b(fuck\w*|shit\w*|wtf|ffs|damn\w*|crap\w*|piss\w*)\b", re.I)
 P_INSULT, P_DIRECT, P_TO_REAL, P_SWEAR = 0.10, 0.20, 0.35, 0.02
-BAN_AFTER = 999      # suspensions disabled: a banned bot crashes bot login (see HANDOVER)
 DRY = "--dry-run" in sys.argv
 
 def sh(cmd):
@@ -53,12 +52,8 @@ for rid, guid, name, listener, text, online, to_real in rows:
     if not p or random.random() >= p:
         continue
     done.add(guid)
-    n7 = int(db(f"SELECT COUNT(*) FROM wov_reports WHERE guid={guid} AND ts > NOW() - INTERVAL 7 DAY")[0][0])
-    if n7 + 1 >= BAN_AFTER and not db(f"SELECT 1 FROM wov_reports WHERE guid={guid} AND action='suspend' AND ts > NOW() - INTERVAL 7 DAY"):
-        action, minutes, cmd = "suspend", 1440, f'ban character {name} 1d Repeated reports for abusive language'
-    else:
-        minutes = random.choice([15, 20, 30, 30, 45, 60])
-        action, cmd = "mute", f'mute {name} {minutes} Reported for abusive language'
+    minutes = random.choice([15, 20, 30, 30, 45, 60])
+    action, cmd = "mute", f'mute {name} {minutes} Reported for abusive language'
     print(f"{action} {name} {minutes}m: {text[:80]}")
     if DRY:
         continue
