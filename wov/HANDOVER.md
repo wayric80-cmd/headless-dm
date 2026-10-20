@@ -86,8 +86,8 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 21:59)
-Efter testkväll 1, BYGGT, väntar på omstart: inga slumpämnen i dungeons, '/yell'-prefix filtreras, egna 'I killed X'-kommentarer av, bosskommentarer 30 %, loot 10 %; ingen postar LFG/WTS/rekrytering inifrån instans/grupp; ogildade botar svarar på rekryteringsposter (viskar riktig GM, eller går med i botguild); Trade var 60 s, LFG var 100 s; Call to Arms kräver 3 kills mellan botar.
+(uppdaterad 2026-10-20 22:57)
+BYGGT, väntar på omstart: (1) dungeon-chatter 35 % av tickarna, boss 55 %, loot 15 %. (2) Gear: AutoUpgradeEquip=0, RandomGearQualityLimit/AutoGearQualityLimit=2, RandomGearLoweringChance=0.6; WovRegear_Tick ger varje random-bot EN gång nytt levelgear (gröna max, ofta sämre), 4 botar/10 s, klara i wov_regear. Före: utrustade botföremål 3701 blå, 3583 gröna, 1935 vita, 740 grå.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
