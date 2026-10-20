@@ -35,6 +35,7 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 7. Stanna och fråga operatören vid oklarheter eller fel. Gissa inte.
 8. Commita varje fungerande steg. Servern saknar global git-identitet:
    `git -c user.name=WayOfVanilla -c user.email=way.ric80@gmail.com commit ...`
+10. Bannlys aldrig bot-karaktärer (`.ban character`): playerbots kraschar worldserver när en bannad bot ska loggas in.
 9. Kör aldrig två `ra`-sessioner samtidigt. SQL via `db` i `ops/env.sh`.
 
 ## Miljö
@@ -108,3 +109,4 @@ Initiativ BYGGT (mod-playerbots 'wov: initiative', AiPlayerbot.WoV.Init.*), vän
 - 2026-10-20 00:47 Claude: SFK-genomgång -> eventprompt omskriven (prata TILL, inga 'X just did Y?'), UsedObject-kommentarer av, GotItem 30, EventChatterMaxBotsPerPlayer 1, Addressee.GroupSpeakers 2 + stagger 3,5 s, skäll bara med anledning, dungeon/grupp-medvetenhet i prompterna, mount-fakta (20: 4g+1g, 40: 50g+10g). RAG kräver omstart.
 - 2026-10-20 11:03 Claude: llama-server '--cache-ram 1024' (prompt-cachen var 8 GB som standard och åt upp AI-serverns RAM: RSS 6,4 GB/0,1 GB ledigt efter 14 h). Efter: RSS 0,8 GB, 5,9 GB ledigt. Bevaka RSS efter ett dygn.
 - 2026-10-20 11:22 Claude: guildinbjudan från riktig spelare – CompanyStanding (regard, ej i drift) nekade allt. Ny regel i GuildAcceptAction.cpp: ogildad bot 40 % (85 % om gillande >= 0,6, 5 % om <= 0,35); gildad bot 15 % om gillande >= 0,7. Kräver omstart.
+- 2026-10-20 11:38 Claude: KRASCHLOOP 11:32–11:35 (5 segfaults, Object::GetGuidValue på null) när playerbots försökte logga in bot-karaktär 47, som var avstängd av reports.py (.ban character). Åtgärd: character_banned active=0 (backup /opt/wow/backups/character_banned-active-*), reports.py BAN_AFTER=999 (bara mute). Stabil sedan 11:35:07. Bannlys ALDRIG bot-karaktärer.

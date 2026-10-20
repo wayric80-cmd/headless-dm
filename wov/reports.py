@@ -13,7 +13,7 @@ INSULT = re.compile(r"\b(noob\w*|n00b\w*|nubs?|idiots?|morons?|losers?|dumbass\w
 DIRECT = re.compile(r"\b(you|u|ur|youre|you're|ya)\b", re.I)
 SWEAR = re.compile(r"\b(fuck\w*|shit\w*|wtf|ffs|damn\w*|crap\w*|piss\w*)\b", re.I)
 P_INSULT, P_DIRECT, P_TO_REAL, P_SWEAR = 0.10, 0.20, 0.35, 0.02
-BAN_AFTER = 3          # reports within 7 days -> 1 day suspension
+BAN_AFTER = 999      # suspensions disabled: a banned bot crashes bot login (see HANDOVER)
 DRY = "--dry-run" in sys.argv
 
 def sh(cmd):
