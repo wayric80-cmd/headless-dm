@@ -33,3 +33,4 @@ AiPlayerbot.WoV.Market.BudgetPct = 35
 AiPlayerbot.WoV.Wealth.Enable = 1
 AiPlayerbot.AuctionPostChance = 60
 AiPlayerbot.BotActiveAlone = 25
+AiPlayerbot.WoV.Debug.Bots = Spammer
