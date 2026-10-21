@@ -37,3 +37,8 @@ for ov in sorted(glob.glob(os.path.join(HERE, "conf", "*.wov.overrides"))):
     if changed and not dry:
         shutil.copy2(live, f"{live}.bak-wov-{dt.datetime.now():%Y%m%d-%H%M%S}")
         open(live, "w", encoding="utf-8").write("\n".join(lines))
+
+# Keep the managed model routes reproducible alongside the config overlays.
+import subprocess
+subprocess.run([sys.executable, os.path.join(HERE, "apply-model-tiers.py")] +
+               (["--dry-run"] if dry else []), check=True)

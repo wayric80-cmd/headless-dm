@@ -1,0 +1,15 @@
+# Managed WoV model routes. Only environment variable names, never credentials.
+[backends.sonnet]
+url = "https://api.anthropic.com/v1"
+model = "claude-sonnet-5-5"
+api_key_env = "ANTHROPIC_API_KEY"
+router_slots = 2
+batch_slots = 0
+router_timeout = 30
+drop_params = ["temperature", "top_p", "top_k", "min_p", "repeat_penalty"]
+extra_body = { thinking = { type = "disabled" } }
+
+[routes]
+ambient = ["haiku", "main"]
+person = ["haiku", "main"]
+premium = ["sonnet", "haiku", "main"]
