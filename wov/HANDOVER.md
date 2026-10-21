@@ -52,6 +52,12 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 - Botantal: `BOT_MIN`/`BOT_MAX`/`MAP_THREADS` i `site/site.env` → `conf-apply.py` → `apply-overlay.py` → omstart.
   Nu 290/300, `MAP_THREADS=4`. Medel 2 ms världsuppdatering.
 
+### Planerat: modellnivåer för AI-snack (operatörens önskemål 2026-10-21)
+- Standard för ALLA botar (ambient + svar): Claude Haiku 5.5 via routern (ersätter lokala Qwen3 8B som huvudmodell; lokala AI-servern blir reserv).
+- Premiummodell (t.ex. Claude Sonnet 5.5) bara för botar med rang **Veteran eller Officer** i en guild där en riktig spelare är guildmaster/medlem, och bara när de pratar med/inför riktiga spelare (person-lanen + guildchatt).
+- Genomförande: ny route `premium` i routern; i mod-ollama-chat (handler.cpp lane-val och random.cpp guild-chatter) välj `premium` när botens guildrang <= Veteran (rid 0-2) och WovRealInGuild(guild). Ny nyckel t.ex. OllamaChat.WoV.PremiumModel + PremiumMaxRank.
+- Kostnad: Haiku för allt ca 35-55 $/mån; premium för ett fåtal veteraner/officerare några dollar extra.
+
 ## Våra ändringar (allt under `wov/` + patchar)
 - `wov/conf/mod_ollama_chat.wov.overrides` – spelarröst, prompter, chatter-inställningar. Appliceras med
   `wov/apply-overlay.py` (backup `.bak-wov-*`).
