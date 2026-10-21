@@ -57,6 +57,7 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 - Premiummodell (t.ex. Claude Sonnet 5.5) bara för botar med rang **Veteran eller Officer** i en guild där en riktig spelare är guildmaster/medlem, och bara när de pratar med/inför riktiga spelare (person-lanen + guildchatt).
 - Genomförande: ny route `premium` i routern; i mod-ollama-chat (handler.cpp lane-val och random.cpp guild-chatter) välj `premium` när botens guildrang <= Veteran (rid 0-2) och WovRealInGuild(guild). Ny nyckel t.ex. OllamaChat.WoV.PremiumModel + PremiumMaxRank.
 - Kostnad: Haiku för allt ca 35-55 $/mån; premium för ett fåtal veteraner/officerare några dollar extra.
+- Variant (operatören 2026-10-21): premium styrd av den RIKTIGA SPELARENS status i stället för botens rang. Tabell `wov_premium_player(account_id)` (eller kontoflagga/GM-nivå). Svar till en premiumspelare (person-lanen, mottagaren är känd) -> premium; botsnack i kanaler/närhet där en premiumspelare är publik (zonpubliken i random chatter, guild med premiumspelare online) -> premium. Övriga -> Haiku. Kan kombineras med rangvarianten.
 
 ## Våra ändringar (allt under `wov/` + patchar)
 - `wov/conf/mod_ollama_chat.wov.overrides` – spelarröst, prompter, chatter-inställningar. Appliceras med
