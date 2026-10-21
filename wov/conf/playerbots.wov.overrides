@@ -40,7 +40,7 @@ AiPlayerbot.MaxRandomBots = 1000
 # Hillsbrad trial: open-world PvP positioning through the normal movement layer.
 AiPlayerbot.WoV.PvpMovement.Enable = 1
 AiPlayerbot.WoV.PvpMovement.Zone = 267
-AiPlayerbot.WoV.PvpMovement.Debug = 1
+AiPlayerbot.WoV.PvpMovement.Debug = 0
 
 # Temporary runtime verification of real profession skill gains.
-AiPlayerbot.WoV.Profession.Debug = 1
+AiPlayerbot.WoV.Profession.Debug = 0
