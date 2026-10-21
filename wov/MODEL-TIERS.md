@@ -1,3 +1,5 @@
+> PAUSAT av operatören: routing får inte ändras, även efter omstart. Följande är en vilande plan; aktivera inte utan nytt uttryckligt beslut.
+
 # Modellnivåer för WoV-snack
 
 ## Routing

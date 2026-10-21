@@ -43,6 +43,7 @@ def apply_text(text, fragment):
     return text
 
 def main():
+    raise SystemExit("Model tiers paused by operator: routing must remain unchanged, including after restart.")
     path = HERE.parent / "site/fleet.toml"
     text = path.read_text()
     updated = apply_text(text, (HERE / "conf/model-tiers.fleet.toml").read_text())

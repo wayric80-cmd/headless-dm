@@ -121,7 +121,7 @@ OllamaChat.GuildEventTypeGuildLogin_Chance = 15
 OllamaChat.GuildEventTypeGuildPromotion_Chance = 10
 
 # Model tiers: premium only for entitled humans/audiences or eligible guild ranks.
-OllamaChat.WoV.PremiumModel = "premium"
-OllamaChat.WoV.PremiumByGuildRank = 1
+OllamaChat.WoV.PremiumModel = ""
+OllamaChat.WoV.PremiumByGuildRank = 0
 OllamaChat.WoV.PremiumMaxRank = 2
-OllamaChat.WoV.PremiumByAccount = 1
+OllamaChat.WoV.PremiumByAccount = 0
