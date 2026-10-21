@@ -98,8 +98,10 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
-(uppdaterad 2026-10-20 22:57)
-BYGGT, väntar på omstart: (1) dungeon-chatter 35 % av tickarna, boss 55 %, loot 15 %. (2) Gear: AutoUpgradeEquip=0, RandomGearQualityLimit/AutoGearQualityLimit=2, RandomGearLoweringChance=0.6; WovRegear_Tick ger varje random-bot EN gång nytt levelgear (gröna max, ofta sämre), 4 botar/10 s, klara i wov_regear. Före: utrustade botföremål 3701 blå, 3583 gröna, 1935 vita, 740 grå.
+(uppdaterad 2026-10-21 18:03, Codex via SentinelX)
+Steg 1 pågår, INTE slutverifierat. Generering 481/555 kl. 18:02:28, inget EXIT=0 ännu. Journal kl. 18:00:14: 1532 scheman; DB senare 1542. 899 botar online. Två server-info-prov: mean 8 ms, median 5, p95 20, p99 25, max 34 respektive 58 ms. RSS ~5,92 GiB, tjänstens MemoryCurrent ~5,93 GiB; MemAvailable 7272 MiB, swap använd 244 MiB. Detta verifierar inte ~1000 online.
+Schemagolv MinOnline=900 trots BOT_MIN/MAX 990/1000; referenssimulator med session 300% ger 161/1542 schemalagda just nu. Förslag: tillfälligt MinOnline=990 i overlay, applicera + reload config utan omstart. Inväntar operatörens godkännande före detta avsteg. Därefter kontrollera EXIT=0, nästa schemaladdning och prestanda vid ~1000; fortsätt sedan yrkesskill, tredje person, PvP, modellnivåer i angiven ordning. Inga driftändringar eller omstarter gjorda av Codex.
+Tidigare notering om byggd dungeon-chatter/gear som väntade omstart är från 2026-10-20; aktuell tjänst startade 2026-10-21 15:48:52. Exakt driftinnehåll återstår att verifiera.
 
 ## Logg
 - 2026-10-19 12:30 Claude: överlämningsfilen skapad. 300 botar online, zonprat 8 %.
@@ -133,3 +135,5 @@ BYGGT, väntar på omstart: (1) dungeon-chatter 35 % av tickarna, boss 55 %, loo
 - 2026-10-21 13:54 Guildchatt: all guildchatt (svar och eget snack, även bot-bot) i guild med en riktig spelare online går till person-lanen (Haiku). WovRealInGuild i mod-ollama-chat_handler.cpp. Byggt, väntar omstart.
 - 2026-10-21 14:53 Guildchatt: ämnena Raid/Endgame (MC, 60 och attuned) ersatta med nivåanpassade ämnen; nivåregel i RandomChatterPromptTemplate; EventChatter: hälsa vid inloggning, gz bara för prestationer; GuildLogin_Chance 85->15, Promotion 25->10. Laddat med ollama reload.
 - 2026-10-21 15:59 Skalning till 1000 (15:48): backup realm-20261021-154754; site.env BOT_MIN/MAX 990/1000; overlay MinRandomBots 990, MaxRandomBots 1000, Schedule.MinOnline 900. Playerbots skapade 56 konton/517 karaktärer (162 konton, 1618 karaktärer). Spelarprofiler för 555 nya genereras via Haiku (wov/.gen_players_haiku.py = gen_players.py med model person), logg logs/gen-players-1000.log, kedjan kör project + ollama reload själv. Namnbyte hoppat över: nya botar fick redan namn ur spelarnamnspoolen. Kvar: kontrollera att loggen slutar med EXIT=0, att schemat laddar ~1600 spelare (journalctl WoV schedules), prestanda vid ~1000 online.
+
+- 2026-10-21 18:03 Codex: övertag via SentinelX, AGENTS + HANDOVER lästa. Skalning delkontrollerad: generering 481/555 pågår; 1532 laddade scheman (DB senare 1542), 899 online, mean 8 ms/median 5/p95 20/p99 25/max 34–58; RSS ~5,92 GiB, tjänst ~5,93 GiB, tillgängligt RAM 7272 MiB, swap 244 MiB. Föreslår tillfälligt schemagolv 990 för sluttest; inväntar godkännande. Ingen driftändring/omstart.
