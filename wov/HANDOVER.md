@@ -59,6 +59,11 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 - Kostnad: Haiku för allt ca 35-55 $/mån; premium för ett fåtal veteraner/officerare några dollar extra.
 - Variant (operatören 2026-10-21): premium styrd av den RIKTIGA SPELARENS status i stället för botens rang. Tabell `wov_premium_player(account_id)` (eller kontoflagga/GM-nivå). Svar till en premiumspelare (person-lanen, mottagaren är känd) -> premium; botsnack i kanaler/närhet där en premiumspelare är publik (zonpubliken i random chatter, guild med premiumspelare online) -> premium. Övriga -> Haiku. Kan kombineras med rangvarianten.
 
+### Öppna fynd från operatören 2026-10-21 (att göra)
+1. **Yrkesmilstolpar:** meddelandet när någon når en milstolpe i ett yrke (skill-nivå) – riktiga spelare går upp 1 poäng i taget, botarna hoppar 4 direkt, syns onaturligt. Undersök var botarnas yrkesskill höjs (PlayerbotFactory InitSkills/professions vid levling, RandomPlayerbotMgr Refresh/IncreaseLevel, ev. AutoMaintenanceOnLevelupAction) och låt den växa i små steg över tid (t.ex. +1 per crafting/gather-händelse eller 1 per X min), utan massmeddelanden.
+2. **Tredje person:** vissa botar pratar om sig själva i tredje person. Åtgärdat 2026-10-21 16:2x: regel i OllamaChat.SystemPrompt (alltid första person, aldrig sitt eget namn). Följ upp i chattloggen (ledger_chat) – finns kvar? Kolla även personlighetstexterna (BIO_/lore_character) som är skrivna i tredje person.
+3. **PvP-rörelser ser botiga ut** (Southshore, före Call to Arms v2-v4): ingen rör sig naturligt. Förslag: strafe/circle-strafing och hopp i närstrid, kiting för caster/hunter (avstånd + backa), ta skydd bakom hinder (LoS), sprida sig i stället för att klumpa, varierad reaktionstid, retirera vid låg hälsa, inte springa i rak linje. Titta på playerbots pvp-strategier (Strategy/Pvp*, "pvp"-strategin, MovementActions, flee) och ev. egna rörelseactions. Testa i Hillsbrad med Call to Arms.
+
 ## Våra ändringar (allt under `wov/` + patchar)
 - `wov/conf/mod_ollama_chat.wov.overrides` – spelarröst, prompter, chatter-inställningar. Appliceras med
   `wov/apply-overlay.py` (backup `.bak-wov-*`).
