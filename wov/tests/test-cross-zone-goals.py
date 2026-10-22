@@ -17,8 +17,8 @@ struct WorldPosition:WorldLocation {WorldPosition()=default;WorldPosition(WorldL
 struct AreaTableEntry {unsigned flags=0;};
 struct Store {AreaTableEntry area;AreaTableEntry const* LookupEntry(unsigned){return &area;}} sAreaTableStore;
 struct Map {unsigned GetZoneId(unsigned,float x,float,float){return x>=0?1:2;}};
-struct Player {Map map; unsigned GetLevel(){return 30;} unsigned GetZoneId(){return 1;} unsigned GetMapId(){return 1;} unsigned GetPhaseMask(){return 1;} Map* GetMap(){return &map;} float GetExactDist(WorldLocation const& p){return std::abs(p.x);}};
-struct Travel {std::vector<WorldLocation> locs;auto const& GetLocsPerLevelCache(unsigned){return locs;} auto GetTravelHubs(Player*){return locs;}} travel;
+struct Player {Map map; unsigned level=30; unsigned GetLevel(){return level;} unsigned GetZoneId(){return 1;} unsigned GetMapId(){return 1;} unsigned GetPhaseMask(){return 1;} Map* GetMap(){return &map;} float GetExactDist(WorldLocation const& p){return std::abs(p.x);}};
+struct Travel {struct FlightMasterInfo {WorldPosition pos;unsigned taxiNodeId=1;};FlightMasterInfo* fm=nullptr;FlightMasterInfo const* GetNearestFlightMasterInfo(Player*){return fm;}std::vector<WorldLocation> locs;auto const& GetLocsPerLevelCache(unsigned){return locs;} auto GetTravelHubs(Player*){return locs;}} travel;
 auto* travelPtr=&travel;
 #define sTravelMgr (*travelPtr)
 unsigned urand(unsigned lo,unsigned){return lo;}
@@ -31,10 +31,18 @@ int main(){Player p;
  travel.locs={{1,-3000},{2,-100}};assert(NewRpgBaseAction::SelectRandomGrindPos(&p)==WorldPosition());assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
  travel.locs={{1,-20}};assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
  travel.locs={{1,-2500}};assert(NewRpgBaseAction::SelectRandomCampPos(&p).x==-2500);
+ travel.locs.clear();Travel::FlightMasterInfo fm;fm.pos=WorldLocation{1,-900};travel.fm=&fm;
+ assert(NewRpgBaseAction::SelectRandomCampPos(&p).x==-900);
+ travel.locs={{1,200}};assert(NewRpgBaseAction::SelectRandomCampPos(&p).x==200);
+ travel.locs.clear();fm.pos=WorldLocation{2,-900};assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
+ fm.pos=WorldLocation{1,-10001};assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
+ fm.pos=WorldLocation{1,-20};assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
+ fm.pos=WorldLocation{1,-900};fm.taxiNodeId=0;assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
+ fm.taxiNodeId=1;p.level=9;assert(NewRpgBaseAction::SelectRandomCampPos(&p)==WorldPosition());
 }
 '''
 with tempfile.TemporaryDirectory() as d:
  path=Path(d)/'test.cpp';path.write_text(preamble+s+checks)
  subprocess.run(['g++','-std=c++17',str(path),'-o',str(Path(d)/'test')],check=True)
  subprocess.run([str(Path(d)/'test')],check=True)
-print('8 goal-selection assertions passed: neighboring fallback, local preference, map/range rejection and camp distance boundaries')
+print('15 goal-selection assertions passed, including no-goal flight-master recovery boundaries')
