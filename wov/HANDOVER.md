@@ -105,6 +105,11 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-23 17:24 – LLM-servern AVSTÄNGD (operatören reser 24–27/10)
+- `systemctl --user stop llama-server` på 192.168.0.115 (idiadmin, ingen sudo). GPU 84 °C/150 W före (effektgränsen 95 W hade försvunnit, 151 W), 54 °C/14 W efter.
+- Följd: ambient/utility/judge-anrop misslyckas (Connection refused); svar till riktiga spelare går via Haiku som förut. Spelet påverkas inte.
+- Starta igen: `ssh -i ~/.ssh/headlessdm_ai idiadmin@192.168.0.115 systemctl --user start llama-server`. Sätt först 95 W (kräver operatörens sudo): `sudo nvidia-smi -pm 1 && sudo nvidia-smi -pl 95`, gärna som systemd-tjänst.
+
 ### 2026-10-23 14:35 – Claude: uppföljning efter Codex
 - Guilds MÅL NÅTT: 10-19 149/202 (74 %), 20-39 306/363 (84 %), 40-60 400/443 (90 %). Timern fortsätter hålla nivån. guild_fill: en tredjedel av sociala/övriga botar 20+ går nu till PvP-guild (Southshore Survivors hade bara 29). Befintliga medlemmar orörda.
 - Utrustning hela beståndet (obligatoriska platser, ej skjorta/tabard), grå/vit: 20-29 34 %, 30-39 3 %, 40-49 1 %, 50-59 1 %, 60 0 %. Blå: 11/20/22/66 %, episk 12 % vid 60. Alla online 30+ har regear-markering (388); 222 offline-botar 30+ får sin vid inloggning. Ingen åtgärd behövs.
