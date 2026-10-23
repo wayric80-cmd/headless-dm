@@ -105,6 +105,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-23 22:10 – Claude: hantverksbeställningar mellan botar i Trade
+- `WovCraftTradeAsk` (crafting-blocket i RandomPlayerbotMgr.cpp), anropas från `WovPostTrade` (22 % av Trade-inläggen): en bot postar "LF tailor to make [länk], have mats"; en bot i huvudstad som verkligen kan receptet (HasSpell) svarar i Trade efter 15–70 s (70 %): "tailor here, can do [länk], w me". Bara icke-BoP gröna+ vapen/rustningar eller förbrukningsvaror med RequiredLevel inom askerns nivå −12..0. Yrken: alch/bs/cook/engi/first aid/lw/tailor.
+- Kräver `AiPlayerbot.WoV.Craft.Enable = 1`. Liksom övriga Trade-inlägg bara när en riktig spelare är i en huvudstad. Logg "WoV craft: X asks Trade for ...".
+- En riktig spelare som viskar crafter-boten "can u make [länk]" får den vanliga beställningen (matlista + post).
+- Backup /opt/wow/backups/craft-trade-20261023-220614. BUILD_EXIT=0. Omstart ca 22:09 (ingen riktig spelare online). Ej verifierat live (ingen spelare i huvudstad).
+- AV utrett och PARKERAT: kräver 20/sida på 51+, bara ~31 Horde/36 Alliance 51+ online och WSG 60 + AB tar redan ~45 av dem.
+
 ### 2026-10-23 22:00 – Claude: dungeons tillsammans (punkt 7)
 - **Dungeonprat utan LLM** (mod-playerbots, block `wov: dungeon talk` i RandomPlayerbotMgr.cpp, `WovDungeon_Tick`, krok `OnPlayerGroupRollRewardItem` i Playerbots.cpp). Bara i grupper med en riktig spelare:
   - Loot: bot som vinner på need när en riktig spelare också needade säger förlåt (75 %, "sry, was an upgrade for me"), ibland "unlucky" från en annan bot; riktig spelare som vinner blått får gz (80 %, episkt även en andra gz); bot som vinner blått "nice/finally" + ibland gz.
@@ -296,3 +303,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 
 - **Codex 2026-10-23 12:23: GitHub-push GODKÄND av operatören i chatten och genomförd.** mod-playerbots origin/wov = 88e586be, headless-dm origin/main = 922aeb7 före denna dokumentationsuppdatering. Båda verifierade med ls-remote mot lokalt HEAD. Tidigare anteckningar om väntande pushgodkännande är historik och gäller inte längre. Inga driftändringar i detta steg.
 - 2026-10-23 22:00 Claude: dungeonprat (loot/wipe/inträde) i grupper med riktig spelare, ingen need på BAD_EQUIP med riktig spelare, partychatt med riktig spelare via Haiku. Omstart godkänd.
+- 2026-10-23 22:10 Claude: botar beställer hantverk av varandra i Trade (LF {prof} to make [item] + svar från bot som kan receptet). AV parkerat (för få 51+ online).
