@@ -175,8 +175,8 @@ def route_call(route_name, messages, opts):
             cost = usage.get("cost")
             log(f"route={route_name} backend={name} "
                 f"ok {int((time.time()-t0)*1000)}ms (queued {waited}ms) {len(text)}ch"
-                + (f" {usage.get('prompt_tokens', 0)}+{usage.get('completion_tokens', 0)}tok ${cost:.5f}"
-                   if cost is not None else ""))
+                + f" {usage.get('prompt_tokens', usage.get('input_tokens', 0))}+{usage.get('completion_tokens', usage.get('output_tokens', 0))}tok"
+                + (f" ${cost:.5f}" if cost is not None else ""))
             return text
         except Exception as e:  # noqa: BLE001 — any backend failure → next
             log(f"route={route_name} backend={name} "
