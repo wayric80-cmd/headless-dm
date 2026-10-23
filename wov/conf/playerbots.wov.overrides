@@ -23,10 +23,14 @@ AiPlayerbot.WoV.Init.TradeSeconds = 60
 AiPlayerbot.WoV.Init.LfgSeconds = 180
 AiPlayerbot.AutoUpgradeEquip = 0
 AiPlayerbot.RandomGearQualityLimit = 2
-AiPlayerbot.RandomGearLoweringChance = 0.6
+AiPlayerbot.RandomGearLoweringChance = 0.25
 AiPlayerbot.AutoGearQualityLimit = 2
 AiPlayerbot.WoV.RegearOnce.Enable = 1
 AiPlayerbot.WoV.RegearOnce.PerTick = 4
+# One fresh set per level bracket (30/40/50/60) at level-typical quality; see WovRegearBracket_Tick.
+AiPlayerbot.WoV.RegearBracket.Enable = 1
+AiPlayerbot.WoV.RegearBracket.PerTick = 3
+AiPlayerbot.WoV.RegearBracket.MinLevel = 30
 AiPlayerbot.WoV.Market.Enable = 1
 AiPlayerbot.WoV.Market.TripsPerHourPct = 60
 AiPlayerbot.WoV.Market.BudgetPct = 35
