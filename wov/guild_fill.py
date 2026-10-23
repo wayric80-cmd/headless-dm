@@ -95,7 +95,8 @@ def kind_for(level, drive, guid):
         return 'pve' if level >= 30 else 'leveling'
     if drive == 'level':
         return 'pve' if level >= 50 else 'leveling'
-    return 'mixed'
+    # drive pvp is rare: a third of the social/other bots 20+ join a PvP guild so those guilds are not empty
+    return 'pvp' if stable(guid * 11) < 35 else 'mixed'
 
 def main():
     ap = argparse.ArgumentParser()
