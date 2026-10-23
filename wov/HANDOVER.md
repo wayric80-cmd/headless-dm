@@ -225,3 +225,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 08:50 Claude: webbportalen (Codex Portal 2.0) ny design, kopplad till riktiga spelkonton och körs som wov-portal.service under idiadmin. Se avsnittet Webbportal.
 - 2026-10-23 09:12 Claude: portalen publik på https://wayofvanilla.se (wov-tunnel.service). Registrering skapar riktiga spelkonton, max 3 per IP och dygn.
 - 2026-10-23 09:20 Claude: portalen skickar lösenordsåterställning via Resend.
+- 2026-10-23 10:00 Claude: portalens registrering kräver nu e-postbekräftelse (spelkontot skapas först när länken klickas) + honeypot, tidsspärr och blocklista för engångsadresser.
