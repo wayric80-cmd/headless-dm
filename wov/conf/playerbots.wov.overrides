@@ -48,3 +48,21 @@ AiPlayerbot.WoV.PvpMovement.Debug = 0
 
 # Temporary runtime verification of real profession skill gains.
 AiPlayerbot.WoV.Profession.Debug = 0
+
+# Battlegrounds (Classic only): bots start their own WSG/AB games so the queues are alive.
+# WSG 20-29, 30-39, 40-49, 50-59, 60 (one game each), AB at 60. AV, EotS, IoC and rated arenas stay off.
+AiPlayerbot.RandomBotAutoJoinBG = 1
+AiPlayerbot.RandomBotAutoJoinWSBrackets = 1,2,3,4,5
+AiPlayerbot.RandomBotAutoJoinABBrackets = 4
+AiPlayerbot.RandomBotAutoJoinAVBrackets = 0
+AiPlayerbot.RandomBotAutoJoinEYBrackets = 0
+AiPlayerbot.RandomBotAutoJoinICBrackets = 0
+AiPlayerbot.RandomBotAutoJoinBGWSCount = 1
+AiPlayerbot.RandomBotAutoJoinBGABCount = 1
+AiPlayerbot.RandomBotAutoJoinBGAVCount = 0
+AiPlayerbot.RandomBotAutoJoinBGEYCount = 0
+AiPlayerbot.RandomBotAutoJoinBGICCount = 0
+
+# Crafting orders: a real player links an item and asks; a bot with the recipe asks for the mats by mail,
+# crafts, and mails the result back (tips kept). Unrequested item mail to bots is returned.
+AiPlayerbot.WoV.Craft.Enable = 1
