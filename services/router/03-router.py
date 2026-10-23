@@ -145,7 +145,11 @@ def call_backend(backend, messages, opts, context=None):
             out = json.loads(resp.read().decode())
         attempt.result = out
         content = out["choices"][0]["message"]["content"] or ""
-        return THINK_RE.sub("", content).strip(), out.get("usage") or {}
+        content = THINK_RE.sub("", content).strip()
+        if opts.get("format") == "json" and content.startswith("```"):
+            # wov: backends without response_format (Haiku) wrap JSON in a code fence
+            content = re.sub(r"^```[a-zA-Z]*\s*|\s*```$", "", content).strip()
+        return content, out.get("usage") or {}
 
 def route_call(route_name, messages, opts):
     backends = ROUTES.get(route_name) or ROUTES[DEFAULT_ROUTE]

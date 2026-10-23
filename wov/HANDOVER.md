@@ -104,6 +104,14 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 
 ## Pågående arbete
+
+### 2026-10-23 12:41 – 100 % Haiku (operatörsbeslut, resa 4 dagar)
+- Operatören beslutade att all LLM-trafik går till Haiku medan Qwen-servern (192.168.0.115) är avstängd.
+- `site/fleet.toml`: alla `[routes]` = `["haiku"]`, `[judge] backend = "haiku"`, haiku `router_slots = 6`, `response_format` i haikus `drop_params`.
+- `services/router/03-router.py`: tar bort ```json-staket när format=json (Haiku saknar response_format).
+- Backup av Qwen-konfigen: `/opt/wow/backups/fleet.toml.qwen-20261023-124036`.
+- **Återställ efter resan** (när Qwen-servern är uppe): `sudo -u idiadmin cp /opt/wow/backups/fleet.toml.qwen-20261023-124036 /opt/wow/headless-dm/site/fleet.toml && sudo systemctl restart wow-router`. Routerfixen kan ligga kvar.
+- Kör inga batch/lore-jobb under tiden (batch-lanes pekar fortfarande på main).
 **Codex 2026-10-23 12:23: GitHub-push GODKÄND av operatören i chatten och genomförd.** mod-playerbots origin/wov = 88e586be, headless-dm origin/main = 922aeb7 före denna dokumentationsuppdatering. Båda verifierade med ls-remote mot lokalt HEAD. Tidigare anteckningar om väntande pushgodkännande är historik och gäller inte längre. Inga driftändringar i detta steg.
 
 **Codex 2026-10-23 12:20 – utrustningsfix aktiv och stickprovsverifierad:** Efter godkänd omstart 12:13:30 jämfördes samma 75 botar som hade regear-markering före saveall 12:18:21. Grå/vita utrustade föremål 144/1082 → 0/1111; tomma kärnplatser 38 → 0; blå 279 → 339, episka 12 → 12. Alla 75 har huvudvapen både före/efter. Valfria offhand/ranged räknas inte som obligatoriska; trinkets krävs i måttet först från nivå 50. Den första 81-botarsmätningen innehöll sex markeringar skapade under save/snapshot: dess nio grå/vita låg alla hos botar omutrustade efter sparstart. Därför används den tidsavgränsade 75-kohorten som slutresultat. Detta är INTE hela beståndet eller en garanti för framtida loot. Kön fortsätter 3 per 10 s, endast berättigade ogrupperade/icke-stridande botar utanför instans/flyg behandlas. Slutprov 299 karaktärer, 0 spelare, mean 3 ms, p95 8/p99 15/max 33 ms, active/running NRestarts=0. Alla speltjänster aktiva; auth/router ej omstartade och routing oförändrad.
