@@ -64,6 +64,11 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 2. **Tredje person:** vissa botar pratar om sig själva i tredje person. Åtgärdat 2026-10-21 16:2x: regel i OllamaChat.SystemPrompt (alltid första person, aldrig sitt eget namn). Följ upp i chattloggen (ledger_chat) – finns kvar? Kolla även personlighetstexterna (BIO_/lore_character) som är skrivna i tredje person.
 3. **PvP-rörelser ser botiga ut** (Southshore, före Call to Arms v2-v4): ingen rör sig naturligt. Förslag: strafe/circle-strafing och hopp i närstrid, kiting för caster/hunter (avstånd + backa), ta skydd bakom hinder (LoS), sprida sig i stället för att klumpa, varierad reaktionstid, retirera vid låg hälsa, inte springa i rak linje. Titta på playerbots pvp-strategier (Strategy/Pvp*, "pvp"-strategin, MovementActions, flee) och ev. egna rörelseactions. Testa i Hillsbrad med Call to Arms.
 
+## Webbportal (sedan 2026-10-23)
+- `/opt/wow/portal` (idiadmin, eget lokalt git-repo, ej i headless-dm). Användartjänst `wov-portal.service`, http://100.95.162.107:14310/ (endast Tailscale).
+- Riktiga spelkonton: registrering/inloggning/lösenord/e-post skriver `acore_auth.account` via DB-användaren i `portal.env` (600). Läs `/opt/wow/portal/README.md` innan ändring. Webbdatat ligger i `runtime/portal.sqlite`.
+- Ej anslutet ännu: e-post (återställning), publik HTTPS via Cloudflare (wayofvanilla.se svarar 1033 = tunnel utan connector), PayPal.
+
 ## Våra ändringar (allt under `wov/` + patchar)
 - `wov/conf/mod_ollama_chat.wov.overrides` – spelarröst, prompter, chatter-inställningar. Appliceras med
   `wov/apply-overlay.py` (backup `.bak-wov-*`).
@@ -215,3 +220,5 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-22 21:17 Codex: godkänd world-omstart klar,33s init,1678scheman,oförändrad routing. FM-fallback aktiv;15min begränsat read-only prov av de tre fastnade ledarna startat medan inloggning pågår. Resultat ännu ej klart.
 
 - 2026-10-23 00:58 Codex: runtimeprov klart; samtliga tre fastnade ledare lämnade platsen. Ny kontroll:0 av36 onlineguildbotar vid floden, alla tre i andra områden. Server900karaktärer,mean8ms,NRestarts0. Klumpningen löst i dessa observationer, fortsatt återkomstbevakning.
+
+- 2026-10-23 08:50 Claude: webbportalen (Codex Portal 2.0) ny design, kopplad till riktiga spelkonton och körs som wov-portal.service under idiadmin. Se avsnittet Webbportal.
