@@ -105,6 +105,11 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-23 14:35 – Claude: uppföljning efter Codex
+- Guilds MÅL NÅTT: 10-19 149/202 (74 %), 20-39 306/363 (84 %), 40-60 400/443 (90 %). Timern fortsätter hålla nivån. guild_fill: en tredjedel av sociala/övriga botar 20+ går nu till PvP-guild (Southshore Survivors hade bara 29). Befintliga medlemmar orörda.
+- Utrustning hela beståndet (obligatoriska platser, ej skjorta/tabard), grå/vit: 20-29 34 %, 30-39 3 %, 40-49 1 %, 50-59 1 %, 60 0 %. Blå: 11/20/22/66 %, episk 12 % vid 60. Alla online 30+ har regear-markering (388); 222 offline-botar 30+ får sin vid inloggning. Ingen åtgärd behövs.
+- Inga omstarter, routing oförändrad (Qwen + Haiku för person).
+
 ### 2026-10-23 12:41 – 100 % Haiku (operatörsbeslut, resa 4 dagar)
 - Operatören beslutade att all LLM-trafik går till Haiku medan Qwen-servern (192.168.0.115) är avstängd.
 - `site/fleet.toml`: alla `[routes]` = `["haiku"]`, `[judge] backend = "haiku"`, haiku `router_slots = 6`, `response_format` i haikus `drop_params`.
