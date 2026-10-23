@@ -1,0 +1,7 @@
+[Unit]
+Description=Way of Vanilla: keep random bots in guilds (wov/guild_fill.py)
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/wow/headless-dm
+ExecStart=/usr/bin/python3 /opt/wow/headless-dm/wov/guild_fill.py --max 80
