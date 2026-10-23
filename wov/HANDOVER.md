@@ -226,3 +226,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 09:12 Claude: portalen publik på https://wayofvanilla.se (wov-tunnel.service). Registrering skapar riktiga spelkonton, max 3 per IP och dygn.
 - 2026-10-23 09:20 Claude: portalen skickar lösenordsåterställning via Resend.
 - 2026-10-23 10:00 Claude: portalens registrering kräver nu e-postbekräftelse (spelkontot skapas först när länken klickas) + honeypot, tidsspärr och blocklista för engångsadresser.
+- 2026-10-23 10:10 Claude: Cloudflare Turnstile krävs på publik registrering och lösenordsåterställning (nycklar i /opt/wow/portal/portal.env).
