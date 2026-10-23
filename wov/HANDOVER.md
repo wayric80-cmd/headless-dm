@@ -105,6 +105,18 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-23 22:00 – Claude: dungeons tillsammans (punkt 7)
+- **Dungeonprat utan LLM** (mod-playerbots, block `wov: dungeon talk` i RandomPlayerbotMgr.cpp, `WovDungeon_Tick`, krok `OnPlayerGroupRollRewardItem` i Playerbots.cpp). Bara i grupper med en riktig spelare:
+  - Loot: bot som vinner på need när en riktig spelare också needade säger förlåt (75 %, "sry, was an upgrade for me"), ibland "unlucky" från en annan bot; riktig spelare som vinner blått får gz (80 %, episkt även en andra gz); bot som vinner blått "nice/finally" + ibland gz.
+  - Wipe (alla i gruppen på kartan döda, minst 3): "wipe/rip/welp" efter 2–5 s, sedan "run back?/who pulled that lol" efter 10–22 s. Nedkylning 4 min per grupp.
+  - Inträde i instans (ny instans för spelaren, minst 2 botar): 55 % "r/gogo/1 sec drinking".
+  - Logg: Playerbots.log "WoV dungeon:".
+- **Ingen ninja-need:** LootRollAction – med en riktig spelare i gruppen blir ITEM_USAGE_BAD_EQUIP (kan bära men ingen uppgradering) greed i stället för need.
+- **Partychatt med riktig spelare → Haiku** (mod-ollama-chat `OllamaDispatch_Submit`): party/raid-källa + riktig spelare i gruppen ⇒ person-lanen, som guildchatt. Gör att boss-gz, partysnack och bot-till-bot-svar fungerar trots att Qwen är avstängd. Kostnad begränsad till grupper med riktiga spelare. Stäng av: `OllamaChat.WoV.PartyPersonLane = 0` + omstart (läses vid varje anrop via sConfigMgr; `ra "reload config"` räcker troligen).
+- Fanns redan: LFM/LFG från riktig spelare besvaras och grupp bildas (WovTogether), "ty for group" vid leave.
+- Backup /opt/wow/backups/dungeon-talk-20261023-215603. Bygge BUILD_EXIT=0 (logs/claude-dungeon-talk-build.log). Omstart godkänd av operatören ca 22:00.
+- EJ verifierat med riktig klient i instans. Testa: LFM i kanal → grupp → gå in i t.ex. RFC/deadmines, kolla partychatt vid loot och wipe.
+
 ### 2026-10-23 17:24 – LLM-servern AVSTÄNGD (operatören reser 24–27/10)
 - `systemctl --user stop llama-server` på 192.168.0.115 (idiadmin, ingen sudo). GPU 84 °C/150 W före (effektgränsen 95 W hade försvunnit, 151 W), 54 °C/14 W efter.
 - Följd: ambient/utility/judge-anrop misslyckas (Connection refused); svar till riktiga spelare går via Haiku som förut. Spelet påverkas inte.
@@ -283,3 +295,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
   Underlag: /opt/wow/backups/regear-quality-floor-20261023-121104/{before.json,after-saved.json,paired-result-coherent.json}, inkl resultat per utrustningsplats. wov/gear_quality_report.py gör endast läsningar. 140 faktiska källkodstester passerar, BUILD_EXIT=0. Fortsatt arbete: större/ senare utrustningsprov, kvalitet per nivåband och guildfyllning i lägre nivåer. wov_battle har nu 71 slag och senaste ended 11:58:04, alltså ny faktisk lagring utöver de 67 historiska; inget nytt slag efter denna omstart hade mätts. GitHub-push väntar uttryckligt godkännande efter auto-review-avslag.
 
 - **Codex 2026-10-23 12:23: GitHub-push GODKÄND av operatören i chatten och genomförd.** mod-playerbots origin/wov = 88e586be, headless-dm origin/main = 922aeb7 före denna dokumentationsuppdatering. Båda verifierade med ls-remote mot lokalt HEAD. Tidigare anteckningar om väntande pushgodkännande är historik och gäller inte längre. Inga driftändringar i detta steg.
+- 2026-10-23 22:00 Claude: dungeonprat (loot/wipe/inträde) i grupper med riktig spelare, ingen need på BAD_EQUIP med riktig spelare, partychatt med riktig spelare via Haiku. Omstart godkänd.
