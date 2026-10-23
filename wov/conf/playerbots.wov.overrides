@@ -66,3 +66,4 @@ AiPlayerbot.RandomBotAutoJoinBGICCount = 0
 # Crafting orders: a real player links an item and asks; a bot with the recipe asks for the mats by mail,
 # crafts, and mails the result back (tips kept). Unrequested item mail to bots is returned.
 AiPlayerbot.WoV.Craft.Enable = 1
+AiPlayerbot.PersistentProgression.AnchorOnMeeting = 1

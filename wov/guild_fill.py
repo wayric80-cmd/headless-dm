@@ -161,6 +161,10 @@ def main():
             ra.cmd(f'.guild rank {c["name"]} 1')
     if ra:
         ra.close()
+    # wov: keep the progression of bots people know (anchors, see wov/anchor_keep.sh)
+    if not a.dry_run:
+        r = subprocess.run([os.path.join(REPO, 'wov', 'anchor_keep.sh')], capture_output=True, text=True)
+        print('anchors kept:', (r.stdout or r.stderr).strip()[-80:])
     # 3. report coverage
     print('invited', invited, 'of', len(want), 'eligible;', plan_counts)
     for lo, hi in [(10, 19), (20, 39), (40, 60)]:

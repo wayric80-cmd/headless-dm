@@ -105,6 +105,18 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-23 22:40 – Claude: botar tappar inte längre nivåer de som spelare känner till
+- FYND: LevelBrackets (RandomBotLevelMgr, `AiPlayerbot.LevelBrackets.Enabled = 1`, var 5:e min) flyttar botar mellan nivåband (20/20/20/12/11/11/6 %). 24 av 47 botar som nått 60 sedan start är nu lägre (t.ex. Eritha 60→2, Wepwep 60→8); ca 60 sänkningar bara 23/10. `PersistentProgression = 2` fanns men ankartabellen var TOM.
+- Åtgärd: `wov/anchor_keep.sh` (körs i slutet av guild_fill, var 20:e min) lägger rader i `acore_playerbots.playerbots_bot_anchor`: botar med sentiment/relation till en riktig spelare (`wov-met`, ankare = spelaren), botar i guild med riktig spelare (`wov-guild`), alla botar på 60 (`wov-max`, ankare = sig själv). 188 ankrade. Overlay `AiPlayerbot.PersistentProgression.AnchorOnMeeting = 1` (nya möten ankras automatiskt), `ra "reload config"` – loggen bekräftar "188 anchored bots keep their progression". Ingen omstart.
+- FollowGap 6 gäller fortfarande: ankrad bot som ligger 6+ under sin riktiga spelare lyfts till 1–3 under (aldrig i synhåll).
+- Ta bort: `DELETE FROM playerbots_bot_anchor WHERE source LIKE 'wov-%'` + ta bort raden i overlay.
+- Beslut för operatören efter resan: ska LevelBrackets alls få sänka befintliga karaktärer? Alternativ: spelarna bakom botarna "rerollar" alts (andra karaktärer på kontot) i stället.
+
+### 2026-10-23 22:30 – Claude: portalen Events + History (portal 91bca4c)
+- `GET /api/events` (cache 60 s): senaste 7 dagarna – dungeonbossar (kill + acore_world.instance_encounters, grupperade per boss/15 min, "Dungeon cleared" vid sista bossen), level 60 (59→60 och fortfarande 60), blå/episk loot, nya guilds, slag ur wov_battle; dagens siffror (quests, levlar, 60, bossar, slag, fynd).
+- `GET /api/history` (cache 5 min): dag-för-dag-krönika 14 dagar, realm firsts (första 60 totalt/per klass, första episka, första guild, första clear per dungeon), rekord (största slaget, flest kills på en dag).
+- Läser aldrig actor_is_bot. 24/24 tester. Kontrollerat i webbläsare desktop + 390 px utan horisontell overflow.
+
 ### 2026-10-23 22:10 – Claude: hantverksbeställningar mellan botar i Trade
 - `WovCraftTradeAsk` (crafting-blocket i RandomPlayerbotMgr.cpp), anropas från `WovPostTrade` (22 % av Trade-inläggen): en bot postar "LF tailor to make [länk], have mats"; en bot i huvudstad som verkligen kan receptet (HasSpell) svarar i Trade efter 15–70 s (70 %): "tailor here, can do [länk], w me". Bara icke-BoP gröna+ vapen/rustningar eller förbrukningsvaror med RequiredLevel inom askerns nivå −12..0. Yrken: alch/bs/cook/engi/first aid/lw/tailor.
 - Kräver `AiPlayerbot.WoV.Craft.Enable = 1`. Liksom övriga Trade-inlägg bara när en riktig spelare är i en huvudstad. Logg "WoV craft: X asks Trade for ...".
@@ -304,3 +316,5 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - **Codex 2026-10-23 12:23: GitHub-push GODKÄND av operatören i chatten och genomförd.** mod-playerbots origin/wov = 88e586be, headless-dm origin/main = 922aeb7 före denna dokumentationsuppdatering. Båda verifierade med ls-remote mot lokalt HEAD. Tidigare anteckningar om väntande pushgodkännande är historik och gäller inte längre. Inga driftändringar i detta steg.
 - 2026-10-23 22:00 Claude: dungeonprat (loot/wipe/inträde) i grupper med riktig spelare, ingen need på BAD_EQUIP med riktig spelare, partychatt med riktig spelare via Haiku. Omstart godkänd.
 - 2026-10-23 22:10 Claude: botar beställer hantverk av varandra i Trade (LF {prof} to make [item] + svar från bot som kan receptet). AV parkerat (för få 51+ online).
+- 2026-10-23 22:30 Claude: portalen Events-flöde och History-krönika.
+- 2026-10-23 22:40 Claude: 188 botar ankrade (möten, guild med riktig spelare, level 60) så LevelBrackets inte sänker dem; AnchorOnMeeting = 1.
