@@ -68,7 +68,7 @@ Det är den godkända arbetsvägen (sentinelx har en sudoers-regel för just det
 - `/opt/wow/portal` (idiadmin, eget lokalt git-repo, ej i headless-dm). Användartjänst `wov-portal.service`, http://100.95.162.107:14310/ (endast Tailscale).
 - Riktiga spelkonton: registrering/inloggning/lösenord/e-post skriver `acore_auth.account` via DB-användaren i `portal.env` (600). Läs `/opt/wow/portal/README.md` innan ändring. Webbdatat ligger i `runtime/portal.sqlite`.
 - PUBLIK sedan 2026-10-23 09:10: https://wayofvanilla.se via Cloudflare Tunnel, användartjänst `wov-tunnel.service` (cloudflared -> 127.0.0.1:8089). Stoppa publik åtkomst: `systemctl --user stop wov-tunnel`.
-- Ej anslutet ännu: e-post via Resend (DNS klart, API-nyckel saknas), PayPal.
+- E-post via Resend (no-reply@wayofvanilla.se, nyckel i portal.env): lösenordsåterställning aktiv sedan 2026-10-23 09:18. Ej anslutet: PayPal.
 
 ## Våra ändringar (allt under `wov/` + patchar)
 - `wov/conf/mod_ollama_chat.wov.overrides` – spelarröst, prompter, chatter-inställningar. Appliceras med
@@ -224,3 +224,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 
 - 2026-10-23 08:50 Claude: webbportalen (Codex Portal 2.0) ny design, kopplad till riktiga spelkonton och körs som wov-portal.service under idiadmin. Se avsnittet Webbportal.
 - 2026-10-23 09:12 Claude: portalen publik på https://wayofvanilla.se (wov-tunnel.service). Registrering skapar riktiga spelkonton, max 3 per IP och dygn.
+- 2026-10-23 09:20 Claude: portalen skickar lösenordsåterställning via Resend.
