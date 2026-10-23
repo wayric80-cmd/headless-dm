@@ -227,3 +227,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 09:20 Claude: portalen skickar lösenordsåterställning via Resend.
 - 2026-10-23 10:00 Claude: portalens registrering kräver nu e-postbekräftelse (spelkontot skapas först när länken klickas) + honeypot, tidsspärr och blocklista för engångsadresser.
 - 2026-10-23 10:10 Claude: Cloudflare Turnstile krävs på publik registrering och lösenordsåterställning (nycklar i /opt/wow/portal/portal.env).
+- 2026-10-23 11:00 Claude: War room Guilds/PvP i portalen. Ny tabell acore_characters.wov_battle (67 slag backfyllda ur Playerbots.log). WovEnd skriver nya slag dit (mod-playerbots 1fbed02e), byggt men INTE aktivt förrän godkänd wow-world-omstart.
