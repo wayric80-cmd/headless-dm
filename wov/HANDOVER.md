@@ -110,7 +110,10 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 - Utrustning hela beståndet (obligatoriska platser, ej skjorta/tabard), grå/vit: 20-29 34 %, 30-39 3 %, 40-49 1 %, 50-59 1 %, 60 0 %. Blå: 11/20/22/66 %, episk 12 % vid 60. Alla online 30+ har regear-markering (388); 222 offline-botar 30+ får sin vid inloggning. Ingen åtgärd behövs.
 - Inga omstarter, routing oförändrad (Qwen + Haiku för person).
 - 14:32 Codex nästa åtgärd utförd: Greet.Template nämner bara gemensamma minnen som står i anteckningarna, utan påhittat när/var/vad. Overlay applicerad (1 nyckel), live mod_ollama_chat.conf verifierad, `ra "ollama reload"` OK. Backup /opt/wow/backups/mod_ollama_chat.wov.overrides.greet-*.
-- Nästa i färdplanen (Testprotokoll): beställningar av hantverk och battlegrounds. Kräver C++ och world-omstart; startas INTE medan operatören är bortrest 24–27/10.
+- 14:55 Operatören sa "kör på": **hantverksbeställningar och battlegrounds byggda och AKTIVA** (omstart 14:53, godkänd, PID 1074909, World Initialized 33 s, NRestarts 0).
+  - Hantverk (mod-playerbots RandomPlayerbotMgr.cpp `WovCraft_*`, krok i Playerbots.cpp, mod-ollama-chat hoppar över sådana meddelanden): riktig spelare länkar ett föremål + "can u make/craft" i viskning, eller "LF/WTB/anyone ... [länk]" i kanal. Bot med receptet viskar matlista och ber om post. Posten behandlas ~1 min efter avsändning (inte 1 h): reagenser förbrukas, föremålet skapas (riktig skill-up via UpdateCraftSkill), resultat + rester postas tillbaka utan fördröjning, pengar behålls som dricks, högst 5 tillverkningar per brev. Föremålspost från riktiga spelare utan beställning skickas tillbaka. Tabell `wov_craft_order` (wov/sql/wov_craft_order.sql), beställningar går ut efter 3 dygn. `AiPlayerbot.WoV.Craft.Enable = 1`. Logg: Playerbots.log "WoV craft:". 2238 tillverkningsbara föremål laddade. EJ verifierat med riktig klient.
+  - Battlegrounds: `RandomBotAutoJoinBG = 1`, WSG band 20-29..60 (en match var), AB vid 60; AV/EotS/IoC/arena av. Följ CPU/diff och att matcherna faktiskt startar.
+  - Backup /opt/wow/backups/craft-orders-20261023-145137 (källfiler), overrides-backup playerbots.wov.overrides.bg-*.
 
 ### 2026-10-23 12:41 – 100 % Haiku (operatörsbeslut, resa 4 dagar)
 - Operatören beslutade att all LLM-trafik går till Haiku medan Qwen-servern (192.168.0.115) är avstängd.
