@@ -102,6 +102,11 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 10. [ ] GPU-effekt 95 W -> 120/150 W efter rengöring (operatören, sudo nvidia-smi -pl).
 11. [ ] Efter testperioden: OllamaChat.DebugEnabled = 0, DebugShowFullPrompt = 0.
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
+**Beslutat 2026-10-24 (operatören), i ordning** – detaljer i Claude-projektets `claude/Analys-moduler-2026-10-24.md`:
+12. [ ] A. Cherry-picka upstream mod-playerbots BG/raid-fixar sedan ~11/9: #2935 (BG-strategikarta, krasch), #2855, #2857, #2834, #2859, #2850, BWL #2736/#2831. En i taget, bygg + test.
+13. [ ] B. jrad7/mod-dungeon-clear + egen WoV-samordnare: botarnas LFG/LFM-planer (WovLfx) blir riktiga grupper (roll/nivå/fraktion) som går/flyger till ingången och kör, utan teleport. Riktig spelare i gruppen: tanken leder. Före lansering, testas vid generalrepetitionen.
+14. [ ] C. Raid Clear (buildthehomelab/wow-mod-playerbots src/Ai/Raid/RaidClear): Ony/MC/BWL/ZG/AQ, guildraidkvällar, förtjänade attunements. Efter lansering.
+15. [ ] D. World buffs (Warchief's Blessing, Rallying Cry, Spirit of Zandalar), helst via riktiga inlämningar efter kill; mod-world-buff-bots som reserv. Efter C.
 
 ## Pågående arbete
 
