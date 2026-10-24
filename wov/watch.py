@@ -130,6 +130,12 @@ def daily(dry):
     accounts = one("SELECT COUNT(*) FROM account WHERE joindate >= NOW() - INTERVAL 1 DAY AND username NOT LIKE 'RNDBOT%'", 'acore_auth')
     logins = one("SELECT COUNT(*) FROM account WHERE last_login >= NOW() - INTERVAL 1 DAY AND username NOT LIKE 'RNDBOT%'", 'acore_auth')
     anchors = one("SELECT COUNT(*) FROM playerbots_bot_anchor", 'acore_playerbots')
+    bands = db("SELECT CASE WHEN c.level>=60 THEN '60' WHEN c.level>=51 THEN '51-59' ELSE CONCAT(FLOOR((c.level-1)/10)*10+1,'-',FLOOR((c.level-1)/10)*10+10) END b, "
+               "COUNT(*), SUM(c.online) FROM characters c JOIN acore_auth.account a ON a.id=c.account WHERE a.username LIKE 'RNDBOT%' GROUP BY b")
+    order = ['1-10', '11-20', '21-30', '31-40', '41-50', '51-59', '60']
+    bmap = {r[0]: (int(r[1]), int(r[2] or 0)) for r in bands}
+    on_total = max(1, sum(v[1] for v in bmap.values()))
+    band_line = ', '.join(f"{k}: {bmap.get(k, (0, 0))[1]} online ({round(100 * bmap.get(k, (0, 0))[1] / on_total)} %) of {bmap.get(k, (0, 0))[0]}" for k in order)
     disk = sh("df -h /opt/wow | awk 'NR==2{print $4\" free of \"$2}'")
     mem = sh("free -m | awk '/Mem:/{print $7\" MiB available of \"$2}'")
     units = ', '.join(f'{n} {unit(n).get("ActiveState")}' for n in SYSTEM) + ', ' + \
@@ -150,7 +156,7 @@ AI
 Realm last 24 h
 - {quests} quests, {dings} levels gained, {kills} PvP kills, {battles} Call to Arms battles
 - New game accounts: {accounts}. Real accounts that logged in: {logins}
-- Bots whose progression is kept: {anchors}
+- Level bands (target 12/12/12/12/12/12/28 % online): {band_line}
 
 War room: https://wayofvanilla.se/#dashboard
 """

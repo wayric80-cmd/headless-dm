@@ -69,3 +69,5 @@ AiPlayerbot.WoV.Craft.Enable = 1
 AiPlayerbot.PersistentProgression.AnchorOnMeeting = 1
 AiPlayerbot.PersistentProgression.FollowGap = 0
 AiPlayerbot.PersistentProgression = 1
+AiPlayerbot.WoV.Bands = 12,12,12,12,12,12,28
+AiPlayerbot.WoV.RespecChancePct = 6

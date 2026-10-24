@@ -109,8 +109,12 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 - Operatören: botar ska levla 1–60 själva som riktiga spelare och låsa spec/roll vid 60; en viss andel ska alltid finnas i varje nivåband (1–10, 11–20 …). Servern får alltså ALDRIG ändra en befintlig karaktärs nivå.
 - Gjort: overlay `AiPlayerbot.PersistentProgression = 1` (alla random-botar behåller nivå, väskor, quests, talanger; LevelBrackets och ResetBotLevel overridas). `ra "reload config"`. Spec: `EquipAndSpecPersistence = 1` från level 1 fanns redan, så talanger rerollas inte.
 - wov/anchor_keep.sh är nu överflödig (ofarlig) i läge 1.
-- Nästa: nivåbanden hålls via befolkningsflöde, inte nivåändringar – nya spelare börjar på level 1, en del veteraner spelar mer sällan/slutar. Väntar på operatörens andelar per band.
-- Känt: `WovRoleOf` (LFG-roll) går på klass + guid, inte på faktisk spec; ska kopplas till specNo.
+- 09:36 byggt + omstart (ingen riktig spelare online), mod-playerbots d665cfbc:
+  - **Nivåband styr vem som är online** (`AiPlayerbot.WoV.Bands = 12,12,12,12,12,12,28` för 1–10, 11–20, 21–30, 31–40, 41–50, 51–59, 60). Inloggningsordningen i AddRandomBots fylls girigt efter bandens underskott; vid sessionsslut stannar botar i band under 90 % av målet kvar, och i band över 130 % får även schemalagda botar logga ut. Nivåer ändras ALDRIG. Första mätningen vid 120 online: 12/12/12/12/12/11/29 %.
+  - **Spec fri till 60:** `AiPlayerbot.WoV.RespecChancePct = 6` – vid level-up (10–59) 6 % chans att nollställa talanger och välja spec på nytt (logg "WoV respec"). Vid 60 bara inkrementellt, alltså låst.
+  - **LFG-roll från faktisk spec:** WovRoleOf använder PlayerbotAI::IsTank/IsHeal(bySpec).
+  - Daglig statusmejl visar online per band mot målet.
+- Kvar: när 1–10-poolen (656 karaktärer) börjar ta slut behövs nya spelare (nya konton/karaktärer på level 1 med profil) och att en del 60:or slutar spela. `AutoTeleportForLevel = 1` teleporterar botar vid level-up (inte spelarlikt) – utred.
 
 ### 2026-10-24 09:30 – Claude: karaktärssidor i portalen
 - `GET /api/character/<namn>` (bokstäver 2–12, cache 30 s) + sida `#character?name=X`. Alla namn i War room (kataloger, roster, topplistor, händelser, krönika) länkar dit.
@@ -341,3 +345,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 22:40 Claude: 188 botar ankrade (möten, guild med riktig spelare, level 60) så LevelBrackets inte sänker dem; AnchorOnMeeting = 1.
 - 2026-10-24 09:00 Claude: wov-watch (larm + daglig status per mejl). Ankar-snöboll rättad (bara tjänade 60 ankras, FollowGap 0). Krasch 06:41 utan core dump.
 - 2026-10-24 09:30 Claude: karaktärssidor i portalen.
+- 2026-10-24 09:36 Claude: PersistentProgression 1 (inga nivåändringar), nivåband styr vem som är online, respec fritt till 60, LFG-roll från spec. Omstart.
