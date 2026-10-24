@@ -105,6 +105,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-24 09:30 – Claude: karaktärssidor i portalen
+- `GET /api/character/<namn>` (bokstäver 2–12, cache 30 s) + sida `#character?name=X`. Alla namn i War room (kataloger, roster, topplistor, händelser, krönika) länkar dit.
+- Innehåll: nivå/klass/ras/fraktion, guild + rang, online-zon, Classic-rang denna vecka, quests/mobs/PvP-kills/bossar/speltid, berättelse (milstolpenivåer, bossar, blå/episk loot, guildhändelser), favoritoffer och nemesis.
+- Om nivån satts av servern (hopp eller sänkning i stället för en vanlig ding) börjar berättelsen efter den punkten och veckorangen/livstids-HK döljs, så en level 14 aldrig visar level 60-bedrifter. GM-/staffkaraktärer (account_access) har ingen sida.
+- 25/25 tester. Renderad med Playwright mot riktig API-data (desktop + 390 px, ingen overflow, inga JS-fel). Portal-commit efter 91bca4c.
+- Qwen förblir avstängd under resan (operatörsbeslut 24/10): inga nya botminnen tills den startas igen.
+
 ### 2026-10-24 09:00 – Claude: driftbevakning + rättning av ankar-snöbollen
 - **Bevakning:** `wov/watch.py` med användartimers `wov-watch.timer` (var 10:e min: mejl direkt om wow-world kraschar/startar om, eller om wow-world/auth/router, wov-portal/tunnel/guild-fill-timern inte är aktiva; tyst 1 h efter ett larm) och `wov-watch-daily.timer` (08:07: daglig status – drifttid, krascher, tjänster, online, disk/RAM, Haiku-anrop/tokens/uppskattad kostnad, quests/levlar/PvP/slag, nya konton). Mejl via Resend (portal.env) till way.ric80@gmail.com. Torrkörning: `python3 wov/watch.py daily --dry-run`. Planerade omstarter ger också ett mejl ("planned restart?").
 - **Krasch 2026-10-24 06:41 (SEGV)**, världen uppe igen 06:43 av sig själv. Ingen core dump (apport sparar bara metadata, ingen gdb) – orsak okänd. Första kraschen sedan 21/10. Operatören (sudo): `LimitCORE=infinity` i wow-world-enheten + `apt install gdb`, så nästa krasch går att felsöka.
@@ -326,3 +333,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 22:30 Claude: portalen Events-flöde och History-krönika.
 - 2026-10-23 22:40 Claude: 188 botar ankrade (möten, guild med riktig spelare, level 60) så LevelBrackets inte sänker dem; AnchorOnMeeting = 1.
 - 2026-10-24 09:00 Claude: wov-watch (larm + daglig status per mejl). Ankar-snöboll rättad (bara tjänade 60 ankras, FollowGap 0). Krasch 06:41 utan core dump.
+- 2026-10-24 09:30 Claude: karaktärssidor i portalen.
