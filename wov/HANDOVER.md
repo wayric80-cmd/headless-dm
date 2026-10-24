@@ -103,12 +103,17 @@ Se även Testprotokoll.md i Claude-projektet (operatörens fynd #1–21).
 11. [ ] Efter testperioden: OllamaChat.DebugEnabled = 0, DebugShowFullPrompt = 0.
 Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MOTD satt.
 **Beslutat 2026-10-24 (operatören), i ordning** – detaljer i Claude-projektets `claude/Analys-moduler-2026-10-24.md`:
-12. [ ] A. Cherry-picka upstream mod-playerbots BG/raid-fixar sedan ~11/9: #2935 (BG-strategikarta, krasch), #2855, #2857, #2834, #2859, #2850, BWL #2736/#2831. En i taget, bygg + test.
+12. [x] A. (2026-10-24 10:40, se Pågående arbete) Cherry-picka upstream mod-playerbots BG/raid-fixar sedan ~11/9: #2935 (BG-strategikarta, krasch), #2855, #2857, #2834, #2859, #2850, BWL #2736/#2831. En i taget, bygg + test.
 13. [ ] B. jrad7/mod-dungeon-clear + egen WoV-samordnare: botarnas LFG/LFM-planer (WovLfx) blir riktiga grupper (roll/nivå/fraktion) som går/flyger till ingången och kör, utan teleport. Riktig spelare i gruppen: tanken leder. Före lansering, testas vid generalrepetitionen.
 14. [ ] C. Raid Clear (buildthehomelab/wow-mod-playerbots src/Ai/Raid/RaidClear): Ony/MC/BWL/ZG/AQ, guildraidkvällar, förtjänade attunements. Efter lansering.
 15. [ ] D. World buffs (Warchief's Blessing, Rallying Cry, Spirit of Zandalar), helst via riktiga inlämningar efter kill; mod-world-buff-bots som reserv. Efter C.
 
 ## Pågående arbete
+
+### 2026-10-24 10:40 – Claude: A klart – upstream BG/raid-fixar
+- mod-playerbots: remote `mpb` = github.com/mod-playerbots/mod-playerbots (bara fetch). Vår bas var upstream #2804 (2026-09-20). Cherry-pick -x i ordning: #2736 BWL-bossar (d6202b0b), #2834 inte teleporterad ut ur BG efter död (5424f85e), #2831 BWL/Kara fear (114587ac), #2850 BG-kö per nivåband (4d119214), #2857 WSG-försvar/flaggbärare/spridning (a56d3078), #2859 AV-fixar (317c7f0a), #2855 BG-botar ignorerade fiendespelare (544909bb; konflikt i EnemyPlayerValue.cpp löst med upstreams version, filen hade inga lokala ändringar), #2935 synkad BG-strategikarta (e77f1eed).
+- Backup-gren `wov-before-upstream-fixes` (4b96f338). Bygge BUILD_EXIT=0 (logs/claude-upstream-fixes-build.log, fullbygge ca 10 min). Omstart 10:40 (ingen riktig spelare), init 33 s.
+- Uppföljning: BG-matcher startar när ~400 botar är online; kontrollera "BG:"-rader och krascher inom 24 h (wov-watch mejlar).
 
 ### 2026-10-24 10:00 – Claude: ingen teleport i synhåll + lanseringsbeslut
 - **BESLUT (operatören):** vid lansering för kompisar startar ALLA på level 1 (fresh start, även botar). Plan: Claude-projektets `claude/Lanseringsplan.md` (vad som nollställs/behålls, nivåband av första veckorna, genomförande). Inget genomfört. Därför byggs inte "nya spelare/veteraner slutar" nu.
@@ -356,3 +361,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-24 09:30 Claude: karaktärssidor i portalen.
 - 2026-10-24 09:36 Claude: PersistentProgression 1 (inga nivåändringar), nivåband styr vem som är online, respec fritt till 60, LFG-roll från spec. Omstart.
 - 2026-10-24 10:00 Claude: ingen teleport inom 200 yd från riktig spelare. Lanseringsbeslut: alla börjar på level 1.
+- 2026-10-24 10:40 Claude: A – 8 upstream-fixar (BG + BWL) cherry-pickade, byggt, omstart.
