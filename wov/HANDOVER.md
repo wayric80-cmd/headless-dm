@@ -105,6 +105,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-24 09:50 – Claude: progression som riktiga spelare (operatörsbeslut)
+- Operatören: botar ska levla 1–60 själva som riktiga spelare och låsa spec/roll vid 60; en viss andel ska alltid finnas i varje nivåband (1–10, 11–20 …). Servern får alltså ALDRIG ändra en befintlig karaktärs nivå.
+- Gjort: overlay `AiPlayerbot.PersistentProgression = 1` (alla random-botar behåller nivå, väskor, quests, talanger; LevelBrackets och ResetBotLevel overridas). `ra "reload config"`. Spec: `EquipAndSpecPersistence = 1` från level 1 fanns redan, så talanger rerollas inte.
+- wov/anchor_keep.sh är nu överflödig (ofarlig) i läge 1.
+- Nästa: nivåbanden hålls via befolkningsflöde, inte nivåändringar – nya spelare börjar på level 1, en del veteraner spelar mer sällan/slutar. Väntar på operatörens andelar per band.
+- Känt: `WovRoleOf` (LFG-roll) går på klass + guid, inte på faktisk spec; ska kopplas till specNo.
+
 ### 2026-10-24 09:30 – Claude: karaktärssidor i portalen
 - `GET /api/character/<namn>` (bokstäver 2–12, cache 30 s) + sida `#character?name=X`. Alla namn i War room (kataloger, roster, topplistor, händelser, krönika) länkar dit.
 - Innehåll: nivå/klass/ras/fraktion, guild + rang, online-zon, Classic-rang denna vecka, quests/mobs/PvP-kills/bossar/speltid, berättelse (milstolpenivåer, bossar, blå/episk loot, guildhändelser), favoritoffer och nemesis.
