@@ -105,6 +105,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-24 09:00 – Claude: driftbevakning + rättning av ankar-snöbollen
+- **Bevakning:** `wov/watch.py` med användartimers `wov-watch.timer` (var 10:e min: mejl direkt om wow-world kraschar/startar om, eller om wow-world/auth/router, wov-portal/tunnel/guild-fill-timern inte är aktiva; tyst 1 h efter ett larm) och `wov-watch-daily.timer` (08:07: daglig status – drifttid, krascher, tjänster, online, disk/RAM, Haiku-anrop/tokens/uppskattad kostnad, quests/levlar/PvP/slag, nya konton). Mejl via Resend (portal.env) till way.ric80@gmail.com. Torrkörning: `python3 wov/watch.py daily --dry-run`. Planerade omstarter ger också ett mejl ("planned restart?").
+- **Krasch 2026-10-24 06:41 (SEGV)**, världen uppe igen 06:43 av sig själv. Ingen core dump (apport sparar bara metadata, ingen gdb) – orsak okänd. Första kraschen sedan 21/10. Operatören (sudo): `LimitCORE=infinity` i wow-world-enheten + `apt install gdb`, så nästa krasch går att felsöka.
+- **FEL i mitt ankarsteg 23/10 22:21, rättat 09:00:** `wov-max` ankrade ALLA botar på 60. Nivåbanden räknar inte ankrade botar, så de lyfte nya botar till 60 för att fylla 60-bandet, som sedan ankrades – snöboll: 698 botar på 60 i morse (från ~160), låga nivåer nästan tomma. Dessutom lyfte FollowGap 6 (redan satt sedan tidigare) ankrade botar mot Zugzug (58) till 55–56, t.ex. 10→56.
+  - Åtgärd: `wov-max` gäller nu bara botar som TJÄNAT 60 (ledger 59→60). 659 felaktiga ankare borttagna (backup /opt/wow/backups/bot_anchor-20261024-085915.tsv). Kvar 160 (105 met, 33 guild, 22 max). Overlay `FollowGap = 0`. `ra "reload config"`, loggen: "160 anchored bots keep their progression".
+  - Nivåbanden flyttar nu tillbaka de ohankrade 60:orna i sin vanliga takt (ingen riktig spelare var online när de lyftes). Följ upp nivåfördelningen.
+
 ### 2026-10-23 22:40 – Claude: botar tappar inte längre nivåer de som spelare känner till
 - FYND: LevelBrackets (RandomBotLevelMgr, `AiPlayerbot.LevelBrackets.Enabled = 1`, var 5:e min) flyttar botar mellan nivåband (20/20/20/12/11/11/6 %). 24 av 47 botar som nått 60 sedan start är nu lägre (t.ex. Eritha 60→2, Wepwep 60→8); ca 60 sänkningar bara 23/10. `PersistentProgression = 2` fanns men ankartabellen var TOM.
 - Åtgärd: `wov/anchor_keep.sh` (körs i slutet av guild_fill, var 20:e min) lägger rader i `acore_playerbots.playerbots_bot_anchor`: botar med sentiment/relation till en riktig spelare (`wov-met`, ankare = spelaren), botar i guild med riktig spelare (`wov-guild`), alla botar på 60 (`wov-max`, ankare = sig själv). 188 ankrade. Overlay `AiPlayerbot.PersistentProgression.AnchorOnMeeting = 1` (nya möten ankras automatiskt), `ra "reload config"` – loggen bekräftar "188 anchored bots keep their progression". Ingen omstart.
@@ -318,3 +325,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-23 22:10 Claude: botar beställer hantverk av varandra i Trade (LF {prof} to make [item] + svar från bot som kan receptet). AV parkerat (för få 51+ online).
 - 2026-10-23 22:30 Claude: portalen Events-flöde och History-krönika.
 - 2026-10-23 22:40 Claude: 188 botar ankrade (möten, guild med riktig spelare, level 60) så LevelBrackets inte sänker dem; AnchorOnMeeting = 1.
+- 2026-10-24 09:00 Claude: wov-watch (larm + daglig status per mejl). Ankar-snöboll rättad (bara tjänade 60 ankras, FollowGap 0). Krasch 06:41 utan core dump.
