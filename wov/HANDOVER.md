@@ -105,6 +105,10 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-24 10:00 – Claude: ingen teleport i synhåll + lanseringsbeslut
+- **BESLUT (operatören):** vid lansering för kompisar startar ALLA på level 1 (fresh start, även botar). Plan: Claude-projektets `claude/Lanseringsplan.md` (vad som nollställs/behålls, nivåband av första veckorna, genomförande). Inget genomfört. Därför byggs inte "nya spelare/veteraner slutar" nu.
+- RandomTeleport (level-up-teleport och periodiska teleporter) hoppar över om en riktig spelare är inom 200 yd (utom hearth). mod-playerbots, byggt BUILD_EXIT=0, omstart ca 10:00 (ingen riktig spelare online).
+
 ### 2026-10-24 09:50 – Claude: progression som riktiga spelare (operatörsbeslut)
 - Operatören: botar ska levla 1–60 själva som riktiga spelare och låsa spec/roll vid 60; en viss andel ska alltid finnas i varje nivåband (1–10, 11–20 …). Servern får alltså ALDRIG ändra en befintlig karaktärs nivå.
 - Gjort: overlay `AiPlayerbot.PersistentProgression = 1` (alla random-botar behåller nivå, väskor, quests, talanger; LevelBrackets och ResetBotLevel overridas). `ra "reload config"`. Spec: `EquipAndSpecPersistence = 1` från level 1 fanns redan, så talanger rerollas inte.
@@ -346,3 +350,4 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-24 09:00 Claude: wov-watch (larm + daglig status per mejl). Ankar-snöboll rättad (bara tjänade 60 ankras, FollowGap 0). Krasch 06:41 utan core dump.
 - 2026-10-24 09:30 Claude: karaktärssidor i portalen.
 - 2026-10-24 09:36 Claude: PersistentProgression 1 (inga nivåändringar), nivåband styr vem som är online, respec fritt till 60, LFG-roll från spec. Omstart.
+- 2026-10-24 10:00 Claude: ingen teleport inom 200 yd från riktig spelare. Lanseringsbeslut: alla börjar på level 1.
