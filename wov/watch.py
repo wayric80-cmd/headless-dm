@@ -130,6 +130,16 @@ def daily(dry):
     accounts = one("SELECT COUNT(*) FROM account WHERE joindate >= NOW() - INTERVAL 1 DAY AND username NOT LIKE 'RNDBOT%'", 'acore_auth')
     logins = one("SELECT COUNT(*) FROM account WHERE last_login >= NOW() - INTERVAL 1 DAY AND username NOT LIKE 'RNDBOT%'", 'acore_auth')
     anchors = one("SELECT COUNT(*) FROM playerbots_bot_anchor", 'acore_playerbots')
+    # dungeon clears: a last boss killed (one per party, kills within 15 min of each other count once)
+    dnames = {389: 'RFC', 43: 'WC', 36: 'Deadmines', 33: 'SFK', 48: 'BFD', 34: 'Stockades', 47: 'RFK', 90: 'Gnomeregan',
+              129: 'RFD', 189: 'SM', 70: 'Uldaman', 209: "Zul'Farrak", 349: 'Maraudon', 109: 'Sunken Temple', 230: 'BRD',
+              229: 'Blackrock Spire', 429: 'Dire Maul', 289: 'Scholomance', 329: 'Stratholme'}
+    clears = db("SELECT e.map_id, COUNT(DISTINCT JSON_EXTRACT(e.detail,'$.entry'), FLOOR(UNIX_TIMESTAMP(e.ts)/900)) FROM ledger_event e "
+                "JOIN (SELECT DISTINCT creditEntry entry FROM acore_world.instance_encounters WHERE creditType=0 AND lastEncounterDungeon>0) ie "
+                "ON ie.entry=JSON_EXTRACT(e.detail,'$.entry') WHERE e.event_type='kill' AND e.ts >= NOW() - INTERVAL 1 DAY "
+                "AND JSON_VALID(e.detail) GROUP BY e.map_id ORDER BY 2 DESC")
+    n_clears = sum(int(r[1]) for r in clears)
+    clear_line = f"{n_clears}" + (' (' + ', '.join(f"{dnames.get(int(r[0]), 'map ' + r[0])} {r[1]}" for r in clears) + ')' if clears else '')
     bands = db("SELECT CASE WHEN c.level>=60 THEN '60' WHEN c.level>=51 THEN '51-59' ELSE CONCAT(FLOOR((c.level-1)/10)*10+1,'-',FLOOR((c.level-1)/10)*10+10) END b, "
                "COUNT(*), SUM(c.online) FROM characters c JOIN acore_auth.account a ON a.id=c.account WHERE a.username LIKE 'RNDBOT%' GROUP BY b")
     order = ['1-10', '11-20', '21-30', '31-40', '41-50', '51-59', '60']
@@ -155,6 +165,7 @@ AI
 
 Realm last 24 h
 - {quests} quests, {dings} levels gained, {kills} PvP kills, {battles} Call to Arms battles
+- Dungeons cleared by bot groups: {clear_line}
 - New game accounts: {accounts}. Real accounts that logged in: {logins}
 - Level bands (target 12/12/12/12/12/12/28 % online): {band_line}
 
