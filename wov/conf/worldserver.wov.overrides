@@ -1,1 +1,3 @@
 GameType = 1
+CharacterCreating.Disabled.RaceMask = 1536
+CharacterCreating.Disabled.ClassMask = 32

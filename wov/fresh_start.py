@@ -13,6 +13,9 @@
 
   --real-chars delete|keep   characters on real (non-bot) accounts: deleted (default; the accounts stay) or untouched
   --keep-account NAME        an account that is left alone entirely (default: MERCHANTS, the auction house bot)
+  --keep-dk                  keep death knight bots (default: each becomes another class its race can be, picked so
+                             the classes of that race even out; Way of Vanilla has no death knights, blood elves or
+                             draenei, see CharacterCreating.Disabled.* in worldserver.wov.overrides)
 
 What happens
   Bots (accounts RNDBOT*): level 1 (death knights 55), no xp/money/items/spells/skills/talents/quests/reputation/
@@ -139,7 +142,26 @@ class DB:
                                      f"AND table_name='{table}'")}
 
 
-def reset_sql(db, keep_accounts, real_mode):
+def dk_moves(db, keep_accounts):
+    """death knight bots -> (guid, new class): a class the race can be, the least common one among that race's bots"""
+    keep = ','.join("'" + a.replace("'", "") + "'" for a in keep_accounts) or "''"
+    bots = f"FROM {C}.characters c JOIN {A}.account a ON a.id=c.account WHERE a.username LIKE '{BOT_LIKE}' AND a.username NOT IN ({keep})"
+    combos = {}
+    for race, cls in db.q(f'SELECT race, class FROM {W}.playercreateinfo WHERE class<>6'):
+        combos.setdefault(int(race), []).append(int(cls))
+    count = {(int(r), int(c)): int(n) for r, c, n in db.q(f'SELECT c.race, c.class, COUNT(*) {bots} AND c.class<>6 GROUP BY c.race, c.class')}
+    moves = []
+    for guid, race in db.q(f'SELECT c.guid, c.race {bots} AND c.class=6 ORDER BY c.guid'):
+        opts = combos.get(int(race))
+        if not opts:
+            continue
+        cls = min(opts, key=lambda k: (count.get((int(race), k), 0), k))
+        count[(int(race), cls)] = count.get((int(race), cls), 0) + 1
+        moves.append((int(guid), cls))
+    return moves
+
+
+def reset_sql(db, keep_accounts, real_mode, convert_dk=True):
     ct, pt = db.tables(C), db.tables(P)
     keep = ','.join("'" + a.replace("'", "") + "'" for a in keep_accounts) or "''"
     s = ['SET SESSION sql_mode=REPLACE(@@sql_mode,"ONLY_FULL_GROUP_BY","");', 'SET autocommit=1;',
@@ -174,6 +196,13 @@ def reset_sql(db, keep_accounts, real_mode):
     for tbl, col in PER_DELETED:
         if tbl in ct and col in db.columns(C, tbl):
             s.append(f'DELETE x FROM {C}.{tbl} x JOIN {C}.wov_fs_del f ON f.guid=x.{col};')
+    # no death knights: each becomes another class of its race (before the start areas are looked up)
+    if convert_dk:
+        by_cls = {}
+        for guid, cls in dk_moves(db, keep_accounts):
+            by_cls.setdefault(cls, []).append(str(guid))
+        for cls, guids in sorted(by_cls.items()):
+            s.append(f'UPDATE {C}.characters SET class={cls} WHERE guid IN ({",".join(guids)});')
     # the bots themselves: level 1 in the starting area of their race and class, hearth there
     cols = db.columns(C, 'characters')
     sets = ', '.join(f'c.`{k}`={v}' for k, v in BOT_SET.items() if k in cols)
@@ -211,6 +240,7 @@ def counts(db, keep_accounts, real_mode, label):
     ct = db.tables(C)
     r = {
         'bots': one(f'SELECT COUNT(*) FROM ({bots}) b'),
+        'death knight bots': one(f'SELECT COUNT(*) FROM characters WHERE guid IN ({bots}) AND class=6'),
         'bots above start level': one(f'SELECT COUNT(*) FROM characters WHERE guid IN ({bots}) AND level > IF(class=6,{DK_LEVEL},1)'),
         'bots outside their starting area': one(
             f'SELECT COUNT(*) FROM characters c JOIN {W}.playercreateinfo p ON p.race=c.race AND p.class=c.class '
@@ -279,7 +309,7 @@ def dryrun(args):
             print(f'  copied {dbn} {" ".join(tables)} ({time.time() - t0:.0f} s)')
         # (the big ledger tables are copied empty: they are only emptied, never read, by the reset)
         before = counts(tmp, args.keep_account, args.real_chars, 'copy before the reset:')
-        sql = reset_sql(tmp, args.keep_account, args.real_chars)
+        sql = reset_sql(tmp, args.keep_account, args.real_chars, not args.keep_dk)
         path = os.path.join(d, 'reset.sql')
         open(path, 'w').write(sql)
         t0 = time.time()
@@ -290,6 +320,8 @@ def dryrun(args):
                      'bot gold (g)', 'guilds', 'mail', 'auctions', 'bot memories', 'bot schedule rows', 'level anchors']
         if args.real_chars == 'delete':
             must_zero.append('characters on real accounts to delete')
+        if not args.keep_dk:
+            must_zero.append('death knight bots')
         bad = [k for k in must_zero if after[k]]
         for k in ('bots', 'players behind bots (kept)', 'lore characters (kept)', 'kept accounts characters'):
             if after[k] != before[k]:
@@ -301,6 +333,8 @@ def dryrun(args):
         if homeless:
             bad.append(f'{homeless} bots without a hearth')
         zones = tmp.q(f"SELECT c.map, c.zone, COUNT(*) FROM {C}.characters c JOIN {A}.account a ON a.id=c.account WHERE a.username LIKE '{BOT_LIKE}' GROUP BY c.map, c.zone ORDER BY 3 DESC")
+        cls = tmp.q(f"SELECT c.class, COUNT(*) FROM {C}.characters c JOIN {A}.account a ON a.id=c.account WHERE a.username LIKE '{BOT_LIKE}' GROUP BY c.class ORDER BY c.class")
+        print('\nbots per class (class: count): ' + ', '.join(f'{c}: {n}' for c, n in cls))
         print('\nbots per starting zone (map/zone: count): ' + ', '.join(f'{m}/{z}: {n}' for m, z, n in zones))
         print('\nRESULT: ' + ('OK, the reset does what it should' if not bad else 'PROBLEMS: ' + '; '.join(bad)))
         return 0 if not bad else 1
@@ -355,7 +389,7 @@ def apply(args):
                 sys.exit(f'backup of {dbn} failed, nothing was changed')
         print(f'backup {out} ({os.path.getsize(out) // 1048576} MB)')
     counts(live, args.keep_account, args.real_chars, 'before:')
-    sql = reset_sql(live, args.keep_account, args.real_chars)
+    sql = reset_sql(live, args.keep_account, args.real_chars, not args.keep_dk)
     path = os.path.join(bdir, 'reset.sql')
     open(path, 'w').write(sql)
     live.run_file(path)
@@ -372,6 +406,7 @@ def main():
     ap.add_argument('--keep-account', action='append', default=None)
     ap.add_argument('--launch', type=int, default=0)
     ap.add_argument('--yes', action='store_true')
+    ap.add_argument('--keep-dk', action='store_true')
     args = ap.parse_args()
     if args.keep_account is None:
         args.keep_account = ['MERCHANTS']
