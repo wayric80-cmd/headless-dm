@@ -372,3 +372,7 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-24 10:00 Claude: ingen teleport inom 200 yd från riktig spelare. Lanseringsbeslut: alla börjar på level 1.
 - 2026-10-24 10:40 Claude: A – 8 upstream-fixar (BG + BWL) cherry-pickade, byggt, omstart.
 - 2026-10-24 16:30 Claude: B i drift – mod-dungeon-clear + samordnare; botgrupper går in och dödar trash/bossar. Finslipning pågår.
+
+## Lansering: fresh start (klart att köra, 2026-10-25)
+`wov/fresh_start.py plan|dryrun|apply`. dryrun kör hela nollställningen på en tillfällig MySQL i /tmp (port 3399, initialize-insecure, AppArmor tillåter bara /tmp) och kontrollerar; senaste resultat OK. apply kräver stoppad wow-world (operatören: sudo systemctl stop), tar backup i /opt/wow/backups/fresh-start-<tid>/, nollställer, sätter AiPlayerbot.WoV.FreshStart = N + tomma Bands i overlayen och kör apply-overlay. I worldservern (ProcessBot, RandomPlayerbotMgr.cpp) får varje bot med event wov_fresh != N en full factory-Randomize på level 1 (DK: heroic start), hearth + teleport till playercreateinfo. AiPlayerbot.WoV.FreshStart.Only = guid-lista för test. Står på 0. Obs: apply-overlay tar inte bort nycklar som försvinner ur overrides – sätt dem uttryckligen.
+
