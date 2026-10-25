@@ -395,6 +395,8 @@ def apply(args):
     live.run_file(path)
     counts(live, args.keep_account, args.real_chars, 'after:')
     set_overlay(args.launch)
+    with open(os.path.join(REPO, 'logs', 'fresh-start-at'), 'w') as f:  # guild_fill.py ramps guilds up from here
+        f.write(f'{time.time():.0f} launch {args.launch}\n')
     print(f'\nDone. AiPlayerbot.WoV.FreshStart = {args.launch}, level bands off. Now: sudo systemctl start wow-world\n'
           f'Restore if needed: zcat {bdir}/<db>.sql.gz | mysql <db>')
 

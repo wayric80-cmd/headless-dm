@@ -8,12 +8,18 @@ filled automatically. Selection is stable per character (hash), so the same bots
 Members are added through the GM console (.guild invite), so the server writes everything itself and the
 ledger records guild_join as usual.
 
+Launch ramp (fresh start): for the first RAMP_DAYS days after a fresh start (logs/fresh-start-at) the targets
+grow from 0 to full, guilds are founded one at a time (at most one every FOUND_GAP_H hours, founders from level 10
+instead of 30), fewer bots join per run, and a bot rather joins a guild that has a member online in its zone, so
+guilds grow out of the people who meet while levelling instead of appearing full on day one.
+
   python3 wov/guild_fill.py --dry-run         plan only
   python3 wov/guild_fill.py --max 60          create missing guilds, then invite at most 60 bots
 """
 import argparse, os, re, socket, subprocess, sys, time
 REPO = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 TARGET = [(40, 90), (20, 80), (10, 70)]
+RAMP_DAYS, FOUND_GAP_H = 14, 6
 ALLIANCE = {1, 3, 4, 7, 11}
 # (faction, kind, name). Existing guilds are adopted by name.
 PLAN = [
@@ -108,16 +114,32 @@ def main():
     real = {int(r[0]) for r in db("SELECT DISTINCT m.guildid FROM guild_member m JOIN characters c ON c.guid=m.guid JOIN acore_auth.account x ON x.id=c.account WHERE x.username NOT LIKE 'RNDBOT%'")}
     chars = [dict(guid=int(g), name=n, level=int(l), faction='A' if int(r) in ALLIANCE else 'H', drive=d or '', online=o == '1', guild=int(gid) if gid not in ('NULL', '') else 0)
              for g, n, l, r, d, o, gid in db("SELECT c.guid, c.name, c.level, c.race, IFNULL(w.drive,''), c.online, IFNULL(m.guildid,'NULL') FROM characters c JOIN acore_auth.account x ON x.id=c.account AND x.username LIKE 'RNDBOT%' LEFT JOIN wov_player w ON w.guid=c.guid LEFT JOIN guild_member m ON m.guid=c.guid")]
+    # the ramp only runs after a fresh start (wov/fresh_start.py apply writes logs/fresh-start-at)
+    try:
+        age_days = (time.time() - float(open(os.path.join(REPO, 'logs', 'fresh-start-at')).read().split()[0])) / 86400
+    except (OSError, ValueError, IndexError):
+        age_days = 999
+    ramp = min(1.0, age_days / RAMP_DAYS)
+    last_found = db("SELECT IFNULL(TIMESTAMPDIFF(HOUR, FROM_UNIXTIME(MAX(createdate)), NOW()), 999) FROM guild")
+    found_gap_h = int(last_found[0][0]) if last_found and last_found[0][0] not in ('NULL', '') else 999
+    may_found = 1 if ramp < 1 else len(PLAN)
+    if ramp < 1 and found_gap_h < FOUND_GAP_H:
+        may_found = 0
+    lead_min = 30 if ramp >= 1 else 10
+    a.max = a.max if ramp >= 1 else max(5, int(a.max * ramp))
+    print(f'realm age {age_days:.1f} days, ramp {ramp:.2f}, new guilds allowed this run {may_found}, max invites {a.max}')
     ra = None if a.dry_run else RA()
     # 1. create or adopt the planned guilds
     used_leaders = set()
     for fac, kind, name in PLAN:
         if name not in guilds:
-            pref = [c for c in chars if c['faction'] == fac and c['online'] and not c['guild'] and c['level'] >= 30 and c['guid'] not in used_leaders]
+            if may_found <= 0:
+                continue
+            pref = [c for c in chars if c['faction'] == fac and c['online'] and not c['guild'] and c['level'] >= lead_min and c['guid'] not in used_leaders]
             pref.sort(key=lambda c: (kind_for(c['level'], c['drive'], c['guid']) != kind, -c['level']))
             if not pref:
                 print('no online leader for', name); continue
-            leader = pref[0]; used_leaders.add(leader['guid'])
+            leader = pref[0]; used_leaders.add(leader['guid']); may_found -= 1
             print(f'create {name} ({fac} {kind}) leader {leader["name"]}')
             if ra:
                 print('  ', ra.cmd(f'.guild create {leader["name"]} "{name}"')[:120])
@@ -138,7 +160,16 @@ def main():
             size[c['guild']] += 1
     pool = {g for g in kinds if g not in real and g in fac_of}
     # 2. choose who joins
-    want = [c for c in chars if not c['guild'] and c['level'] >= 10 and stable(c['guid']) < target_pct(c['level'])]
+    want = [c for c in chars if not c['guild'] and c['level'] >= 10 and stable(c['guid']) < target_pct(c['level']) * ramp]
+    # who is where: a guild recruits the people its online members meet (same zone)
+    zone_of = {int(g): int(z) for g, z in db("SELECT c.guid, c.zone FROM characters c WHERE c.online=1")}
+    gzones = {}
+    for c in chars:
+        if c['guild'] and c['online'] and c['guid'] in zone_of:
+            gzones.setdefault(c['guild'], set()).add(zone_of[c['guid']])
+    near = lambda c, g: c['guid'] in zone_of and zone_of[c['guid']] in gzones.get(g, ())
+    if ramp < 1:  # during the ramp only bots that are online and meet a member join
+        want = [c for c in want if c['online'] and any(near(c, g) for g in pool if fac_of[g] == c['faction'])]
     want.sort(key=lambda c: (-c['level'], stable(c['guid'] * 3)))
     invited, plan_counts = 0, {}
     for c in want:
@@ -148,7 +179,7 @@ def main():
         options = [g for g in pool if fac_of[g] == c['faction'] and kinds[g] == k] or [g for g in pool if fac_of[g] == c['faction'] and kinds[g] == 'mixed']
         if not options:
             continue
-        g = min(options, key=lambda x: size[x])
+        g = min(options, key=lambda x: (not near(c, x), size[x]))
         gname = next(n for n, i in guilds.items() if i == g)
         plan_counts[gname] = plan_counts.get(gname, 0) + 1
         if ra:
