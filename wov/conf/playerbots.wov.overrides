@@ -76,3 +76,6 @@ AiPlayerbot.WoV.DgRuns.MaxActive = 10
 AiPlayerbot.WoV.DgRuns.MemberRange = 3000
 AiPlayerbot.WoV.DgRuns.StartEverySec = 60
 AiPlayerbot.WoV.DgRuns.Triggers = 2230,228,78,145,257,101,244,324,442,3134,446,2214,2567
+
+AiPlayerbot.WoV.FreshStart = 0
+AiPlayerbot.WoV.FreshStart.Only =
