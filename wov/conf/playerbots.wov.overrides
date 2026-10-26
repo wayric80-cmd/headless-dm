@@ -84,4 +84,4 @@ AiPlayerbot.WoV.Raids.MinSize = 20
 AiPlayerbot.WoV.Raids.MaxSize = 40
 AiPlayerbot.WoV.Raids.MaxActive = 2
 AiPlayerbot.WoV.Raids.StartHour = 20
-AiPlayerbot.WoV.Raids.TestGuild = 0
+AiPlayerbot.WoV.Raids.TestGuild = 5
