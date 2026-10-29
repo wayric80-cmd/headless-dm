@@ -11,7 +11,9 @@ check() {
     FROM npc_vendor v JOIN item_template i ON i.entry=v.item JOIN creature_template c ON c.entry=v.entry
     WHERE v.entry IN ($E) GROUP BY v.entry;"
   db acore_world -N -e "SELECT IF(COUNT(*)=96,'OK: 96 epic overlay rows present',CONCAT('MISSING: ',96-COUNT(*),' of 96 overlay rows'))
-    FROM npc_vendor WHERE entry IN (12785,12795) AND slot=1 AND ((item BETWEEN 16437 AND 16484) OR (item BETWEEN 16533 AND 16580) OR (item BETWEEN 17578 AND 17625));"
+    FROM npc_vendor WHERE entry IN (12785,12795) AND slot=1 AND ExtendedCost IN (2257,2289) AND ((item BETWEEN 16437 AND 16484) OR (item BETWEEN 16533 AND 16580) OR (item BETWEEN 17578 AND 17625));"
+  db acore_world -N -e "SELECT IF(SUM(ExtendedCost IN (2403,2569))=42 AND MIN(c.npcflag & 128)=128,'OK: 42 weapons at 40000/60000, vendor flag set','NOT OK: weapons not (fully) applied')
+    FROM npc_vendor v JOIN creature_template c ON c.entry=v.entry WHERE v.entry IN (12784,12794);"
 }
 backup() {
   B=/opt/wow/backups/pvp-epic-vendor-$(date +%Y%m%d-%H%M%S); mkdir -p "$B"
@@ -24,7 +26,7 @@ backup() {
 case "${1:-check}" in
   check) check ;;
   dryrun) { echo "START TRANSACTION;"; cat "$SQL"; echo "SELECT entry, COUNT(*) rows_after, SUM(slot=1) overlay FROM npc_vendor WHERE entry IN (12785,12795) GROUP BY entry;"; echo "ROLLBACK;"; } | db acore_world -t ;;
-  apply) backup; db acore_world < "$SQL"; ra "reload npc_vendor"; check ;;
-  rollback) backup; db acore_world < "$UNDO"; ra "reload npc_vendor"; check ;;
+  apply) backup; db acore_world < "$SQL"; ra "reload npc_vendor"; ra "reload creature_template 12784"; ra "reload creature_template 12794"; check ;;
+  rollback) backup; db acore_world < "$UNDO"; ra "reload npc_vendor"; ra "reload creature_template 12784"; ra "reload creature_template 12794"; check ;;
   *) echo "usage: $0 check|dryrun|apply|rollback"; exit 2 ;;
 esac
