@@ -1,0 +1,4 @@
+# Way of Vanilla: content phases (see HANDOVER "Fasplan"). Phase 1 = MC + Onyxia (60_2_1, operator 2026-10-30).
+ProgressionSystem.Bracket_60_2_1 = 1
+# our own SQL (wov/progression_custom, linked into Bracket_Custom/sql) runs after every bracket
+ProgressionSystem.Bracket_Custom = 1
