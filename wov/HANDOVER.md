@@ -462,6 +462,20 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-30 11:40 Claude: fasschema (6 v/fas från lansering, auto-omstart 06:15) med wov/phases.py + wov-phases.timer; quester/kartor för kommande faser låsta (215 nya lås).
 - 2026-10-30 12:00 Claude: lanseringsdatum 20/11 19:00 beslutat; portalkonton behålls; total fresh start.
 - 2026-10-30 17:50 Claude: raidkvällar för Onyxia + attunement (Drakefire Amulet) i drift; test: inträde/väg/wipes fungerar, bossen klaras inte än (3+3 wipes).
+- 2026-10-30 23:50 Claude: Molten Ambition (38 inne) första MC-clear med Ragnaros, 85 min/1 wipe; mätlogg "Raidmätning" startad.
+
+## Raidmätning (för talangbeslutet, operatören 2026-10-30: 40 spelare + WotLK-talanger, mät först)
+Per kväll: guild, raid, inne, bossar (nya denna kväll), wipes, tid, anm.
+| Datum | Guild | Raid | Inne | Bossar | Wipes | Tid | Anm. |
+|---|---|---|---|---|---|---|---|
+| 28/10 | Late Night Levelers, Titans | MC | 20+20 | 0 | – | 137/202 min | limbo-fel, wipes räknades inte |
+| 29/10 | Grind Till Dawn (roll) | MC | 20 | Geddon, Shazzrah, Sulfuron | 3 | 81 min | MC-tak 20 |
+| 29/10 | Hearth and Home (dkp) | MC | 20 | 0 | 3 | 77 min | MC-tak 20 |
+| 30/10 | Late Night Levelers (test) | Ony | 20 / 24 / 22 | 0 | 3+3+3 | 46 / 74 / 49 min | kommer fram, dör på Onyxia |
+| 30/10 | **Molten Ambition (council)** | MC | **38** | Garr, Geddon, Shazzrah, Sulfuron, Golemagg, Majordomo, **Ragnaros** | 1 | 85 min | **första MC-clear**; 21 pugs; 40 anmälda |
+| 30/10 | Disciples of the Light (roll) | MC | 27 | 0 nya | 3 | 50 min | 17 pugs |
+| 30/10 | Bad Medicine | MC | – | – | – | – | ingen plats (MaxActive 2) |
+- Slutsats 30/10: med 38 inne klarade en botguild hela MC på 85 min med en wipe; med 20–27 wipar de. Talangerna ser alltså inte ut att göra MC för lätt för botar, raidstorleken avgör. Fortsätt mäta några kvällar till innan beslut. Loot: council gav Smokeynoodle 6 föremål på en kväll (regeln "färre föremål först" väger för lätt mot uppgradering) – att se över.
 
 ## Lansering: fresh start (klart att köra, 2026-10-25)
 **Beslut 2026-10-30 (operatören): lansering fredag 20 november 2026 kl. 19:00** (reserv 27/11). Portalkonton behålls (utan karaktärer). Total fresh start: inga botar med vänner/guild "från förr". Fasschemat räknas från `logs/fresh-start-at`: BWL 1/1, ZG 12/2, AQ War Effort 26/3, Naxx 7/5 (06:15). Veckoplan i Claude-projektets `claude/Lanseringsplan.md`: v1 (2–8/11) bot-raider Onyxia + klienttester, v2 (9–15/11) generalrepetition (dryrun, kontrollera att fresh_start även tömmer raidloot/DKP och att `logs/phases-state.json` står på live [1]) + levlingstempo 1–10, v3 (16–20/11) frysning, debug av.
