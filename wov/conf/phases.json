@@ -1,0 +1,21 @@
+{
+  "_doc": "Way of Vanilla content phases. week = weeks after launch (logs/fresh-start-at). 'date' (YYYY-MM-DD) overrides the week: wov/phases.py move N DATE. Brackets are mod-progression-system brackets switched on at that phase. lock_* = quests/maps kept shut (disables, comment 'wov-phase') until the phase is live.",
+  "weeks_per_phase": 6,
+  "restart_hour": 6,
+  "restart_countdown_sec": 900,
+  "announce_days": [7, 1],
+  "phases": [
+    {"n": 1, "name": "Molten Core and Onyxia", "week": 0, "brackets": ["60_1_1", "60_1_2", "60_2_1"]},
+    {"n": 2, "name": "Blackwing Lair", "week": 6, "brackets": ["60_2_2"],
+     "lock_quest_sort": [2677], "lock_quest_ids": [7761]},
+    {"n": 3, "name": "Zul'Gurub", "week": 12, "brackets": ["60_3_1"],
+     "lock_quest_sort": [1977], "lock_quest_faction": [270]},
+    {"n": 4, "name": "The Ahn'Qiraj War Effort", "week": 18, "brackets": ["60_3_2"],
+     "lock_quest_faction": [910],
+     "note": "60_3_2 opens the war effort quests and the Scarab Lord chain. The gates (AQ20/AQ40 maps, AQ class quests) stay shut until the war effort is done: wov/phases.py open-gates (sets aq_gates_open and switches on 60_3_3)."},
+    {"n": 5, "name": "Naxxramas", "week": 24, "brackets": [], "requires": "naxx40",
+     "lock_quest_sort": [3456], "lock_quest_ids": [9121, 9122, 9123],
+     "note": "Map 533 is the WotLK level 80 Naxxramas: it stays shut until a Naxx 40 is in place. Scourge Invasion starts with this phase."}
+  ],
+  "aq_gates": {"brackets": ["60_3_3"], "lock_maps": [509, 531], "lock_quest_sort": [3428, 3429]}
+}

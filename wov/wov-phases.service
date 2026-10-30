@@ -1,0 +1,6 @@
+[Unit]
+Description=Way of Vanilla content phases (locks, announcements, patch day)
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/wow/headless-dm
+ExecStart=/usr/bin/python3 /opt/wow/headless-dm/wov/phases.py tick

@@ -1,0 +1,7 @@
+[Unit]
+Description=Way of Vanilla content phases, hourly (patch day at restart_hour)
+[Timer]
+OnCalendar=*-*-* *:02:00
+Persistent=true
+[Install]
+WantedBy=timers.target
