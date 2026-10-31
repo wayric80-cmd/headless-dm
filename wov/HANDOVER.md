@@ -110,6 +110,17 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 15:05 – Claude: botarnas utrustning som för en människa (operatörskrav, AKTIVT)
+- **Krav (Richard):** vid lanseringen får botarna utrustning bara som en människa: startkläder, sedan loot, quests, köp och hantverk. Ingen fabriksutrustning, inga nya set vid level-up.
+- **`AiPlayerbot.WoV.HumanStart = 1`** (mod-playerbots + headless-dm 60f5322): fresh start-provisioneringen (FreshStart N) gör nu som när en ny karaktär skapas, i stället för `PlayerbotFactory::Randomize`. Allt förstörs (utrustning, väskor med innehåll, ryggsäck, bank, nyckelring), quests glöms, level 1, inga talanger, `resetSpells` (standardspells/färdigheter för ras/klass), startkläder från CharStartOutfit plus playercreateinfo_item, startpengar (CONFIG_START_PLAYER_MONEY). Death knights använder fortfarande fabriken (finns inga efter nollställningen). `PlayerbotFactory::Refresh` ger inte längre gratis mounts när HumanStart är på.
+- **Avstängt:** `WoV.RegearOnce.Enable = 0`, `WoV.RegearBracket.Enable = 0` (inga set per nivåband), `AutoGearCommand = 0` och `AutoGearCommandAltBots = 0`. `AutoUpgradeEquip = 0` var redan av (ingen utrustning vid level-up). Kvar och spelarlikt: `AutoEquipUpgradeLoot` (tar på sig loot som är bättre), auktionshusköp, quest-belöningar och hantverk.
+- `fresh_start.py set_overlay` sätter nu HumanStart = 1 och regear/autogear = 0 vid lanseringen, så att det inte kan glömmas.
+- **Verifierat** efter omstart 14:59 och `saveall`: Dpsbeast (dvärg rogue) har Footpad's-kläder, Worn Dagger och Crude Throwing Axe, 0 i pengar, 8 spells och 0 talanger. Hexenmeister (orc shaman, var level 42 med gröna 40-tals föremål och Portable Hole-väskor på ilvl 80) har nu Primitive-kläder, Worn Mace och Wooden Shield på level 1. Inga väskor.
+- **Kvar som inte är utrustning, för beslut av operatören:** `Refresh` (vid återupplivning och periodiskt) ger fortfarande gratis mat, dricka, ammo, reagenser, potions och fyller på pengar till level × 10–50 silver. `AutoLearnTrainerSpells = 1` ger nya spells utan besök hos tränaren. Gamla färdighetsvärden (t.ex. mining) finns kvar på testbotarna men töms vid lanseringen (character_skills). Hearthstone saknas ibland (fabriken hoppar över 6948), ej synligt för andra.
+- **Tempomätningen startade om:** batchen (204) provisioneras om med FreshStart = 10 (`tempo.py` räknar wov_fresh = 10), `wov_tempo` tömd 14:59. Mätningen speglar nu lanseringens förutsättningar.
+- Svar i mänsklig skrivtakt var redan på (`OllamaChat.EnableTypingSimulation = 1`, 2000 + 300 ms per tecken, max 80 s) från en tidigare session.
+
+
 ### 2026-10-31 13:45 – Claude: testbatchen utökad till 204 botar, mätning igång
 - `BOT_MIN/BOT_MAX` 1190/1200 (site.env + overlay), `ops/scripts/conf-apply.py` → apply-overlay → omstart 13:31 (backup först, ingen riktig spelare). Playerbots skapade 11 konton till och **118 karaktärer, guid 1769–1886**. Batchen är nu **204 botar, guid 1683–1886** (`logs/newbots-20261031.txt`). 1882 botkaraktärer totalt.
 - **Fynd:** nya botar loggar in direkt efter en omstart för att fylla MinRandomBots, även utan wov_player, och får då en slumpad nivå av RandomizeFirst innan FreshStart.Only hunnit sättas (de första 86 fick 1–60 mellan 12:34 och 12:38). FreshStart 9 rättar dem till level 1 nästa gång de är online (gammal utrustning försvinner, kontrollerat). **Vid nästa uppskalning: sätt FreshStart.Only för de nya guid:en direkt efter omstarten**, eller förbered en guid-range.
