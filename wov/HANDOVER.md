@@ -110,6 +110,17 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 17:50 – Claude: tränarbesök för klass, riding och yrken, gratis inlärning (BYGGD, väntar på omstart)
+- **Beslut (Richard):** det får vara gratis för botarna, men de måste själva gå till tränarna.
+- `wov: trainer` utökat (mod-playerbots och headless-dm 9181cf7, pushat), i prioritetsordning per bot:
+  1. **Riding** vid UseGroundMountAtMinLevel (20) och UseFastGroundMountAtMinLevel (40): närmaste vänliga riding-tränare (trainer Type 1). Vid besöket lärs 33388/33391 och `PlayerbotFactory::InitMounts()` ger en mount av botens ras.
+  2. **Yrken** från level 5: två yrken väljs en gång (`PlayerbotFactory::WovProfessions`, samma val som InitTradeSkills, sparat i firstSkill/secondSkill). Boten går till närmaste tränare för yrket (trainer Type 2, yrket härlett ur tränarens spells) och lär allt den kan där. Den går tillbaka när skill ligger inom 10 från taket för sin rank, eller när minst 4 recept väntar. Skill-poäng kommer fortfarande bara från insamling och hantverk (SetRandomSkill rör inte yrken).
+  3. **Klasstränaren**, som tidigare.
+- `AiPlayerbot.WoV.Trainer.Free = 1`: inlärningen kostar inget. `fresh_start.py` sätter den vid lanseringen.
+- Laddning loggas: `WoV trainer: N class, N riding and N profession trainers … loaded`. Sammanfattning var 10:e min per typ.
+- **Inte omstartad:** Zugzug (WAYRA, riktig spelare) var online 17:50. Binären är installerad och blir aktiv vid nästa omstart.
+
+
 ### 2026-10-31 15:20 – Claude: tränarbesök i stället för gratis spells, Refresh utan gratis saker (AKTIVT, följs upp)
 - **Beslut (Richard):** så äkta som möjligt. Mat, dricka och ammo får fyllas på gratis, inget annat.
 - `AutoLearnTrainerSpells = 0`: inga spells vid level-up. **Nytt block `wov: trainer`** i RandomPlayerbotMgr.cpp (efter wov: market). Var 10:e s granskas upp till 40 botar, var och en högst var 10–20:e min. Finns det något att lära hos närmaste vänliga klasstränare på kartan (Trainer::CanTeachSpell, IsTrainerSpellAllowedForBot) och pengar till det billigaste, och är nivån jämn eller finns minst två spells, går boten dit (RPG_GO_CAMP, flyg över 600 yd som marknadsresorna), köper billigast först med rabatt för rykte och betalar (ModifyMoney), och fortsätter sedan. Logg: `WoV trainer: … heads to its trainer` och `… trains at …`, sammanfattning var 10:e min. 382 klasstränare laddas från creature_default_trainer/trainer (Type 0, karta 0/1).
