@@ -110,6 +110,15 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 15:20 – Claude: tränarbesök i stället för gratis spells, Refresh utan gratis saker (AKTIVT, följs upp)
+- **Beslut (Richard):** så äkta som möjligt. Mat, dricka och ammo får fyllas på gratis, inget annat.
+- `AutoLearnTrainerSpells = 0`: inga spells vid level-up. **Nytt block `wov: trainer`** i RandomPlayerbotMgr.cpp (efter wov: market). Var 10:e s granskas upp till 40 botar, var och en högst var 10–20:e min. Finns det något att lära hos närmaste vänliga klasstränare på kartan (Trainer::CanTeachSpell, IsTrainerSpellAllowedForBot) och pengar till det billigaste, och är nivån jämn eller finns minst två spells, går boten dit (RPG_GO_CAMP, flyg över 600 yd som marknadsresorna), köper billigast först med rabatt för rykte och betalar (ModifyMoney), och fortsätter sedan. Logg: `WoV trainer: … heads to its trainer` och `… trains at …`, sammanfattning var 10:e min. 382 klasstränare laddas från creature_default_trainer/trainer (Type 0, karta 0/1).
+- **`PlayerbotFactory::Refresh` med HumanStart:** bara ammo, mat/dricka, husdjur (hunter) och reparation. Inga reagenser, potions, consumables, klass-spells, färdigheter, rykte, special spells, mounts, enchants eller pengar.
+- `AutoLearnQuestSpells = 1` behålls tills vidare: spells från klassquests (stances, forms, totems) lärs utan questen, eftersom botarna inte gör klassquests. Att utreda.
+- `fresh_start.py` sätter även `AutoLearnTrainerSpells = 0` vid lanseringen.
+- Omstarter 15:14 och 15:19 (ingen riktig spelare). mod-playerbots och headless-dm 10d03a6+, pushat.
+
+
 ### 2026-10-31 15:05 – Claude: botarnas utrustning som för en människa (operatörskrav, AKTIVT)
 - **Krav (Richard):** vid lanseringen får botarna utrustning bara som en människa: startkläder, sedan loot, quests, köp och hantverk. Ingen fabriksutrustning, inga nya set vid level-up.
 - **`AiPlayerbot.WoV.HumanStart = 1`** (mod-playerbots + headless-dm 60f5322): fresh start-provisioneringen (FreshStart N) gör nu som när en ny karaktär skapas, i stället för `PlayerbotFactory::Randomize`. Allt förstörs (utrustning, väskor med innehåll, ryggsäck, bank, nyckelring), quests glöms, level 1, inga talanger, `resetSpells` (standardspells/färdigheter för ras/klass), startkläder från CharStartOutfit plus playercreateinfo_item, startpengar (CONFIG_START_PLAYER_MONEY). Death knights använder fortfarande fabriken (finns inga efter nollställningen). `PlayerbotFactory::Refresh` ger inte längre gratis mounts när HumanStart är på.
