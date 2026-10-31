@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 08:20 – Claude: lootregler förenklade (I DRIFT)
+- **Operatörsbeslut 2026-10-31** (Claudes förslag): botguilds kör `/roll` main spec före off spec; ett par guilds behåller DKP; loot council används inte längre som standard. Är en riktig spelare med i raiden blir det vanlig need/greed (gruppfördelning, klientens rullfönster). Det ingen behöver disenchantas.
+- `wov_raid_loot_rule`: council → roll (Ashen Vanguard, Molten Ambition), Hearth and Home dkp → roll. DKP kvar: Titans of the Blood Sun (Horde), Bad Medicine (Alliance). Guild utan rad (t.ex. alla nya efter lanseringen) får regeln första gången den raidar: roll, var fjärde guild (`guildid % 4 = 1`) DKP; samma i `wov/sql/wov_raid_loot.sql`. Councilkoden finns kvar om en rad sätts till 'council'.
+- `WovRaidLootSetup`: `WovRealIn(group)` → `GROUP_LOOT`, tröskel grönt, ingen master looter, ingen utdelning/DKP från servern (`r.groupLoot`); kontrollen var 10:e s byter mellan lägena om en riktig spelare går med eller lämnar.
+- Off spec gäller nu bara om föremålet är nästan lika bra som det spelaren bär (gain > −30 %, tidigare > −99 %); fri roll finns inte längre. Vill ingen ha det: den raidmedlem med högst Enchanting (≥ 225) får det, det förstörs och ger 1–2 Nexus Crystal; finns ingen enchanter går det till master looterns "guild bank". Loggas `… loot: X disenchanted by Y` / `to the guild bank by Y`, i `wov_raid_loot` som detail 'disenchanted'/'guild bank'.
+- Bygge BUILD_EXIT=0 (logs/claude-loot-roll-build.log). Backup `/opt/wow/backups/loot-roll-20261031-081352/` (källfil, binär, wov_raid_loot_rule). Omstart 08:15:46 (ingen riktig spelare inne). Ikväll lör 31/10: Titans (dkp), Knights of the Sovereign, Late Night Levelers, Southshore Survivors (MaxActive 2).
+
 ### 2026-10-30 17:50 – Claude: raidkvällar för Onyxia (I DRIFT, botarna klarar inte bossen än)
 - **Kod** (mod-playerbots a9f55495 + attune-fix, block `wov: raid nights`): raiddefinitioner `kWovRaidDefs` (MC, Onyxia) i stället för MC-hårdkodning: mötesplats, portal (areatrigger), sista boss, lootbossar, flygmästare för långväga (TaxiNodes: MC Thorium Point 75/74, Ony Brackenwall 55 / Theramore 32), texter, lockout per karta (`WovRaidBind(p, map)`), instanstak per karta. MC-specifikt (runor, Garr/Firesworn) bara på karta 409. Loggrader `WoV raid #N <guild> MC|Ony: …`.
 - **Val av raid:** guildens första raidkväll i veckan (`guild*3 % 7`) blir Onyxia om hon är öppen (spot + inte disabled), minst `MinSize/2` attunade 60:or online och färre än hälften av dem redan har en Onyxia-lockout; annars (eller om starten misslyckas) MC. Andra kvällen MC.
@@ -463,6 +470,7 @@ Senaste röstuppföljning efter omstarten: 408 levererade botmeddelanden utan eg
 - 2026-10-30 12:00 Claude: lanseringsdatum 20/11 19:00 beslutat; portalkonton behålls; total fresh start.
 - 2026-10-30 17:50 Claude: raidkvällar för Onyxia + attunement (Drakefire Amulet) i drift; test: inträde/väg/wipes fungerar, bossen klaras inte än (3+3 wipes).
 - 2026-10-30 23:50 Claude: Molten Ambition (38 inne) första MC-clear med Ragnaros, 85 min/1 wipe; mätlogg "Raidmätning" startad.
+- 2026-10-31 08:20 Claude: lootregler: roll MS>OS för de flesta, DKP för två guilds, need/greed med riktig spelare, disenchant av det ingen behöver. Omstart 08:15.
 
 ## Raidmätning (för talangbeslutet, operatören 2026-10-30: 40 spelare + WotLK-talanger, mät först)
 Per kväll: guild, raid, inne, bossar (nya denna kväll), wipes, tid, anm.

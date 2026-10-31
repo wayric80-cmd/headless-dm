@@ -29,11 +29,7 @@ CREATE TABLE IF NOT EXISTS wov_raid_loot (
   KEY by_winner (winner)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- defaults: raiding (pve) guilds run DKP or a loot council, the others /roll main spec before off spec
+-- defaults (operator 2026-10-31): /roll main spec before off spec, about one guild in four keeps DKP; no loot council.
+-- Guilds without a row get the same rule from the server the first time they raid.
 INSERT IGNORE INTO wov_raid_loot_rule (guildid, method)
-SELECT guildid, CASE
-  WHEN kind = 'pve' AND guildid % 2 = 1 THEN 'dkp'
-  WHEN kind = 'pve' THEN 'council'
-  WHEN kind = 'mixed' AND guildid % 2 = 0 THEN 'dkp'
-  ELSE 'roll' END
-FROM wov_guild_type;
+SELECT guildid, IF(guildid % 4 = 1, 'dkp', 'roll') FROM wov_guild_type;
