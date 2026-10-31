@@ -110,6 +110,15 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 18:45 – Claude: en väg för LFG/LFM (operatörskrav, AKTIVT efter omstart 18:41)
+- **Botarnas egna inlägg är bara LFG** (`WovPostLfx`: `cur.lfm = false`). LF1M postas bara av dungeon-rundorna (WovDgPostLfm), som verkligen går. Svarar en riktig spelare på en bots LFG, ber boten om inbjudan ("sure, inv me", "inv pls"…) och accepterar den. Boten bjuder inte in själv.
+- **En riktig spelares "LFG <dungeon>" i en kanal** startar en riktig runda runt spelaren (`WovDgStartForPlayer`): närmaste lediga tank (inom TankRange från ingången) plus en healer och två dps (inom MemberRange) med rätt nivå (±5 från spelaren). Tanken viskar ("doing strat, want in? inv"…) och bjuder in direkt. Gruppen bildas direkt och alla tar sig till ingången. Spelaren är den femte (`r.real`, `realInvited`). Saknas folk används det gamla "spela tillsammans" som reserv (lämnar ledarskapet till spelaren, ingen teleport längre). Logg: `for X's LFG: tank …` eller `no party for X's LFG …`.
+- **En riktig spelares "LFM <dungeon>"** fungerar som förut: botar viskar sina roller och spelaren bjuder in själv.
+- **Chatten vet vad rundan gör:** `WovRunIntentOf` (en ögonblicksbild, mutex, uppdateras varje runtick) går före WovIntentOf i promptarna. Den säger vilken dungeon, vem som tankar och leder, om gruppen samlas eller är inne, och "never say you sent, will send or are waiting for an invite: the game shows invites". Det ska stoppa "sent inv" och "what are we running?".
+- mod-playerbots pushat, headless-dm se nedan. Backup `/opt/wow/backups/merge-lfx-1837/`.
+- **Att testa (operatören i kväll):** (1) LF1M från en runda: viska tanken, inbjudan kommer direkt, gruppen är redan full med fyra, alla tar sig till ingången. (2) Skriv "LFG strat" (eller en dungeon för din nivå) i General: en tank viskar och bjuder in, och tre till finns i gruppen. (3) Svara på en bots LFG: den ber om inbjudan. (4) Fråga en gruppmedlem "what are we doing?": svaret ska stämma.
+
+
 ### 2026-10-31 18:35 – Claude: två fel till från operatörens LFM-test (rättade, omstart 18:36)
 - **Ingen inbjudan från Hunterjoe (Scholo-runda #5):** när gruppen bildas direkt är den full (5). Join-koden avbröt om tankens grupp var full, innan den sista dps:en fått kliva ut. Nu kliver den sista dps:en ut direkt (`Group::RemoveMember`) och spelaren bjuds in. Chattmodellen svarade "sent" fast inget skickades (prat stämmer inte med handling). **Öppet:** viskningar som rundan hanterar ("inv") borde inte också besvaras av LLM:en.
 - **"Spela tillsammans" (WovParties, initiativets LF1M från Lolhealz):** när gruppen var fylld teleporterades alla botar till spelaren (`TeleportTo` om de var längre bort än 250 yd), så hela gruppen dök upp i Stratholme. Teleporten är borttagen; medlemmarna följer sin nya ledare och tar sig dit själva. Chattmodellen frågade "what are we running?" fast boten själv postat strat (WovIntentOf). **Öppet.**
