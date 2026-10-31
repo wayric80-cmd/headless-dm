@@ -118,7 +118,7 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
   3. **Klasstränaren**, som tidigare.
 - `AiPlayerbot.WoV.Trainer.Free = 1`: inlärningen kostar inget. `fresh_start.py` sätter den vid lanseringen.
 - Laddning loggas: `WoV trainer: N class, N riding and N profession trainers … loaded`. Sammanfattning var 10:e min per typ.
-- **Inte omstartad:** Zugzug (WAYRA, riktig spelare) var online 17:50. Binären är installerad och blir aktiv vid nästa omstart.
+- **Omstart 17:50** (godkänd av operatören, Zugzug var online). Laddat: 223 klass-, 7 riding- och 160 yrkestränare (10 yrken). Första minuterna: Wipeking (lvl 4) lärde 2 spells hos Thran Khorman, Eznowy (lvl 12) 3 hos Ker Ragetotem och Icyspikee (lvl 5) 2 hos Yaw Sharpmane, alla gratis. Artimond (lvl 6) gick till en yrkestränare (skill 182, herbalism) och Mightyheal (lvl 40) flög till en riding-tränare. Några "gave up", troligen utloggning enligt speltider. Orsaken loggas inte, kan läggas till.
 
 
 ### 2026-10-31 15:20 – Claude: tränarbesök i stället för gratis spells, Refresh utan gratis saker (AKTIVT, följs upp)
