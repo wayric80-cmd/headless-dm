@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 18:25 – Claude: dungeon-gruppen bildas direkt (operatörskrav, BYGGD, väntar på omstart)
+- **Operatören:** att gruppen bildas vid stenen är fel. Grupper bildas först och sedan tar sig alla till dungeonen. **Ersätter "inbjudan vid stenen" (18:10).**
+- **Ändrat** (mod-playerbots, pushat): tanken bjuder in alla medlemmar när rundan startar, var de än är (`if (true)` i inbjudningsblocket). En riktig spelare som svarar på LF1M bjuds in direkt igen ("sure, inv", "invited, see u at the stone"). Medlemmar längre än 40 yd från tanken och stenen får `-follow` och reser själva (WovDgGoTo, rpg GoCamp). Annars skulle följa-strategin dra dem över zonen efter tanken. Är de vid tanken eller stenen blir det `+follow`. Insläpp oförändrat: alla inom 60 yd från stenen.
+- Fältet `realInvited` och "omw, will inv at the stone" finns kvar i koden men används inte (alltid true).
+- **Att följa upp i loggen:** att medlemmar som accepterar (AcceptInvitation sätter +follow, master = tanken) faktiskt slutar följa och reser själva, och att inga fastnar.
+
+
 ### 2026-10-31 18:10 – Claude: LFM-inbjudan vid stenen (BYGGD, väntar på omstart)
 - **Fynd (operatörens test, EPL/Strat):** en riktig spelare som svarade på LF1M bjöds in direkt av tanken (Hunterjoe) medan de andra fortfarande var 500–900 yd från stenen. Gruppen fylls först vid stenen, så spelaren såg en grupp med bara tanken, vilket ser konstigt ut. Operatören lämnade gruppen.
 - **Ändrat:** är tanken inte vid stenen än, svarar den "sure, omw to the stone, will inv there" (eller liknande) och bjuder in spelaren när den själv når stenen. De andra bjuds in när de kommer fram, som förut. Väntan på en utlovad inbjudan bryter inte rundan (`realInvited`, `pending`). Är tanken redan vid stenen bjuds spelaren in direkt. Logg: `tank at the stone, invites …`.
