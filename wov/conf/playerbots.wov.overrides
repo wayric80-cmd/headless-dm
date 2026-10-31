@@ -95,3 +95,5 @@ AiPlayerbot.AutoGearCommand = 0
 AiPlayerbot.AutoGearCommandAltBots = 0
 # wov: spells are bought at the class trainer (wov: trainer trips), not learnt free at level-up
 AiPlayerbot.AutoLearnTrainerSpells = 0
+# wov: bots must walk to their class, riding and profession trainers; what they learn there is free (Richard 31/10)
+AiPlayerbot.WoV.Trainer.Free = 1

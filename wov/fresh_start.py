@@ -367,7 +367,7 @@ def set_overlay(launch):
             # gear only as a person gets it: starting outfit, no regear sets, no autogear command
             'AiPlayerbot.WoV.HumanStart': '1', 'AiPlayerbot.WoV.RegearOnce.Enable': '0',
             'AiPlayerbot.WoV.RegearBracket.Enable': '0', 'AiPlayerbot.AutoGearCommand': '0',
-            'AiPlayerbot.AutoGearCommandAltBots': '0', 'AiPlayerbot.AutoLearnTrainerSpells': '0'}
+            'AiPlayerbot.AutoGearCommandAltBots': '0', 'AiPlayerbot.AutoLearnTrainerSpells': '0', 'AiPlayerbot.WoV.Trainer.Free': '1'}
     out, seen = [], set()
     for l in lines:
         k = l.split('=', 1)[0].strip()
