@@ -110,6 +110,14 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 12:45 – Claude: 86 nya botar för att mäta levlingstempot 1–10
+- `BOT_MIN/BOT_MAX` 1090/1100 (site.env och overlay `Min/MaxRandomBots`), conf-apply → apply-overlay → omstart 12:33 (ingen riktig spelare online). Backup: wow-backup.service körd före, plus `/opt/wow/backups/before-newbots-*` (site.env, overlay).
+- Playerbots skapade 11 konton (rndbot162–172) och **86 nya karaktärer, guid 1683–1768** (lista i `logs/newbots-20261031.txt`), alla level 1, spelarlika namn, inga spärrade raser/klasser. 1764 botkaraktärer totalt.
+- **Level 1-provisionering i stället för slumpad nivå:** `AiPlayerbot.WoV.FreshStart = 9` med `FreshStart.Only` = de 86 guid:en (annars ger RandomizeFirst en slumpad nivå vid första inloggningen). Id 9 krockar inte med lanseringens `--launch 1`. **OBS:** `fresh_start.py apply` sätter FreshStart om; `FreshStart.Only` måste tömmas innan lanseringen (annars gäller lanseringens nollställning bara de 86!). Ska läggas in i fresh_start.py eller tömmas för hand.
+- Spelarprofiler: `gen_players.py generate` → `project` → `ollama reload` pågår (Qwen, ca 10 s per bot), logg `logs/gen-players-newbots-1031.log`. Utan wov_player loggar boten aldrig in; schemat laddas om var 10:e min.
+- **Mätning:** `characters.totaltime` och `level` för guid 1683–1768, t.ex. efter 24 h och 48 h: speltid per level 1–10 (mål 10–15 min/level för en människa).
+
+
 ### 2026-10-31 12:30 – Claude: generalrepetition av fresh start (OK)
 - Genomgång av alla tabeller skapade sedan 19/10 mot `wov/fresh_start.py`. Nytt: `wov_reports` (mute-loggen) töms; `market_price` behålls medvetet (prismodellen för botarnas auktioner, används av AuctionPosting.cpp). Övriga tabeller som saknades i listan är systemtabeller eller namn-/mallar som ska vara kvar.
 - **Fasläget:** `apply` vägrar nu om någon annan fas än 1 är live i `logs/phases-state.json`, och flyttar filen till backupkatalogen så att inga meddelanden från före lanseringen räknas. (Filen finns inte i dag, alltså bara fas 1.)
