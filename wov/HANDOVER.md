@@ -110,6 +110,12 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 18:35 – Claude: två fel till från operatörens LFM-test (rättade, omstart 18:36)
+- **Ingen inbjudan från Hunterjoe (Scholo-runda #5):** när gruppen bildas direkt är den full (5). Join-koden avbröt om tankens grupp var full, innan den sista dps:en fått kliva ut. Nu kliver den sista dps:en ut direkt (`Group::RemoveMember`) och spelaren bjuds in. Chattmodellen svarade "sent" fast inget skickades (prat stämmer inte med handling). **Öppet:** viskningar som rundan hanterar ("inv") borde inte också besvaras av LLM:en.
+- **"Spela tillsammans" (WovParties, initiativets LF1M från Lolhealz):** när gruppen var fylld teleporterades alla botar till spelaren (`TeleportTo` om de var längre bort än 250 yd), så hela gruppen dök upp i Stratholme. Teleporten är borttagen; medlemmarna följer sin nya ledare och tar sig dit själva. Chattmodellen frågade "what are we running?" fast boten själv postat strat (WovIntentOf). **Öppet.**
+- **Öppet, två system för samma sak:** initiativets LFG/LFM-inlägg (WovPostLfx + WovParties, lämnar ledarskapet till spelaren) och dungeon-rundorna (WovDgRun, tanken leder). Bör slås ihop så att ett LFM-svar alltid blir en riktig runda. Övriga TeleportTo i WoV-koden (raidernas ikappsteleport, zone-in vid portalen, unstick) finns listade i grep, för en senare genomgång.
+
+
 ### 2026-10-31 18:25 – Claude: dungeon-gruppen bildas direkt (operatörskrav, BYGGD, väntar på omstart)
 - **Operatören:** att gruppen bildas vid stenen är fel. Grupper bildas först och sedan tar sig alla till dungeonen. **Ersätter "inbjudan vid stenen" (18:10).**
 - **Ändrat** (mod-playerbots, pushat): tanken bjuder in alla medlemmar när rundan startar, var de än är (`if (true)` i inbjudningsblocket). En riktig spelare som svarar på LF1M bjuds in direkt igen ("sure, inv", "invited, see u at the stone"). Medlemmar längre än 40 yd från tanken och stenen får `-follow` och reser själva (WovDgGoTo, rpg GoCamp). Annars skulle följa-strategin dra dem över zonen efter tanken. Är de vid tanken eller stenen blir det `+follow`. Insläpp oförändrat: alla inom 60 yd från stenen.
