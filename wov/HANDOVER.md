@@ -110,6 +110,19 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 11:50 – Claude: FÖRSTA ONYXIA-KILLEN (testraid, sonden aktiv)
+- Omstart 09:44 (godkänd) aktiverade sonden. Testraid #1 Late Night Levelers + pugs: 40 anmälda (4 tankar, 10 healers), 38 inne (Pwnagor och Xdarkdeath släpptes), main tank Wieselpups drog korrekt. **Onyxia död efter 48 min, 0 wipes.** Bara 3 dödsfall, alla healers i P2 cirka 30 yd vid sidan under valpvågor (upp till 38 valpar), återupplivade. P3 utan förluster. Loot via roll: Sapphiron Drape, Helm of Wrath (pug), Dragonstalker's Helm. Head of Onyxia: "nobody can take" → guildbanken (inlämning hör till D, world buffs).
+- Slutsats: tidigare försök (20–27 botar) föll på storlek och fel pull. Med 38 och rätt pull räcker playerbots OnyStrategy som den är.
+- **Fel att rätta:** summon-slinga under samlingen – Thalkankli summonade Xdarkdeath 22 gånger (Xdarkdeath stod i Dustwallow och tog aldrig emot). Behöver tak per medlem (t.ex. 3 försök, sedan flyg/släpp). Kräver bygge + omstart.
+- Testläget kunde inte stoppa en andra testraid (#2, 33 botar, startade 30 min efter #1). Den pågick vid avstängningen 11:45 (Onyxia ca 53 % P2). Testläget av: TestGuild/TestRaid/TestAttuneGuild = 0, apply-overlay, reload config.
+- OBS: `reload config` verkar ha nollställt Playerbots.log – raid #1:s rader finns bara i den här anteckningen.
+
+
+### 2026-10-31 10:36 – Claude: svar i mänsklig skrivtakt (I DRIFT)
+- Operatörskrav: svar ska komma i genomsnittlig mänsklig skrivtakt. Typing simulation påslagen i `wov/conf/mod_ollama_chat.wov.overrides`: `EnableTypingSimulation = 1`, `TypingSimulationBaseDelay = 2000`, `TypingSimulationDelayPerChar = 300` (~40 WPM), `TypingSimulationMaxDelay = 80000`. apply-overlay (4 nycklar) + `ra "ollama reload"`, ingen omstart. Gäller alla svar, även Haiku (fördröjningen läggs i dispatch efter routern).
+- Backup: `/opt/wow/backups/typing-sim-20261031-103525/`. Stäng av: `EnableTypingSimulation = 0`, apply-overlay, ollama reload.
+- Kvar (kod, kräver bygge + omstart): räkna fördröjningen från när meddelandet kom in (i dag läggs genereringstiden ovanpå), och egen skrivtakt per bot (30–60 WPM från guid). Modellval: Claude-projektets `claude/Modellval-LLM-server-2026-10-31.md`.
+
 ### 2026-10-31 10:05 – Claude: AI-servern får två GTX 1070 (FÖRBEREDD, INTE AKTIV)
 - Operatören uppgraderar AI-servern (Ryzen 5 2600, ASUS Prime X370): RAM 8 → 16 GB och ett andra GTX 1070 8 GB. Båda korten matas från en PCIe-kabel via splitter 8-pin → 2×8-pin (18 AWG) på ett Tecnoware Free Silent PRO 550 W. Beslut: korten går på 75–95 W.
 - Förberett i `wov/ai-server/` (läs `README.md` där): `wov-gpu-power.service` (systemenhet, operatören installerar med sudo: persistence mode + 95 W), `gpu-power-check.sh` (llama-server vägrar starta om något kort har gräns > 100 W), `llama-server@.service` (en Qwen3 8B per kort, portar 8080/8081), `fleet.two-gpu.toml` (backend `gpu1`, alla routes main+gpu1, judge på gpu1). Kopior ligger i `~/headlessdm-ai/bin` och `~/headlessdm-ai/staged` på AI-servern. Ingenting är aktiverat; nuvarande `llama-server.service` kör som förut.
