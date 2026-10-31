@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 18:10 – Claude: LFM-inbjudan vid stenen (BYGGD, väntar på omstart)
+- **Fynd (operatörens test, EPL/Strat):** en riktig spelare som svarade på LF1M bjöds in direkt av tanken (Hunterjoe) medan de andra fortfarande var 500–900 yd från stenen. Gruppen fylls först vid stenen, så spelaren såg en grupp med bara tanken, vilket ser konstigt ut. Operatören lämnade gruppen.
+- **Ändrat:** är tanken inte vid stenen än, svarar den "sure, omw to the stone, will inv there" (eller liknande) och bjuder in spelaren när den själv når stenen. De andra bjuds in när de kommer fram, som förut. Väntan på en utlovad inbjudan bryter inte rundan (`realInvited`, `pending`). Är tanken redan vid stenen bjuds spelaren in direkt. Logg: `tank at the stone, invites …`.
+- Valt framför att bjuda in alla direkt, eftersom botar i grupp med en bot som ledare kan börja följa ledaren och teleportera ikapp under resan.
+- BUILD_EXIT=0, pushat. **Aktiv efter nästa omstart.**
+
+
 ### 2026-10-31 17:50 – Claude: tränarbesök för klass, riding och yrken, gratis inlärning (BYGGD, väntar på omstart)
 - **Beslut (Richard):** det får vara gratis för botarna, men de måste själva gå till tränarna.
 - `wov: trainer` utökat (mod-playerbots och headless-dm 9181cf7, pushat), i prioritetsordning per bot:
