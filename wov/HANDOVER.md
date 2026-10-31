@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 13:45 – Claude: testbatchen utökad till 204 botar, mätning igång
+- `BOT_MIN/BOT_MAX` 1190/1200 (site.env + overlay), `ops/scripts/conf-apply.py` → apply-overlay → omstart 13:31 (backup först, ingen riktig spelare). Playerbots skapade 11 konton till och **118 karaktärer, guid 1769–1886**. Batchen är nu **204 botar, guid 1683–1886** (`logs/newbots-20261031.txt`). 1882 botkaraktärer totalt.
+- **Fynd:** nya botar loggar in direkt efter en omstart för att fylla MinRandomBots, även utan wov_player, och får då en slumpad nivå av RandomizeFirst innan FreshStart.Only hunnit sättas (de första 86 fick 1–60 mellan 12:34 och 12:38). FreshStart 9 rättar dem till level 1 nästa gång de är online (gammal utrustning försvinner, kontrollerat). **Vid nästa uppskalning: sätt FreshStart.Only för de nya guid:en direkt efter omstarten**, eller förbered en guid-range.
+- `FreshStart.Only` = alla 204. Spelarprofiler för de 118: `gen_players` → project → ollama reload pågår (`logs/gen-players-newbots2-1031.log`).
+- **Mätning:** `wov/tempo.py` (snap/report) + användartimern `wov-tempo.timer` (var 15:e min, TILLFÄLLIG) skriver till tabellen `acore_characters.wov_tempo`. En bot räknas från första snapshot där den är level 1 och har wov_fresh = 9. Rapport: `python3 wov/tempo.py report` (speltid i minuter per level 1→10, median och p25–p75). **Efter mätningen:** `systemctl --user disable --now wov-tempo.timer`, `DROP TABLE wov_tempo`, `FreshStart = 0` och tom `FreshStart.Only`.
+
+
 ### 2026-10-31 12:45 – Claude: 86 nya botar för att mäta levlingstempot 1–10
 - `BOT_MIN/BOT_MAX` 1090/1100 (site.env och overlay `Min/MaxRandomBots`), conf-apply → apply-overlay → omstart 12:33 (ingen riktig spelare online). Backup: wow-backup.service körd före, plus `/opt/wow/backups/before-newbots-*` (site.env, overlay).
 - Playerbots skapade 11 konton (rndbot162–172) och **86 nya karaktärer, guid 1683–1768** (lista i `logs/newbots-20261031.txt`), alla level 1, spelarlika namn, inga spärrade raser/klasser. 1764 botkaraktärer totalt.
