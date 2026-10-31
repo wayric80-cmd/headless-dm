@@ -115,6 +115,7 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 - **Ändrat:** är tanken inte vid stenen än, svarar den "sure, omw to the stone, will inv there" (eller liknande) och bjuder in spelaren när den själv når stenen. De andra bjuds in när de kommer fram, som förut. Väntan på en utlovad inbjudan bryter inte rundan (`realInvited`, `pending`). Är tanken redan vid stenen bjuds spelaren in direkt. Logg: `tank at the stone, invites …`.
 - Valt framför att bjuda in alla direkt, eftersom botar i grupp med en bot som ledare kan börja följa ledaren och teleportera ikapp under resan.
 - BUILD_EXIT=0, pushat. **Aktiv efter nästa omstart.**
+- **Andra fyndet (samma test):** Rotzbengel, dps i samma runda, bjöd in Zugzug och upplöste gruppen direkt. Orsak: Rotzbengel hade postat ett eget LFG/LFM-inlägg (initiativ, `WovPostLfx`) innan den valdes till rundan. Zugzug viskade "dps here" som svar, `WovInit_OnWhisper` köade en inbjudan, och rundans kod tog genast ut Rotzbengel ur den främmande gruppen. **Rättat:** en bot som är reserverad för en runda eller raid (WovBotReserved) postar inte LFG/LFM, och svarar "sry, already found a group" i stället för att bjuda in på ett gammalt inlägg. Byggt och pushat, aktivt efter nästa omstart.
 
 
 ### 2026-10-31 17:50 – Claude: tränarbesök för klass, riding och yrken, gratis inlärning (BYGGD, väntar på omstart)
