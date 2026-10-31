@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 12:06 – Claude: krav på sammansättning för Onyxia (AKTIVT)
+- Raid #2 gav upp efter tre wipes (52 min). Omstart 11:58 aktiverade summon-taket.
+- **Onyxia kräver nu 3 tankar och 8 healers** (healers räknas som präster/healer-spec plus paladin/shaman/druid). Saknas rollerna fyller pugs just de rollerna, även förbi pugtaket. Annars startar raiden inte (`not enough tanks or healers for Ony tonight` i Playerbots.log). wantHeal för Ony = max(8, storlek/4). MC är oförändrat. mod-playerbots + headless-dm 8dd0d40, pushat, backup `/opt/wow/backups/ony-comp-20261031-120401/`.
+- Omstart 12:05 (ingen riktig spelare online). Testläget är av; nästa riktiga prov är kvällens schemalagda raider.
+- **Kvar för Onyxia:** inlämning av Head of Onyxia (D, world buffs), följa upp kvällens raider med sonden.
+
+
 ### 2026-10-31 12:00 – Claude: tak för summon (BYGGD, aktiv efter omstart) och testraid #2
 - **Summon-tak** (mod-playerbots, headless-dm 24a25d2, pushat): en raidmedlem summonas högst tre gånger. Sista försöket loggas med karta, zon och avstånd, sedan reser den själv (flyg till Thorium Point/Theramore). Fältet `sumN` i WovDgMember. BUILD_EXIT=0, backup `/opt/wow/backups/raid-summon-cap-20261031-114748/`.
 - **Omstart:** ett bakgrundsjobb startar om wow-world när raid #2 är slut (senast 13:45) och bara om ingen riktig spelare är online (godkänt av operatören).
