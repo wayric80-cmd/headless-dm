@@ -110,6 +110,12 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 12:00 – Claude: tak för summon (BYGGD, aktiv efter omstart) och testraid #2
+- **Summon-tak** (mod-playerbots, headless-dm 24a25d2, pushat): en raidmedlem summonas högst tre gånger. Sista försöket loggas med karta, zon och avstånd, sedan reser den själv (flyg till Thorium Point/Theramore). Fältet `sumN` i WovDgMember. BUILD_EXIT=0, backup `/opt/wow/backups/raid-summon-cap-20261031-114748/`.
+- **Omstart:** ett bakgrundsjobb startar om wow-world när raid #2 är slut (senast 13:45) och bara om ingen riktig spelare är online (godkänt av operatören).
+- **Testraid #2** (33 botar av guildens kvarvarande + pugs, bara 2 tankar och 5 healers – de sparade från #1 fick inte följa med) wipade i P2: tankarna dog i Deep Breath (18609/18617, 40–55 yd framför henne) när de jagade valpar, sedan tog upp till 39 valpar dps utan tankar. Jämför #1: 3 tankar, 10 healers, 0 wipes. **Lärdom:** Ony behöver minst 3 tankar och cirka 8 healers. Förslag: krav på sammansättning för Ony i raidbildningen (pugfyllning prioriterar healers/tankar tills kraven är uppfyllda, annars ingen start). Ej byggt.
+
+
 ### 2026-10-31 11:50 – Claude: FÖRSTA ONYXIA-KILLEN (testraid, sonden aktiv)
 - Omstart 09:44 (godkänd) aktiverade sonden. Testraid #1 Late Night Levelers + pugs: 40 anmälda (4 tankar, 10 healers), 38 inne (Pwnagor och Xdarkdeath släpptes), main tank Wieselpups drog korrekt. **Onyxia död efter 48 min, 0 wipes.** Bara 3 dödsfall, alla healers i P2 cirka 30 yd vid sidan under valpvågor (upp till 38 valpar), återupplivade. P3 utan förluster. Loot via roll: Sapphiron Drape, Helm of Wrath (pug), Dragonstalker's Helm. Head of Onyxia: "nobody can take" → guildbanken (inlämning hör till D, world buffs).
 - Slutsats: tidigare försök (20–27 botar) föll på storlek och fel pull. Med 38 och rätt pull räcker playerbots OnyStrategy som den är.
