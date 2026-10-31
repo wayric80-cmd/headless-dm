@@ -117,6 +117,8 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 - `AutoLearnQuestSpells = 1` behålls tills vidare: spells från klassquests (stances, forms, totems) lärs utan questen, eftersom botarna inte gör klassquests. Att utreda.
 - `fresh_start.py` sätter även `AutoLearnTrainerSpells = 0` vid lanseringen.
 - Omstarter 15:14 och 15:19 (ingen riktig spelare). mod-playerbots och headless-dm 10d03a6+, pushat.
+- **Första resultat:** Khognar (lvl 2) gick till Thorgas Grimson och köpte 1 spell för 9c (5c kvar). Av 496 granskade botar på 10 min hade 479 inget nytt att lära (de äldre har allt från fabriken), 3 var för fattiga och 6 gav sig iväg. **Rättat 15:32:** tränare som bara finns under game events (t.ex. "Hunter Trainer" 26325, event 31) väljs inte, och en tränare som inte hittas på plats glöms.
+- **Följdfrågor som HumanStart väcker (inte byggt):** (1) mounts: inga gratis längre, så botarna behöver ett ärende för riding-tränaren och mount-handlaren, före level 20. (2) Yrken: InitSkills ges inte längre, så nya botar får inga yrken förrän de tränar dem, och hantverksbeställningarna behöver crafters. Ett ärende för yrkestränare behövs. (3) Gratis reparation i Refresh finns kvar. (4) Hunter-husdjur ges fortfarande gratis.
 
 
 ### 2026-10-31 15:05 – Claude: botarnas utrustning som för en människa (operatörskrav, AKTIVT)
