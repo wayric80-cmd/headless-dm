@@ -93,3 +93,5 @@ AiPlayerbot.WoV.Raids.PugFillTo = 40
 AiPlayerbot.WoV.HumanStart = 1
 AiPlayerbot.AutoGearCommand = 0
 AiPlayerbot.AutoGearCommandAltBots = 0
+# wov: spells are bought at the class trainer (wov: trainer trips), not learnt free at level-up
+AiPlayerbot.AutoLearnTrainerSpells = 0
