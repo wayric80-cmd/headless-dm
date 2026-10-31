@@ -110,6 +110,12 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 09:40 – Claude: Onyxia-sond (BYGGD, INTE AKTIV – väntar på godkänd omstart)
+- **Fynd i DungeonClear.log (30/10, tre försök):** försök 1 drog main tank (Wieselpups) Onyxia korrekt på 22 yd; försök 2 fick Pandamonium kontakt på 90 yd medan 6 slogs; försök 3 drog en dps (Doomdrinker) henne på 6,7 yd medan main tank stod 36 yd bort och slogs mot valpar. Valparna i sidogrottorna (-33,-169 och -33,-258) drogs före bossen i flera försök. Playerbots.log från 30/10 är borta (nollställs vid omstart), så dödsorsak/fas saknas.
+- **Sond** (mod-playerbots 10172161, headless-dm 9508a7a, pushat): i Onyxia loggas varje död i raiden (`WoV raid #N <guild> Ony death: namn (roll klass) at x,y,z, avstånd framför/bakom/sidan av henne | Onyxia HP% fas, mål, cast, valpar, levande/tankar/healers`), PULL/reset när hon går in i eller ur strid (med vem hon slår) och en statusrad var 20:e s i strid. Bara loggning, inget beteende ändrat.
+- Bygge BUILD_EXIT=0 (logs/claude-ony-probe-build.log). Backup `/opt/wow/backups/ony-probe-20261031-093558/` (källfil, binär, handover).
+- **Nästa:** omstart (godkänd av operatören) → testraid (`Raids.TestGuild = 8`, `TestRaid = 1`, apply-overlay, reload config) → läs `grep "Ony " Playerbots.log` → åtgärda det som dödar dem (troligen pull av fel bot/valpar före bossen, sedan fasen loggen visar) → testläget av igen före 20:00.
+
 ### 2026-10-31 08:20 – Claude: lootregler förenklade (I DRIFT)
 - **Operatörsbeslut 2026-10-31** (Claudes förslag): botguilds kör `/roll` main spec före off spec; ett par guilds behåller DKP; loot council används inte längre som standard. Är en riktig spelare med i raiden blir det vanlig need/greed (gruppfördelning, klientens rullfönster). Det ingen behöver disenchantas.
 - `wov_raid_loot_rule`: council → roll (Ashen Vanguard, Molten Ambition), Hearth and Home dkp → roll. DKP kvar: Titans of the Blood Sun (Horde), Bad Medicine (Alliance). Guild utan rad (t.ex. alla nya efter lanseringen) får regeln första gången den raidar: roll, var fjärde guild (`guildid % 4 = 1`) DKP; samma i `wov/sql/wov_raid_loot.sql`. Councilkoden finns kvar om en rad sätts till 'council'.
