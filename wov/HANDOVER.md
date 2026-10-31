@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 12:30 – Claude: generalrepetition av fresh start (OK)
+- Genomgång av alla tabeller skapade sedan 19/10 mot `wov/fresh_start.py`. Nytt: `wov_reports` (mute-loggen) töms; `market_price` behålls medvetet (prismodellen för botarnas auktioner, används av AuctionPosting.cpp). Övriga tabeller som saknades i listan är systemtabeller eller namn-/mallar som ska vara kvar.
+- **Fasläget:** `apply` vägrar nu om någon annan fas än 1 är live i `logs/phases-state.json`, och flyttar filen till backupkatalogen så att inga meddelanden från före lanseringen räknas. (Filen finns inte i dag, alltså bara fas 1.)
+- **Kontrollen i dryrun** räknar och kräver tomt för lockouts, instanser, slag, raidloot, DKP, lootregler, hantverksbeställningar, guildtyper, mute-logg, relationer och chatthistorik.
+- `dryrun` 31/10 12:28: **RESULT OK** (logs/claude-fresh-dryrun-1031b.log). Före → efter: lockouts 54→0, slag 1165→0, raidloot 27→0, DKP 3→0, lootregler 11→0, mute-logg 551→0, relationer 9→0, chatthistorik 19593→0, minnen 106314→0. 1678 botar på level 1 i startzon, 0 death knights, spelarna bakom botarna kvar. headless-dm 976162d.
+
+
 ### 2026-10-31 12:06 – Claude: krav på sammansättning för Onyxia (AKTIVT)
 - Raid #2 gav upp efter tre wipes (52 min). Omstart 11:58 aktiverade summon-taket.
 - **Onyxia kräver nu 3 tankar och 8 healers** (healers räknas som präster/healer-spec plus paladin/shaman/druid). Saknas rollerna fyller pugs just de rollerna, även förbi pugtaket. Annars startar raiden inte (`not enough tanks or healers for Ony tonight` i Playerbots.log). wantHeal för Ony = max(8, storlek/4). MC är oförändrat. mod-playerbots + headless-dm 8dd0d40, pushat, backup `/opt/wow/backups/ony-comp-20261031-120401/`.
