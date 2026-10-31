@@ -363,7 +363,11 @@ def dryrun(args):
 def set_overlay(launch):
     path = os.path.join(REPO, 'wov', 'conf', 'playerbots.wov.overrides')
     lines = open(path).read().splitlines()
-    want = {'AiPlayerbot.WoV.FreshStart': str(launch), 'AiPlayerbot.WoV.FreshStart.Only': '', 'AiPlayerbot.WoV.Bands': ''}
+    want = {'AiPlayerbot.WoV.FreshStart': str(launch), 'AiPlayerbot.WoV.FreshStart.Only': '', 'AiPlayerbot.WoV.Bands': '',
+            # gear only as a person gets it: starting outfit, no regear sets, no autogear command
+            'AiPlayerbot.WoV.HumanStart': '1', 'AiPlayerbot.WoV.RegearOnce.Enable': '0',
+            'AiPlayerbot.WoV.RegearBracket.Enable': '0', 'AiPlayerbot.AutoGearCommand': '0',
+            'AiPlayerbot.AutoGearCommandAltBots': '0'}
     out, seen = [], set()
     for l in lines:
         k = l.split('=', 1)[0].strip()

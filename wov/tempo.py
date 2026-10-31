@@ -3,10 +3,10 @@
 
     python3 wov/tempo.py snap      store level + played time of every bot in the batch (wov-tempo.timer, every 15 min)
     python3 wov/tempo.py report    played minutes per level 1->2 ... 9->10 (median, p25-p75, bots), from level 1 after
-                                   the bot's fresh-start provisioning (AiPlayerbot.WoV.FreshStart = 9)
+                                   the bot's fresh-start provisioning (AiPlayerbot.WoV.FreshStart = 10)
 
 Played time is characters.totaltime (seconds). A bot counts from the first snapshot where it is level 1 AND marked
-wov_fresh = 9, so the hour some of them spent at a random level before the provisioning does not count.
+wov_fresh = 10, so the hour some of them spent at a random level before the provisioning does not count.
 Test data only: drop table wov_tempo and the timer after the measurement.
 """
 import os, statistics, subprocess, sys
@@ -26,7 +26,7 @@ cmd = (sys.argv[1:] or ['report'])[0]
 if cmd == 'snap':
     db('CREATE TABLE IF NOT EXISTS wov_tempo (guid INT UNSIGNED, ts DATETIME DEFAULT CURRENT_TIMESTAMP, level TINYINT '
        'UNSIGNED, totaltime INT UNSIGNED, fresh TINYINT, PRIMARY KEY (guid, ts))')
-    fresh = {r[0] for r in db(f"SELECT bot FROM playerbots_random_bots WHERE event='wov_fresh' AND value=9 "
+    fresh = {r[0] for r in db(f"SELECT bot FROM playerbots_random_bots WHERE event='wov_fresh' AND value=10 "
                               f"AND bot IN ({ids})", 'acore_playerbots')}
     rows = db(f'SELECT guid, level, totaltime FROM characters WHERE guid IN ({ids})')
     vals = ','.join(f"({g},{l},{t},{1 if g in fresh else 0})" for g, l, t in rows)
