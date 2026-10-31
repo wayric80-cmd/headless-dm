@@ -1,0 +1,21 @@
+# Way of Vanilla – one Qwen3 8B per GPU (USER unit on the AI server, instance = GPU index: 0 or 1).
+# llama-server@0 -> GPU 0, port 8080;  llama-server@1 -> GPU 1, port 8081.
+# Replaces llama-server.service once the second card is in (see README.md, "Väg A").
+[Unit]
+Description=Way of Vanilla model server on GPU %i (llama-server, Qwen3 8B)
+After=network-online.target
+
+[Service]
+Environment=CUDA_VISIBLE_DEVICES=%i
+Environment=LD_LIBRARY_PATH=/usr/local/lib/ollama/cuda_v12:/usr/local/lib/ollama
+Environment=GGML_BACKEND_PATH=/usr/local/lib/ollama/cuda_v12/libggml-cuda.so
+ExecStartPre=%h/headlessdm-ai/bin/gpu-power-check.sh 2 100
+ExecStart=/usr/local/lib/ollama/llama-server -m /usr/share/ollama/.ollama/models/blobs/sha256-a3de86cd1c132c822487ededd47a324c50491393e6565cd14bafa40d0b8e686f --host 0.0.0.0 --port 808%i --jinja -ngl 99 --load-mode none --cache-ram 1024 -np 2 -c 16384 --chat-template-kwargs '{"enable_thinking":false}'
+Nice=10
+Restart=always
+RestartSec=10
+StandardOutput=append:%h/headlessdm-ai/logs/llama-server-%i.log
+StandardError=append:%h/headlessdm-ai/logs/llama-server-%i.log
+
+[Install]
+WantedBy=default.target

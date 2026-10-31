@@ -110,6 +110,13 @@ Beslut: mount-regler WotLK (20/40) behålls; handlaren Jéw behåller namnet; MO
 
 ## Pågående arbete
 
+### 2026-10-31 10:05 – Claude: AI-servern får två GTX 1070 (FÖRBEREDD, INTE AKTIV)
+- Operatören uppgraderar AI-servern (Ryzen 5 2600, ASUS Prime X370): RAM 8 → 16 GB och ett andra GTX 1070 8 GB. Båda korten matas från en PCIe-kabel via splitter 8-pin → 2×8-pin (18 AWG) på ett Tecnoware Free Silent PRO 550 W. Beslut: korten går på 75–95 W.
+- Förberett i `wov/ai-server/` (läs `README.md` där): `wov-gpu-power.service` (systemenhet, operatören installerar med sudo: persistence mode + 95 W), `gpu-power-check.sh` (llama-server vägrar starta om något kort har gräns > 100 W), `llama-server@.service` (en Qwen3 8B per kort, portar 8080/8081), `fleet.two-gpu.toml` (backend `gpu1`, alla routes main+gpu1, judge på gpu1). Kopior ligger i `~/headlessdm-ai/bin` och `~/headlessdm-ai/staged` på AI-servern. Ingenting är aktiverat; nuvarande `llama-server.service` kör som förut.
+- Kontroll i dag: kortet har fortfarande 151 W-gräns och persistence mode av; `gpu-power-check.sh 1 100` nekar korrekt.
+- Aktivering enligt README (väg A), sedan prov av väg B (Qwen3 14B över båda korten) med kontrollfrågorna. CHAT_CONCURRENCY 2 → 4 vid aktivering.
+
+
 ### 2026-10-31 09:40 – Claude: Onyxia-sond (BYGGD, INTE AKTIV – väntar på godkänd omstart)
 - **Fynd i DungeonClear.log (30/10, tre försök):** försök 1 drog main tank (Wieselpups) Onyxia korrekt på 22 yd; försök 2 fick Pandamonium kontakt på 90 yd medan 6 slogs; försök 3 drog en dps (Doomdrinker) henne på 6,7 yd medan main tank stod 36 yd bort och slogs mot valpar. Valparna i sidogrottorna (-33,-169 och -33,-258) drogs före bossen i flera försök. Playerbots.log från 30/10 är borta (nollställs vid omstart), så dödsorsak/fas saknas.
 - **Sond** (mod-playerbots 10172161, headless-dm 9508a7a, pushat): i Onyxia loggas varje död i raiden (`WoV raid #N <guild> Ony death: namn (roll klass) at x,y,z, avstånd framför/bakom/sidan av henne | Onyxia HP% fas, mål, cast, valpar, levande/tankar/healers`), PULL/reset när hon går in i eller ur strid (med vem hon slår) och en statusrad var 20:e s i strid. Bara loggning, inget beteende ändrat.

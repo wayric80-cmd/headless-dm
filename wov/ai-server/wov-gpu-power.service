@@ -1,0 +1,21 @@
+# Way of Vanilla – power limit for the GTX 1070s on the AI server (SYSTEM unit, installed by the operator).
+# Both cards share one PCIe cable through an 8-pin -> 2x8-pin splitter (18 AWG) on a Tecnoware 550 W PSU,
+# so they must never run at the stock 151 W. llama-server refuses to start until this has run
+# (gpu-power-check.sh in its ExecStartPre).
+# Install:  sudo cp wov-gpu-power.service /etc/systemd/system/ && sudo systemctl daemon-reload \
+#           && sudo systemctl enable --now wov-gpu-power
+# Change the limit: edit WOV_GPU_WATTS below (75-95), then sudo systemctl restart wov-gpu-power.
+[Unit]
+Description=Way of Vanilla GPU power limit (persistence mode + power cap on all GPUs)
+After=systemd-modules-load.service
+Wants=systemd-modules-load.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+Environment=WOV_GPU_WATTS=95
+ExecStart=/usr/bin/nvidia-smi -pm 1
+ExecStart=/bin/sh -c '/usr/bin/nvidia-smi -pl ${WOV_GPU_WATTS}'
+
+[Install]
+WantedBy=multi-user.target
