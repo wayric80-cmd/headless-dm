@@ -27,7 +27,7 @@ What happens
   Level-anchor and bot schedule state in acore_playerbots is cleared so the bots are picked and placed afresh.
 No secrets are printed.
 """
-import argparse, os, subprocess, sys, tempfile, time, shutil
+import json, argparse, os, subprocess, sys, tempfile, time, shutil
 
 REPO = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 C, P, A, W = 'acore_characters', 'acore_playerbots', 'acore_auth', 'acore_world'
@@ -69,7 +69,8 @@ WIPE = ['auctionhouse', 'mail', 'mail_items', 'mail_server_character', 'guild', 
         'pvpstats_players', 'log_arena_fights', 'log_arena_memberstats', 'log_encounter', 'log_money',
         'quest_tracker', 'item_loot_storage', 'item_soulbound_trade_data', 'item_refund_instance',
         'mod_ollama_chat_bot_player_sentiments', 'mod_ollama_chat_event_buffer', 'mod_ollama_chat_history',
-        'mod_ollama_chat_memories', 'mod_ollama_chat_relationships', 'market_word']
+        'mod_ollama_chat_memories', 'mod_ollama_chat_relationships', 'market_word',
+        'wov_reports']  # wov_reports: the log of mutes (wov/reports.py); market_price stays, it is the price model
 # acore_playerbots
 PB_PER_BOT = [('playerbots_random_bots', 'bot'), ('playerbots_db_store', 'guid')]
 PB_WIPE = ['playerbots_bot_anchor']
@@ -263,6 +264,13 @@ def counts(db, keep_accounts, real_mode, label):
         'bot schedule rows': one(f'SELECT COUNT(*) FROM {P}.playerbots_random_bots WHERE bot IN (SELECT guid FROM {C}.characters c JOIN {A}.account a ON a.id=c.account WHERE a.username LIKE \'{BOT_LIKE}\')'),
         'level anchors': one(f'SELECT COUNT(*) FROM {P}.playerbots_bot_anchor') if 'playerbots_bot_anchor' in db.tables(P) else 0,
     }
+    # tables added after 25/10 (raids, battles, reports): each must be empty after the reset
+    for t, name in (('character_instance', 'raid/dungeon lockouts'), ('instance', 'instances'), ('wov_battle', 'battles'),
+                    ('wov_raid_loot', 'raid loot'), ('wov_raid_dkp', 'raid DKP'), ('wov_raid_loot_rule', 'raid loot rules'),
+                    ('wov_craft_order', 'craft orders'), ('wov_guild_type', 'guild types'), ('wov_reports', 'mute log'),
+                    ('mod_ollama_chat_relationships', 'relationships'), ('mod_ollama_chat_history', 'chat history')):
+        if t in ct:
+            r[name] = one(f'SELECT COUNT(*) FROM {t}')
     print(f'\n{label}')
     for k, v in r.items():
         print(f'  {k:40s} {v}')
@@ -319,6 +327,8 @@ def dryrun(args):
         after = counts(tmp, args.keep_account, args.real_chars, 'copy after the reset:')
         must_zero = ['bots above start level', 'bots outside their starting area', 'bot items', 'bot spells',
                      'bot gold (g)', 'guilds', 'mail', 'auctions', 'bot memories', 'bot schedule rows', 'level anchors']
+        must_zero += [k for k in ('raid/dungeon lockouts', 'instances', 'battles', 'raid loot', 'raid DKP', 'raid loot rules',
+                                  'craft orders', 'guild types', 'mute log', 'relationships', 'chat history') if k in after]
         if args.real_chars == 'delete':
             must_zero.append('characters on real accounts to delete')
         if not args.keep_dk:
@@ -369,9 +379,20 @@ def set_overlay(launch):
     subprocess.run(['python3', 'wov/apply-overlay.py'], cwd=REPO, check=True)
 
 
+def phases_check():
+    """Only phase 1 may be live at the launch: a phase switched on before it would stay on (wov/phases.py)."""
+    p = os.path.join(REPO, 'logs', 'phases-state.json')
+    if os.path.exists(p):
+        live = json.load(open(p)).get('live', [1])
+        if sorted(live) != [1]:
+            sys.exit(f'phases live before the launch: {live}. Lock them again first (only phase 1 may be live).')
+    return p
+
+
 def apply(args):
     if not args.yes or not args.launch:
         sys.exit('apply needs --launch N and --yes')
+    phases_state = phases_check()
     st = subprocess.run(['systemctl', 'is-active', 'wow-world'], capture_output=True, text=True).stdout.strip()
     if st in ('active', 'activating', 'reloading'):
         sys.exit('wow-world is running: stop it first (sudo systemctl stop wow-world)')
@@ -396,6 +417,8 @@ def apply(args):
     live.run_file(path)
     counts(live, args.keep_account, args.real_chars, 'after:')
     set_overlay(args.launch)
+    if os.path.exists(phases_state):  # announcements from before the launch must not count: the schedule starts over
+        os.replace(phases_state, os.path.join(bdir, 'phases-state.json'))
     with open(os.path.join(REPO, 'logs', 'fresh-start-at'), 'w') as f:  # guild_fill.py ramps guilds up from here
         f.write(f'{time.time():.0f} launch {args.launch}\n')
     print(f'\nDone. AiPlayerbot.WoV.FreshStart = {args.launch}, level bands off. Now: sudo systemctl start wow-world\n'
